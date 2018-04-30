@@ -1,0 +1,81 @@
+PackratFormat: 1.4
+PackratVersion: 0.4.9.2
+RVersion: 3.5.0
+Repos: CRAN=https://cran.rstudio.com/
+
+Package: BH
+Source: CRAN
+Version: 1.66.0-1
+
+Package: R6
+Source: CRAN
+Version: 2.2.2
+
+Package: Rcpp
+Source: CRAN
+Version: 0.12.16
+Hash: 8cc9dc88c11acdcf8a6dec4a0f1500bc
+
+Package: digest
+Source: CRAN
+Version: 0.6.15
+Hash: 1f202ebd812ac7192be3739245746a13
+
+Package: htmltools
+Source: CRAN
+Version: 0.3.6
+Requires: Rcpp, digest
+Hash: 358f767a496785afb8426c3abc8b6471
+
+Package: httpuv
+Source: CRAN
+Version: 1.4.1
+Requires: Rcpp, BH, later, promises
+
+Package: jsonlite
+Source: CRAN
+Version: 1.5
+Hash: 9c51936d8dd00b2f1d4fe9d10499694c
+
+Package: later
+Source: CRAN
+Version: 0.7.1
+Requires: Rcpp, BH, rlang
+
+Package: magrittr
+Source: CRAN
+Version: 1.5
+Hash: bdc4d48c3135e8f3b399536ddf160df4
+
+Package: mime
+Source: CRAN
+Version: 0.5
+Hash: 463550cf44fb6f0a2359368f42eebe62
+
+Package: packrat
+Source: CRAN
+Version: 0.4.9-2
+Hash: 47dbd4e04dcd01da02a2021203205cb1
+
+Package: promises
+Source: CRAN
+Version: 1.0.1
+Requires: Rcpp, magrittr, R6, later, rlang
+
+Package: rlang
+Source: CRAN
+Version: 0.2.0
+
+Package: shiny
+Source: CRAN
+Version: 1.0.5
+Requires: digest, htmltools, jsonlite, mime, R6, httpuv, sourcetools,
+    xtable
+
+Package: sourcetools
+Source: CRAN
+Version: 0.1.7
+
+Package: xtable
+Source: CRAN
+Version: 1.8-2
