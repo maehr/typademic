@@ -16,6 +16,7 @@ library(knitr)
 ui <- navbarPage(
   theme = shinytheme("united"),
   title = 'typAdemic',
+  tabPanel("write!",
            sidebarLayout(
              sidebarPanel(
                h3("Uploads"),
@@ -529,7 +530,11 @@ server <- function(input, output) {
             paste("abstract:", toString(input$abstract)),
             ""
           ),
-          paste("thanks:", toString(input$thanks)),
+          ifelse(
+            input$documentclass != "scrbook",
+            paste("thanks:", toString(input$thanks)),
+            ""
+          ),
           paste("keywords:", toString(input$keywords)),
           paste("date:", toString(input$date)),
           paste("biblio_title:", toString(input$biblio_title)),
