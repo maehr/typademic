@@ -126,8 +126,8 @@ ui <- fluidPage(
     selectInput(
       'fig_crop',
       'Crop figures',
-      c("yes",
-        "no"),
+      c("no",
+        "yes"),
       multiple = FALSE,
       selectize = TRUE,
       width = NULL,
@@ -398,8 +398,8 @@ ui <- fluidPage(
     selectInput(
       'links_as_notes',
       'Links as notes',
-      c("yes",
-        "no"),
+      c("no",
+        "yes"),
       multiple = FALSE,
       selectize = TRUE,
       width = NULL,
