@@ -10,22 +10,19 @@
 library(shiny)
 library(rmarkdown)
 library(shinythemes)
+library(knitr)
 
 # Define UI for application
 ui <- navbarPage(
   theme = shinytheme("united"),
   title = 'typAdemic',
-  tabPanel("write!",
-           
-           # Sidebar layout with input and output definitions ----
            sidebarLayout(
-             # Sidebar panel for inputs ----
              sidebarPanel(
                h3("Uploads"),
                fileInput(
                  'md_files',
                  "Select Markdown files",
-                 multiple = TRUE,
+                 multiple = FALSE,
                  accept = c("text/plain",
                             "text/markdown"),
                  width = NULL,
@@ -40,12 +37,13 @@ ui <- navbarPage(
                             "text/markdown"),
                  width = NULL,
                  buttonLabel = "Browse...",
-                 placeholder = "No file selected"
+                 placeholder = "NOT WORKING"
+                 # TODO placeholder = "No file selected"
                ),
                fileInput(
                  'bib_files',
                  'Select BibTex or BibLaTex files',
-                 multiple = TRUE,
+                 multiple = FALSE,
                  accept = c("text/plain",
                             "application/x-bibtex"),
                  width = NULL,
@@ -61,6 +59,11 @@ ui <- navbarPage(
              mainPanel(
                tabsetPanel(
                  type = "tabs",
+                 # tabPanel(
+                 #   "Content",
+                 #   aceEditor('editor_content', "# Some title", mode="markdown", 
+                 #             theme="chrome", autoComplete="enabled")
+                 # ),
                  tabPanel(
                    "General information",
                    selectInput(
@@ -77,7 +80,6 @@ ui <- navbarPage(
                      ),
                      multiple = FALSE
                    ),
-                   
                    selectInput(
                      'lang',
                      'Language',
@@ -491,6 +493,7 @@ server <- function(input, output) {
     },
     
     content = function(file) {
+      # TODO change from knitr to pandocconvert for safety reasons
       fileConn <- file('report.Rmd')
       writeLines(
         c(
@@ -531,7 +534,7 @@ server <- function(input, output) {
           paste("date:", toString(input$date)),
           paste("biblio_title:", toString(input$biblio_title)),
           paste("csl:", toString(input$csl)),
-          # # paste("bib_files:", toString(input$bib_files)),
+          paste("bib_files:", toString(input$bib_files$datapath)),
           paste("toc:", toString(input$toc)),
           paste("toc_depth:", toString(input$toc_depth)),
           paste("lof:", toString(input$lof)),
@@ -556,16 +559,14 @@ server <- function(input, output) {
           paste("links-as-notes:", toString(input$links_as_notes)),
           "---",
           "```{r, echo=FALSE}",
-          "htmltools::includeHTML('README.md')",
+          "htmltools::includeHTML(input$md_files$datapath)",
+          # "toString(input$editor_content)",
+          # "knit_child(text=input$editor_content)",
           "```"
         ),
         fileConn
       )
       close(fileConn)
-      
-      
-      
-      
       # temporarily switch to the temp dir, in case you do not have write
       # permission to the current working directory
       # owd <- setwd(tempdir())
