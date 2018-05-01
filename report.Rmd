@@ -1,30 +1,48 @@
 ---
-title: "Report"
-author: "Moritz Mähr"
-date: "30 4 2018"
-output: pdf_document
+output:
+  pdf_document:
+    latex_engine: xelatex
+    keep_tex: yes
+    template: latex/default-1.17.0.2.tex
+    pandoc: null
+    highlight: tango
+header-includes:
+  - \flushbottom
+  - \clubpenalty10000
+  - \widowpenalty10000
+  - \displaywidowpenalty=10000
+  - \interfootnotelinepenalty=10000
+  - \setkomafont{sectioning}{}
+documentclass: scrartcl
+lang: de
+author: 
+title: 
+abstract: 
+thanks: 
+keywords: 
+date: 
+biblio_title: Literatur- und Quellenverzeichnis
+csl: /csl/infoclio-de.csl
+toc: yes
+toc_depth: 3
+lof: yes
+fig_caption: yes
+fig_crop: yes
+fig_height: 
+fig_width: 
+lot: yes
+papersize: a4
+margin-left: 3cm
+margin-right: 3cm
+fontsize: 11pt
+linestretch: 1.5
+link-citations: yes
+colorlinks: yes
+citecolor: black
+urlcolor: black
+linkcolor: black
+links-as-notes: yes
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, echo=FALSE}
+htmltools::includeHTML('README.md')
 ```
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

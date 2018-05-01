@@ -6,46 +6,99 @@ Repos: CRAN=https://cran.rstudio.com/
 Package: BH
 Source: CRAN
 Version: 1.66.0-1
+Hash: 4cc8883584b955ed01f38f68bc03af6d
 
 Package: R6
 Source: CRAN
 Version: 2.2.2
+Hash: b2366cd9d2f3851a5704b4e192b985c2
 
 Package: Rcpp
 Source: CRAN
 Version: 0.12.16
 Hash: 8cc9dc88c11acdcf8a6dec4a0f1500bc
 
+Package: backports
+Source: CRAN
+Version: 1.1.2
+Hash: 5ae7b3466e529e4400951ca18c137e40
+
+Package: base64enc
+Source: CRAN
+Version: 0.1-3
+Hash: c590d29e555926af053055e23ee79efb
+
+Package: bitops
+Source: CRAN
+Version: 1.0-6
+Hash: 67d0775189fd0041d95abca618c5c07e
+
+Package: caTools
+Source: CRAN
+Version: 1.17.1
+Hash: 97cb6f6293cd18d17df77a6383cc6763
+Requires: bitops
+
 Package: digest
 Source: CRAN
 Version: 0.6.15
 Hash: 1f202ebd812ac7192be3739245746a13
 
+Package: evaluate
+Source: CRAN
+Version: 0.10.1
+Hash: 54d95f4ec6d0300100413ed0127d89ae
+Requires: stringr
+
+Package: glue
+Source: CRAN
+Version: 1.2.0
+Hash: 381e42baedecc633c0e547a0c7ca9de7
+
+Package: highr
+Source: CRAN
+Version: 0.6
+Hash: aa3d5b7912b5fed4b546ed5cd2a1760b
+
 Package: htmltools
 Source: CRAN
 Version: 0.3.6
-Requires: Rcpp, digest
 Hash: 358f767a496785afb8426c3abc8b6471
+Requires: Rcpp, digest
 
 Package: httpuv
 Source: CRAN
 Version: 1.4.1
-Requires: Rcpp, BH, later, promises
+Hash: a8f5b3ae4eff5143a1f4eef7bc50d2fe
+Requires: BH, Rcpp, later, promises
 
 Package: jsonlite
 Source: CRAN
 Version: 1.5
 Hash: 9c51936d8dd00b2f1d4fe9d10499694c
 
+Package: knitr
+Source: CRAN
+Version: 1.20
+Hash: 9c6b215d1d02b97586c8232e94533e6a
+Requires: evaluate, highr, markdown, stringr, yaml
+
 Package: later
 Source: CRAN
 Version: 0.7.1
-Requires: Rcpp, BH, rlang
+Hash: a7c918548e0bc57bb7a223508c737d71
+Requires: BH, Rcpp, rlang
 
 Package: magrittr
 Source: CRAN
 Version: 1.5
 Hash: bdc4d48c3135e8f3b399536ddf160df4
+
+Package: markdown
+Source: CRAN
+Version: 0.8
+Hash: 045d7c594d503b41f1c28946d076c8aa
+Requires: mime
 
 Package: mime
 Source: CRAN
@@ -60,22 +113,61 @@ Hash: 47dbd4e04dcd01da02a2021203205cb1
 Package: promises
 Source: CRAN
 Version: 1.0.1
-Requires: Rcpp, magrittr, R6, later, rlang
+Hash: 6dfc334ebb6374630084e676c96a9d71
+Requires: R6, Rcpp, later, magrittr, rlang
 
 Package: rlang
 Source: CRAN
 Version: 0.2.0
+Hash: 647e2e50a72557d1a770dcd6701e562b
+
+Package: rmarkdown
+Source: CRAN
+Version: 1.9
+Hash: ab7f84e6f41ed8d8e8b9a2031cf631f8
+Requires: base64enc, evaluate, htmltools, jsonlite, knitr, mime,
+    rprojroot, stringr, yaml
+
+Package: rprojroot
+Source: CRAN
+Version: 1.3-2
+Hash: a25c3f70c166fb3fbabc410eb32b6366
+Requires: backports
 
 Package: shiny
 Source: CRAN
 Version: 1.0.5
-Requires: digest, htmltools, jsonlite, mime, R6, httpuv, sourcetools,
+Hash: 4d47532a807122bfd6bc3818310f9d2e
+Requires: R6, digest, htmltools, httpuv, jsonlite, mime, sourcetools,
     xtable
 
 Package: sourcetools
 Source: CRAN
 Version: 0.1.7
+Hash: d093478ac90064e670cd4bf1a99b47b6
+
+Package: stringi
+Source: CRAN
+Version: 1.1.7
+Hash: d3dbb18da9a7b73a5b59416e33ad2cbd
+
+Package: stringr
+Source: CRAN
+Version: 1.3.0
+Hash: b2801fdc391caef2335dbdb1064836bb
+Requires: glue, magrittr, stringi
+
+Package: tinytex
+Source: CRAN
+Version: 0.5
+Hash: ab9db0efa5f7f5a39f18fc7577192c4b
 
 Package: xtable
 Source: CRAN
 Version: 1.8-2
+Hash: 7293235cfcc14cdff1ce7fd1a0212031
+
+Package: yaml
+Source: CRAN
+Version: 2.1.18
+Hash: 28c7e28c239d7a1d1bd579390bab89bd

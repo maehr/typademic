@@ -37,3 +37,4 @@ vignettes/*.pdf
 
 # Packrat
 packrat/lib*/
+.Rproj.user
