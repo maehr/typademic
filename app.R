@@ -12,6 +12,12 @@ library(shinythemes)
 library(rmarkdown)
 library(knitr)
 library(tinytex)
+# TODO add system fonts
+fonts = c(
+  "Default" = "",
+  "Arial",
+  "Helvetica Neue"
+)
 
 # Define UI for application
 ui <- navbarPage(
@@ -38,7 +44,7 @@ ui <- navbarPage(
                  'zip_file',
                  "Select images (must be zip a zip archive)",
                  multiple = FALSE,
-                 accept = c("application/zip",".zip"),
+                 accept = c("application/zip", ".zip"),
                  width = NULL,
                  buttonLabel = "Browse...",
                  placeholder = "No file selected"
@@ -47,11 +53,13 @@ ui <- navbarPage(
                  'bib_file',
                  'Select BibTex or BibLaTex files',
                  multiple = FALSE,
-                 accept = c("text/plain",
-                            "application/x-bibtex",
-                            ".bib",
-                            ".bibtex",
-                            ".biblatex"),
+                 accept = c(
+                   "text/plain",
+                   "application/x-bibtex",
+                   ".bib",
+                   ".bibtex",
+                   ".biblatex"
+                 ),
                  width = NULL,
                  buttonLabel = "Browse...",
                  placeholder = "No file selected"
@@ -369,16 +377,56 @@ ui <- navbarPage(
                  ),
                  tabPanel(
                    "Font settings",
-                   # mainfont:
-                   # sansfont:
-                   # monofont:
-                   # mathfont:
                    # mainfontoption:
                    # sansfontoption:
                    # monofontoption:
                    # mathfontoption:
                    # microtypeoptions:
-                   
+                   selectInput(
+                     'mainfont',
+                     'Mainfont',
+                     fonts,
+                     multiple = FALSE,
+                     selectize = TRUE,
+                     width = NULL,
+                     size = NULL
+                   ),
+                   selectInput(
+                     'sansfont',
+                     'Sansfont',
+                     fonts,
+                     multiple = FALSE,
+                     selectize = TRUE,
+                     width = NULL,
+                     size = NULL
+                   ),
+                   selectInput(
+                     'monofont',
+                     'Monofont',
+                     fonts,
+                     multiple = FALSE,
+                     selectize = TRUE,
+                     width = NULL,
+                     size = NULL
+                   ),
+                   selectInput(
+                     'mainfont',
+                     'Mainfont',
+                     fonts,
+                     multiple = FALSE,
+                     selectize = TRUE,
+                     width = NULL,
+                     size = NULL
+                   ),
+                   selectInput(
+                     'mathfont',
+                     'Mathfont',
+                     fonts,
+                     multiple = FALSE,
+                     selectize = TRUE,
+                     width = NULL,
+                     size = NULL
+                   ),
                    selectInput(
                      'fontsize',
                      'Fontsize',
@@ -456,7 +504,19 @@ ui <- navbarPage(
                  ),
                  tabPanel(
                    "Advanced settings",
-                   h3("Internal URL handling"),
+                   
+                   selectInput(
+                     'endnote-conversion',
+                     'Convert EndNote style citations',
+                     c("black", "red", "green", "magenta", "cyan", "blue"),
+                     multiple = FALSE,
+                     selectize = TRUE,
+                     width = NULL,
+                     size = NULL
+                   ),
+                   p(
+                     "EndNote citations {Sarasin, 2012, #344} can be automatically converted."
+                   ),
                    selectInput(
                      'links_as_notes',
                      'Links as notes',
@@ -467,7 +527,7 @@ ui <- navbarPage(
                      width = NULL,
                      size = NULL
                    ),
-                   h3("Programming code highlight"),
+                   p("URLs can be added as foot notes."),
                    selectInput(
                      'highlight',
                      'Highlight programming code',
@@ -476,12 +536,17 @@ ui <- navbarPage(
                      selectize = TRUE,
                      width = NULL,
                      size = NULL
-                   )
+                   ),
+                   p("Several styles for programming code highlight are available.")
                  )
                )
              )
            )),
-  tabPanel("about!", h1("About"), p("we are still in a very early alpha stage!"))
+  tabPanel(
+    "about!",
+    h1("About"),
+    p("we are still in a very early alpha stage!")
+  )
 )
 
 
@@ -491,7 +556,12 @@ ui <- navbarPage(
 server <- function(input, output) {
   output$downloadReport <- downloadHandler(
     filename = function() {
-      paste('typademic-export', sep = '.', switch(input$format, PDF = 'pdf', Word = 'docx', LaTeX = 'tex'))
+      paste('typademic-export', sep = '.', switch(
+        input$format,
+        PDF = 'pdf',
+        Word = 'docx',
+        LaTeX = 'tex'
+      ))
     },
     
     content = function(file) {
@@ -516,7 +586,10 @@ server <- function(input, output) {
           "---",
           "output:",
           paste(" ", switch(
-            input$format, PDF = "pdf_document:", Word = "word_document:", LaTeX = "tex_document:"
+            input$format,
+            PDF = "pdf_document:",
+            Word = "word_document:",
+            LaTeX = "tex_document:"
           )),
           "    latex_engine: xelatex",
           "    keep_tex: yes",
@@ -553,7 +626,7 @@ server <- function(input, output) {
           ),
           paste("keywords:", toString(input$keywords)),
           paste("date:", toString(input$date)),
-          paste("csl: ../csl/", toString(input$csl), sep=""),
+          paste("csl: ../csl/", toString(input$csl), sep = ""),
           paste("bibliography:", toString(input$bib_file$datapath)),
           paste("toc:", toString(input$toc)),
           paste("toc_depth:", toString(input$toc_depth)),
@@ -567,6 +640,15 @@ server <- function(input, output) {
           paste("margin-right:", toString(input$margin_right)),
           paste("margin-top:", toString(input$margin_top)),
           paste("margin-bottom:", toString(input$margin_bottom)),
+          paste("mainfont:", toString(input$mainfont)),
+          paste("sansfont:", toString(input$sansfont)),
+          paste("monofont:", toString(input$monofont)),
+          paste("mathfont:", toString(input$mathfont)),
+          # ifelse(
+          #   input$documentclass != "scrbook",
+          #   paste("thanks:", toString(input$thanks)),
+          #   ""
+          # ),
           paste("fontsize:", toString(input$fontsize)),
           paste("linestretch:", toString(input$linestretch)),
           paste("link-citations:", toString(input$link_citations)),
@@ -586,7 +668,8 @@ server <- function(input, output) {
       close(fileConn)
       out <- render(tmpfile)
       file.rename(out, file)
-      unlink('tmp', recursive = TRUE, force = FALSE)
+      # TODO service worker which cleans the temp dir every night
+      # unlink('tmp', recursive = TRUE, force = FALSE)
     }
   )
 }
