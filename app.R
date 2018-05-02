@@ -181,7 +181,7 @@ ui <- navbarPage(
                  placeholder = "No file selected"
                ),
                h3("Export"),
-               radioButtons('format', 'Document format', c('PDF', 'Word', 'LaTeX'),
+               radioButtons('format', 'Document format', c('PDF', 'Word'),
                             inline = TRUE),
                downloadButton('downloadReport')
                
@@ -675,8 +675,7 @@ server <- function(input, output) {
       paste('typademic-export', sep = '.', switch(
         input$format,
         PDF = 'pdf',
-        Word = 'docx',
-        LaTeX = 'tex'
+        Word = 'docx'
       ))
     },
     
@@ -704,8 +703,7 @@ server <- function(input, output) {
           paste(" ", switch(
             input$format,
             PDF = "pdf_document:",
-            Word = "word_document:",
-            LaTeX = "tex_document:"
+            Word = "word_document:"
           )),
           "    latex_engine: xelatex",
           "    keep_tex: yes",
