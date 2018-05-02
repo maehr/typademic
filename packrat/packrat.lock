@@ -58,7 +58,7 @@ Requires: Rcpp, digest
 Package: httpuv
 Source: CRAN
 Version: 1.4.1
-Hash: a8f5b3ae4eff5143a1f4eef7bc50d2fe
+Hash: c2007e647d2b3a56d6ce8e50620c6bfa
 Requires: BH, Rcpp, later, promises
 
 Package: jsonlite
@@ -74,8 +74,8 @@ Requires: evaluate, highr, markdown, stringr, yaml
 
 Package: later
 Source: CRAN
-Version: 0.7.1
-Hash: a7c918548e0bc57bb7a223508c737d71
+Version: 0.7.2
+Hash: 312ca7df4ef3536038ab87dcefe33fd7
 Requires: BH, Rcpp, rlang
 
 Package: magrittr
@@ -102,7 +102,7 @@ Hash: 47dbd4e04dcd01da02a2021203205cb1
 Package: promises
 Source: CRAN
 Version: 1.0.1
-Hash: 6dfc334ebb6374630084e676c96a9d71
+Hash: 1da7acbbc5a36e97d715bf15e72894cd
 Requires: R6, Rcpp, later, magrittr, rlang
 
 Package: rlang

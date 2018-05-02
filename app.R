@@ -8,9 +8,10 @@
 #
 
 library(shiny)
-library(rmarkdown)
 library(shinythemes)
+library(rmarkdown)
 library(knitr)
+library(tinytex)
 
 # Define UI for application
 ui <- navbarPage(
@@ -21,38 +22,42 @@ ui <- navbarPage(
              sidebarPanel(
                h3("Uploads"),
                fileInput(
-                 'md_files',
+                 'md_file',
                  "Select Markdown files",
                  multiple = FALSE,
                  accept = c("text/plain",
-                            "text/markdown"),
+                            "text/markdown",
+                            ".txt",
+                            ".md",
+                            ".markdown"),
                  width = NULL,
                  buttonLabel = "Browse...",
                  placeholder = "No file selected"
                ),
                fileInput(
-                 'images',
-                 "Select images",
-                 multiple = TRUE,
-                 accept = c("text/plain",
-                            "text/markdown"),
+                 'zip_file',
+                 "Select images (must be zip a zip archive)",
+                 multiple = FALSE,
+                 accept = c("application/zip",".zip"),
                  width = NULL,
                  buttonLabel = "Browse...",
-                 placeholder = "NOT WORKING"
-                 # TODO placeholder = "No file selected"
+                 placeholder = "No file selected"
                ),
                fileInput(
-                 'bib_files',
+                 'bib_file',
                  'Select BibTex or BibLaTex files',
                  multiple = FALSE,
                  accept = c("text/plain",
-                            "application/x-bibtex"),
+                            "application/x-bibtex",
+                            ".bib",
+                            ".bibtex",
+                            ".biblatex"),
                  width = NULL,
                  buttonLabel = "Browse...",
                  placeholder = "No file selected"
                ),
                h3("Export"),
-               radioButtons('format', 'Document format', c('PDF', 'Word'),
+               radioButtons('format', 'Document format', c('PDF', 'Word', 'LaTeX'),
                             inline = TRUE),
                downloadButton('downloadReport')
                
@@ -62,7 +67,7 @@ ui <- navbarPage(
                  type = "tabs",
                  # tabPanel(
                  #   "Content",
-                 #   aceEditor('editor_content', "# Some title", mode="markdown", 
+                 #   aceEditor('editor_content', "# Some title", mode="markdown",
                  #             theme="chrome", autoComplete="enabled")
                  # ),
                  tabPanel(
@@ -98,24 +103,20 @@ ui <- navbarPage(
                    textAreaInput('abstract', 'Abstract', placeholder = "For articles and reports only"),
                    textAreaInput('thanks', 'Thanks', placeholder = "For articles and reports only"),
                    textInput('keywords', 'Keywords', placeholder = "separate multiple keywords by comma"),
-                   textInput('date', 'Publication date', placeholder = "2018-12-31 (or any other format)")
-                 ),
-                 tabPanel(
-                   "Bibliography",
-                   textInput('biblio_title', 'Bibliography title', value = "Literatur- und Quellenverzeichnis"),
+                   textInput('date', 'Publication date', placeholder = "2018-12-31 (or any other format)"),
                    selectInput(
                      'csl',
                      'Citation Style',
                      c(
-                       "/csl/infoclio-de.csl",
-                       "csl/infoclio-fr-nocaps.csl",
-                       "csl/infoclio-fr-smallcaps.csl",
-                       "csl/apa-5th-edition.csl",
-                       "csl/apa-6th-edition.csl",
-                       "csl/chicago-17th-edition-author-date.csl",
-                       "csl/chicago-17th-edition-fullnote-bibliography.csl",
-                       "csl/chicago-17th-edition-note-bibliography.csl",
-                       "csl/universitat-freiburg-geschichte.csl"
+                       "infoclio-de.csl",
+                       "infoclio-fr-nocaps.csl",
+                       "infoclio-fr-smallcaps.csl",
+                       "apa-5th-edition.csl",
+                       "apa-6th-edition.csl",
+                       "chicago-17th-edition-author-date.csl",
+                       "chicago-17th-edition-fullnote-bibliography.csl",
+                       "chicago-17th-edition-note-bibliography.csl",
+                       "universitat-freiburg-geschichte.csl"
                      ),
                      multiple = FALSE,
                      selectize = TRUE,
@@ -480,7 +481,7 @@ ui <- navbarPage(
                )
              )
            )),
-  tabPanel("about!", "coming soon")
+  tabPanel("about!", h1("About"), p("we are still in a very early alpha stage!"))
 )
 
 
@@ -490,24 +491,39 @@ ui <- navbarPage(
 server <- function(input, output) {
   output$downloadReport <- downloadHandler(
     filename = function() {
-      paste('typademic-export', sep = '.', switch(input$format, PDF = 'pdf', Word = 'docx'))
+      paste('typademic-export', sep = '.', switch(input$format, PDF = 'pdf', Word = 'docx', LaTeX = 'tex'))
     },
     
     content = function(file) {
+      if (toString(input$zip_file$datapath) != "") {
+        unzip(
+          toString(input$zip_file$datapath),
+          files = NULL,
+          list = FALSE,
+          overwrite = TRUE,
+          junkpaths = FALSE,
+          exdir = 'tmp',
+          unzip = "internal",
+          setTimes = FALSE
+        )
+      }
+      
       # TODO change from knitr to pandocconvert for safety reasons
-      fileConn <- file('report.Rmd')
+      tmpfile <- tempfile(tmpdir = 'tmp', fileext = ".Rmd")
+      fileConn <- file(tmpfile)
       writeLines(
         c(
           "---",
           "output:",
           paste(" ", switch(
-            input$format, PDF = "pdf_document:", Word = "word_document:"
+            input$format, PDF = "pdf_document:", Word = "word_document:", LaTeX = "tex_document:"
           )),
           "    latex_engine: xelatex",
           "    keep_tex: yes",
-          "    template: latex/default-1.17.0.2.tex",
+          "    template: ../latex/default-1.17.0.2.tex",
           "    pandoc: null",
           paste("    highlight:", toString(input$highlight)),
+          paste("    fig_caption:", toString(input$fig_caption)),
           "header-includes:",
           # "  - \\usepackage[ngerman]{babel}",
           "  - \\flushbottom",
@@ -537,13 +553,11 @@ server <- function(input, output) {
           ),
           paste("keywords:", toString(input$keywords)),
           paste("date:", toString(input$date)),
-          paste("biblio_title:", toString(input$biblio_title)),
-          paste("csl:", toString(input$csl)),
-          paste("bib_files:", toString(input$bib_files$datapath)),
+          paste("csl: ../csl/", toString(input$csl), sep=""),
+          paste("bibliography:", toString(input$bib_file$datapath)),
           paste("toc:", toString(input$toc)),
           paste("toc_depth:", toString(input$toc_depth)),
           paste("lof:", toString(input$lof)),
-          paste("fig_caption:", toString(input$fig_caption)),
           paste("fig_crop:", toString(input$fig_crop)),
           paste("fig_height:", toString(input$fig_height)),
           paste("fig_width:", toString(input$fig_width)),
@@ -564,30 +578,18 @@ server <- function(input, output) {
           paste("links-as-notes:", toString(input$links_as_notes)),
           "---",
           "```{r, echo=FALSE}",
-          "htmltools::includeHTML(input$md_files$datapath)",
-          # "toString(input$editor_content)",
-          # "knit_child(text=input$editor_content)",
+          "htmltools::includeHTML(input$md_file$datapath)",
           "```"
         ),
         fileConn
       )
       close(fileConn)
-      # temporarily switch to the temp dir, in case you do not have write
-      # permission to the current working directory
-      # owd <- setwd(tempdir())
-      # on.exit(setwd(owd))
-      # file.copy(src, 'report.Rmd', overwrite = TRUE)
-      
-      library(rmarkdown)
-      out <- render('report.Rmd')
+      out <- render(tmpfile)
       file.rename(out, file)
-      # file.remove('report.Rmd')
-      # file.remove('report.tex')
+      unlink('tmp', recursive = TRUE, force = FALSE)
     }
   )
-  
 }
-
 
 
 # Run the application
