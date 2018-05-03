@@ -1,2 +1,3 @@
 # typademic
+
 Academic publishing pipeline

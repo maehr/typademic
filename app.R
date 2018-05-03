@@ -1933,7 +1933,16 @@ styles <- c(
 ui <- navbarPage(
   theme = shinytheme("united"),
   title = 'typAdemic',
-  tabPanel("write!",
+  tabPanel(
+    "why!",
+    tags$head(includeHTML("google-analytics.html")),
+    tabsetPanel(
+      tabPanel("typAdemic", includeMarkdown("README.md")),
+      tabPanel("Markdown", includeMarkdown("markdown.md")),
+      tabPanel("GitHub", includeMarkdown("github.md"))
+    )
+  ),
+  tabPanel("what!",
            sidebarLayout(
              sidebarPanel(
                h3("Uploads"),
@@ -2235,7 +2244,9 @@ ui <- navbarPage(
                      width = NULL,
                      size = NULL
                    ),
-                   p("HINT: Top and bottom settings do not account for the offset needed for footnotes etc."),
+                   p(
+                     "HINT: Top and bottom settings do not account for the offset needed for footnotes etc."
+                   ),
                    selectInput(
                      'margin_top',
                      'Margin top',
@@ -2437,11 +2448,11 @@ ui <- navbarPage(
                )
              )
            )),
-  tabPanel(
-    "about!",
-    h1("About"),
-    p("we are still in a very early alpha stage!")
-  )
+  tabPanel("who!", 
+           tabsetPanel(
+             tabPanel("about", includeMarkdown("ABOUT.md"))
+           )
+           )
 )
 
 server <- function(input, output) {
