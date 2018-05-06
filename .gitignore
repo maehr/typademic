@@ -29,6 +29,7 @@ vignettes/*.pdf
 /cache/
 
 # Temporary files created by R markdown
+/tmp/*
 *.utf8.md
 *.knit.md
 
@@ -37,3 +38,7 @@ vignettes/*.pdf
 
 # Packrat
 packrat/lib*/
+.Rproj.user
+
+# RSConnect
+/rsconnect/*
