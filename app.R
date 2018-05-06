@@ -3601,7 +3601,7 @@ ui <- navbarPage(
     "why!",
     tags$head(includeHTML("google-analytics.html")),
     tabsetPanel(
-      tabPanel("typAdemic", includeMarkdown("README.md")),
+      tabPanel("typAdemic", includeMarkdown("HOWTO.md")),
       tabPanel("Markdown", includeMarkdown("markdown.md")),
       tabPanel("GitHub", includeMarkdown("github.md"))
     )
