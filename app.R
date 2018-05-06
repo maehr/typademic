@@ -7,6 +7,7 @@ library(shinythemes)
 library(rmarkdown)
 library(knitr)
 library(tinytex)
+
 fonts = c(
   "Default" = "",
   "ABeeZee",
@@ -3964,9 +3965,9 @@ ui <- navbarPage(
                    p(
                      "Examples of these fonts can be found here ",
                      br(),
-                     a("LaTeX Font Catalogue", href="http://www.tug.dk/FontCatalogue/"),
+                     a("LaTeX Font Catalogue", href = "http://www.tug.dk/FontCatalogue/"),
                      br(),
-                     a("Google Fonts", href="https://fonts.google.com/")
+                     a("Google Fonts", href = "https://fonts.google.com/")
                    ),
                    selectInput(
                      'sansfont',
@@ -4119,9 +4120,12 @@ ui <- navbarPage(
              )
            )),
   tabPanel("who!",
-           tabsetPanel(tabPanel(
-             "about", includeMarkdown("ABOUT.md")
-           )))
+           tabsetPanel(
+             tabPanel("about", includeMarkdown("ABOUT.md")),
+             tabPanel("license", includeMarkdown("LICENSE.md")),
+             # tabPanel("code of conduct", includeMarkdown("CODE_OF_CONDUCT.md")),
+             tabPanel("changelog", includeMarkdown("CHANGELOG.md"))
+           ))
 )
 
 server <- function(input, output) {
