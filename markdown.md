@@ -1,6 +1,6 @@
-### Write Markdown
+# Write Markdown
 
-#### Heading
+## Heading
 
 ```markdown
 # Heading 1
@@ -14,7 +14,7 @@
 ##### Heading 5
 ```
 
-#### Emphasis
+## Emphasis
 
 ```markdown
 Emphasis, aka italics, with *asterisks* or _underscores_.
@@ -26,7 +26,7 @@ Combined emphasis with **asterisks and _underscores_**.
 Strikethrough uses two tildes. ~~Scratch this.~~
 ```
 
-#### Lists
+## Lists
 
 ```markdown
 1. First ordered list item
@@ -47,7 +47,7 @@ Strikethrough uses two tildes. ~~Scratch this.~~
 + Or pluses
 ```
 
-#### Links
+## Links
 
 ```markdown
 [I'm an inline-style link](https://www.google.com)
@@ -73,7 +73,7 @@ Some text to show that the reference links can follow later.
 [link text itself]: http://www.reddit.com
 ```
 
-#### Images
+## Images
 
 ```markdown
 Save your image to `images/` and insert it like this:
@@ -87,7 +87,7 @@ Reference-style:
 [logo]: images/example.jpg "Logo Title Text 2"
 ```
 
-#### Tables
+## Tables
 
 ```markdown
 Colons can be used to align columns.
@@ -108,7 +108,7 @@ Markdown | Less | Pretty
 1 | 2 | 3
 ```
 
-#### Blockquotes
+## Blockquotes
 
 ```markdown
 > Blockquotes are very handy in email to emulate reply text.
@@ -119,7 +119,7 @@ Quote break.
 > This is a very long line that will still be quoted properly when it wraps. Oh boy let's keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can *put* **Markdown** into a blockquote.
 ```
 
-#### Footnotes
+## Footnotes
 
 ```markdown
 Footnotes are best placed right after the paragraph first used.[^footnote]
@@ -129,17 +129,17 @@ Footnotes are best placed right after the paragraph first used.[^footnote]
 
 If you want to use endnotes instead turn them on in document options.
 
-#### Comments
+## Comments
 
 ```markdown
 <!-- Comments are not shown in the final PDF. -->
 ```
 
-### Citations EndNote
+# Citations EndNote
 
 Coming soon
 
-### Citations JabRef
+# Citations JabRef
 
 1. Create a bibliography with JabRef.
 
@@ -149,11 +149,11 @@ Coming soon
 
 ![JabRef](.doc/JabRef.png)
 
-### Citations Zotero
+# Citations Zotero
 
 Coming soon
 
-#### Add citations to your document
+## Add citations to your document
 
 ```markdown
 Citations go inside square brackets and are separated by semicolons. Each citation must have a key, composed of ‘@’ + the citation identifier from the database, and may optionally have a prefix, a locator, and a suffix. Here are some examples:
@@ -175,6 +175,6 @@ You can also write an in-text citation, as follows:
 @smith04 [p. 33] says blah.
 ```
 
-#### Change citations style
+## Change citations style
 
 Choose a style from the list [CSL-Repository](https://www.zotero.org/styles) (or its corresponding [GitHub Repo](https://github.com/citation-style-language/styles))
