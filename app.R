@@ -7,6 +7,7 @@ library(shinythemes)
 library(rmarkdown)
 library(knitr)
 library(tinytex)
+library(shinyAce)
 
 fonts = c(
   "Default" = "",
@@ -3658,6 +3659,8 @@ ui <- navbarPage(
                  type = "tabs",
                  tabPanel(
                    "General information",
+                   aceEditor("myEditor", "Initial text for editor here", mode="r", 
+                             theme="ambiance"),
                    selectInput(
                      'documentclass',
                      'Documentclass',
@@ -4083,18 +4086,6 @@ ui <- navbarPage(
                  tabPanel(
                    "Advanced settings",
                    selectInput(
-                     'endnote_conversion',
-                     'Convert EndNote style citations',
-                     c("no", "yes"),
-                     multiple = FALSE,
-                     selectize = TRUE,
-                     width = NULL,
-                     size = NULL
-                   ),
-                   p(
-                     "EndNote citations {Peterli, 2012, #344} can be automatically converted."
-                   ),
-                   selectInput(
                      'links_as_notes',
                      'Links as notes',
                      c("no",
@@ -4150,37 +4141,6 @@ server <- function(input, output) {
         )
       }
       lines <- ""
-      if (length(input$md_file$datapath) > 0) {
-        lines <- readLines(input$md_file$datapath)
-        if (input$endnote_conversion == 'yes') {
-          pattern1 <- "(?<=({|;))[^\\#]*#(?<id>\\d*)(?=(}|;))"
-          replacement1 <- "@RN\\2"
-          pattern2 <-
-            "(?<=({|;))[^\\#]+#(?<id>\\d*)[ ]?[@]?(?<page>\\d*)(?=(}|;))"
-          replacement2 <- "@RN\\2, P. \\3"
-          pattern3 <-
-            "(?<=({|;))(?<prefix>[^\\]*)\\[^#]*#(?<id>\\d*)[^@]?(?<page>\\d*)(?=(}|;))"
-          replacement3 <- "\\2@RN\\3"
-          pattern4 <-
-            "(?<=({|;))(?<prefix>[^\\]*)\\[^#]*#(?<id>\\d*)[ ]?[@]?(?<page>\\d*)(?=(}|;))"
-          replacement4 <- "\\2@RN\\3, P. \\4"
-          pattern5 <- "{"
-          replacement5 <- "["
-          pattern6 <- "}"
-          replacement6 <- "]"
-          pattern7 <- ";@"
-          replacement7 <- "; @"
-          
-          gsub(pattern1, replacement1, lines, perl = TRUE)
-          gsub(pattern2, replacement2, lines, perl = TRUE)
-          gsub(pattern3, replacement3, lines, perl = TRUE)
-          gsub(pattern4, replacement4, lines, perl = TRUE)
-          gsub(pattern5, replacement5, lines, perl = TRUE)
-          gsub(pattern6, replacement6, lines, perl = TRUE)
-          gsub(pattern7, replacement7, lines, perl = TRUE)
-        }
-      }
-      
       tmpfile <- tempfile(tmpdir = 'tmp', fileext = ".md")
       fileConn <- file(tmpfile)
       writeLines(
