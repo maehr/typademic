@@ -7,7 +7,6 @@ library(shinythemes)
 library(rmarkdown)
 library(knitr)
 library(tinytex)
-library(shinyAce)
 
 fonts = c(
   "Default" = "",
@@ -3659,8 +3658,6 @@ ui <- navbarPage(
                  type = "tabs",
                  tabPanel(
                    "General information",
-                   aceEditor("myEditor", "Initial text for editor here", mode="r", 
-                             theme="ambiance"),
                    selectInput(
                      'documentclass',
                      'Documentclass',
