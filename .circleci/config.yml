@@ -39,6 +39,12 @@ jobs:
             - ./data
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
+      - run:
+          name: install pandoc & texlive
+          command: |
+            sudo apt-get update
+            sudo apt-get install pandoc pandoc-citeproc texlive
+
       - deployment:
           staging:
             branch: master
