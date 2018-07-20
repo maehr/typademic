@@ -8,12 +8,25 @@
     {{ dropzone.style('border: 2px dashed #0087F7; margin: 10%; min-height: 400px;') }}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', {{ google_analytics }});
+    </script>
 </head>
 <body>
 <section class="section">
     <div class="container">
         <h1 class="title">
-            Hello World
+            Typademic
         </h1>
         <p class="subtitle">
             My first website with <strong>Bulma</strong>!
@@ -21,6 +34,19 @@
         {{ dropzone.create(action='upload') }}
         {{ dropzone.load_js() }}
         {{ dropzone.config() }}
+        <a class="button is-large" href="/pdf">
+            <span class="icon is-medium">
+              <i class="fas fa-file-pdf"></i>
+            </span>
+            <span>PDF</span>
+        </a>
+        <a class="button is-large" href="/docx">
+            <span class="icon is-medium">
+              <i class="fas fa-file-word"></i>
+            </span>
+            <span>Word</span>
+        </a>
+
     </div>
 </section>
 </body>

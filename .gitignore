@@ -109,3 +109,6 @@ venv.bak/
 # Uploads
 /uploads/*
 /uploads/.gitkeep
+
+# Secrets
+secrets.txt
