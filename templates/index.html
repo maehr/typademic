@@ -1,53 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Typademic</title>
-    {{ dropzone.load_css() }}
-    {{ dropzone.style('border: 2px dashed #0087F7; margin: 10%; min-height: 400px;') }}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics }}"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+{% extends "base.html" %}
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <div class="tile">
+                <div class="tile">
+                    <div class="content">
+                        <p class="circle">1</p>
+                        <a href="https://github.com/maehr/academic-pandoc-template/archive/master.zip"
+                           class="has-text-dark"><i class="fas fa-file-download fa-2x"></i> Get the template</a>
 
-        gtag('js', new Date());
+                    </div>
+                </div>
+                <div class="tile">
+                    <div class="content">
+                        <p class="circle">2</p>
+                        <a href="https://github.com/maehr/academic-pandoc-template/blob/master/README"
+                           class="has-text-dark"><i class="fas fa-edit fa-2x"></i> Write your text</a>
+                    </div>
+                </div>
+                <div class="tile">
+                    <div class="content">
+                        <p class="circle">3</p>
+                        {{ dropzone.create(action='upload') }}
+                        {{ dropzone.load_js() }}
+                        {{ dropzone.config() }}
+                    </div>
+                </div>
+                <div class="tile">
+                    <div class="content">
+                        <p class="circle">4</p>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <a class="button" href="/pdf" target="_blank">
+      <span class="icon is-small">
+        <i class="fas fa-file-pdf"></i>
+      </span>
+                                    <span>PDF</span>
+                                </a>
+                            </p>
+                            <p class="control">
+                                <a class="button" href="/docx" target="_blank">
+      <span class="icon is-small">
+        <i class="fas fa-file-word"></i>
+      </span>
+                                    <span>Word</span>
+                                </a>
+                            </p>
+                            <p class="control">
+                                <a class="button" href="/clear">
+      <span class="icon is-small">
+        <i class="fas fa-trash-alt"></i>
+      </span>
+                                    <span>Reset</span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            {% if files %}
+                <div class="notification">
+                    <p>Uploaded files</p>
+                    {% for file in files %}
+                        <p>{{ file }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
-        gtag('config', {{ google_analytics }});
-    </script>
-</head>
-<body>
-<section class="section">
-    <div class="container">
-        <h1 class="title">
-            Typademic
-        </h1>
-        <p class="subtitle">
-            My first website with <strong>Bulma</strong>!
-        </p>
-        {{ dropzone.create(action='upload') }}
-        {{ dropzone.load_js() }}
-        {{ dropzone.config() }}
-        <a class="button is-large" href="/pdf">
-            <span class="icon is-medium">
-              <i class="fas fa-file-pdf"></i>
-            </span>
-            <span>PDF</span>
-        </a>
-        <a class="button is-large" href="/docx">
-            <span class="icon is-medium">
-              <i class="fas fa-file-word"></i>
-            </span>
-            <span>Word</span>
-        </a>
-
-    </div>
-</section>
-</body>
-</html>
+            {% if error %}
+                <div class="notification is-danger">
+                    <p>Error</p>
+                    {{ error }}
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
