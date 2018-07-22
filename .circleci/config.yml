@@ -8,14 +8,14 @@ jobs:
     docker:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: circleci/python:3.6.1
+      - image: circleci/python:3.6.5
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/postgres:9.4
 
-    working_directory: ~/repo
+    working_directory: ~/app
 
     steps:
       - checkout
@@ -45,12 +45,6 @@ jobs:
             sudo apt-get update
             sudo apt-get install pandoc pandoc-citeproc texlive
 
-      - deployment:
-          staging:
-            branch: master
-            heroku:
-              appname: typademic
-
       # run tests!
       # this example uses Django's built-in test-runner
       # other common Python testing frameworks include pytest and nose
@@ -65,3 +59,28 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
+  deploy:
+      - run:
+          name: Build and push Docker image
+          command: |
+            TAG="0.0.${CIRCLE_BUILD_NUM}"
+            docker build -t maehr/typademic:$TAG .
+            docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+            docker push maehr/typademic:$TAG
+
+workflows:
+  version: 2
+  build-n-deploy:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /.*/
+      - deploy:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
