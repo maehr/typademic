@@ -60,6 +60,7 @@ jobs:
           path: test-reports
           destination: test-reports
   deploy:
+    steps:
       - run:
           name: Build and push Docker image
           command: |
