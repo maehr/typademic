@@ -47,7 +47,7 @@ def uploaded_files():
 
 
 @app.route('/', methods=['POST', 'GET'])
-def upload(argument=None):
+def upload():
     clean_old_files()
     error = ''
     if 'uid' not in session:
