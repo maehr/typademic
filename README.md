@@ -62,7 +62,11 @@ Give an example
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Install [Docker CE](https://www.docker.com/community-edition).
+
+```
+docker-compose up
+```
 
 ## Built With
 
