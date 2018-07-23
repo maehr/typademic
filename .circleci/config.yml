@@ -60,7 +60,14 @@ jobs:
           path: test-reports
           destination: test-reports
   deploy:
+    docker:
+      - image: circleci/python:3.6.6
+
+    working_directory: ~/app
+
     steps:
+      - checkout
+
       - run:
           name: Build and push Docker image
           command: |
