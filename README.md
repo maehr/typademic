@@ -1,6 +1,10 @@
+virtualenv venv
+cd venv
+source bin/activate
+
 # typAdemic
 
-Academic publishing pipeline built with love and [Flask](http://flask.pocoo.org/), [Pandoc](http://pandoc.org/), [Tex Live](https://www.tug.org/texlive/), [Google Fonts](https://fonts.google.com/), [Citation Style Language](https://github.com/citation-style-language/styles) and [Koma Skript](https://komascript.de/)
+Academic publishing built with love and [Flask](http://flask.pocoo.org/), [Pandoc](http://pandoc.org/), [Tex Live](https://www.tug.org/texlive/) and [Google Fonts](https://fonts.google.com/).
 
 # Project Title
 
@@ -62,8 +66,12 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* CircleCI
-* Docker
+* [CircleCI](https://circleci.com)
+* [Docker CE](https://www.docker.com/community-edition)
+* [Flask](http://flask.pocoo.org/)
+* [Pandoc](http://pandoc.org/)
+* [Tex Live](https://www.tug.org/texlive/)
+* [Google Fonts](https://fonts.google.com/)
 
 ## Contributing
 
@@ -85,6 +93,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Amazing work by [John MacFarlane](http://johnmacfarlane.net/)

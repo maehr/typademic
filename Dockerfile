@@ -20,8 +20,12 @@ COPY requirements.txt /opt/app/requirements.txt
 RUN pip install -r /opt/app/requirements.txt
 RUN pip install gunicorn
 
+COPY generate_ssl.sh /opt/app/generate_ssl.sh
+RUN sh /opt/app/generate_ssl.sh
+
 USER circleci
 COPY . /opt/app
 WORKDIR /opt/app
+RUN export GUNICORN_CMD_ARGS="--bind :8000 --access-logfile --error-logfile --workers=4 --certfile www.example.com.cert --keyfile www.example.com.key"
 ENTRYPOINT ["gunicorn"]
 CMD ["app:app"]
