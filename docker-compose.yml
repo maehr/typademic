@@ -4,11 +4,19 @@ services:
   typademic:
     image: maehr/typademic:latest
     ports:
-      - 8000:443
+      - 5000:80
+    # TODO Change port bindings for https
+    #  - 8000:443
+
+    # TODO Isolate uploads from VM
+    # volumes:
+    #   - /vm/:/host/
     restart: always
     environment:
       - GOOGLE_ANALYTICS=${GOOGLE_ANALYTICS}
       - SECRET_KEY=${SECRET_KEY}
+
+  # TODO add development environment
   # development:
   #   build: .
   #   ports:

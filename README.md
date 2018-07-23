@@ -1,14 +1,10 @@
-virtualenv venv
-cd venv
-source bin/activate
+# typademic
 
-# typAdemic
-
-Academic publishing built with love and [Flask](http://flask.pocoo.org/), [Pandoc](http://pandoc.org/), [Tex Live](https://www.tug.org/texlive/) and [Google Fonts](https://fonts.google.com/).
+Academic publishing built with love and [Flask](http://flask.pocoo.org/), [Pandoc](http://pandoc.org/), [LaTeX](https://www.latex-project.org/) and [Google Fonts](https://fonts.google.com/).
 
 # Project Title
 
-One Paragraph of project description goes here
+Typademic turns distraction freely written markdown files into beatiful PDFs.
 
 ## Getting Started
 
@@ -16,55 +12,62 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Install all this to use all functions of typademic.
 
+- [Python 3.6.6](https://www.python.org/downloads/release/python-366/)
+- [OpenSSL 1.0.2](https://www.openssl.org/source/)
+- [Pandoc 2.2](http://pandoc.org/installing.html)
+- [Pandoc Citeproc](https://github.com/jgm/pandoc-citeproc)
+- [LaTeX](https://www.latex-project.org/get/)
+- [Google Fonts](https://github.com/google/fonts)
+
+#### Mac with [Homebrew](https://brew.sh/index_de)
+
+```bash
+brew install python openssl pandoc pandoc-citeproc mactex
+curl https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
 ```
-Give examples
+
+#### Ubuntu 16.04
+
+```bash
+sudo add-apt-repository ppa:jonathonf/python-3.6
+sudo apt-get update -y
+sudo apt-get install -y python3.6 texlive-full pandoc pandoc-citeproc
+
+https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
+
+pip install --upgrade pip
 ```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
+```bash
+virtualenv venv
+cd venv
+source bin/activate
+python app.py
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+### Start the development server
+
+```bash
+python app.py
+```
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
+```bash
+python pytest
 ```
 
 ## Deployment
 
-Install [Docker CE](https://www.docker.com/community-edition).
+Install [Docker CE](https://www.docker.com/community-edition) and copy key.pem and cert.pem to the root to add ssl support.
 
-```
+```bash
+export GOOGLE_ANALYTICS=UA-YOURGOOGLECODE
+export SECRET_KEY=SOMESECRETKEY
 docker-compose up
 ```
 
@@ -74,7 +77,7 @@ docker-compose up
 * [Docker CE](https://www.docker.com/community-edition)
 * [Flask](http://flask.pocoo.org/)
 * [Pandoc](http://pandoc.org/)
-* [Tex Live](https://www.tug.org/texlive/)
+* [LaTeX](https://www.latex-project.org/)
 * [Google Fonts](https://fonts.google.com/)
 
 ## Contributing
@@ -98,3 +101,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 * Amazing work by [John MacFarlane](http://johnmacfarlane.net/)
+* More mentions to come!
