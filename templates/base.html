@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Typademic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Raleway" rel="stylesheet">
+    {{ dropzone.load_css() }}
+    <style>
+        body,
+        button,
+        input,
+        select,
+        textarea {
+            font-family: 'Merriweather', serif;
+        }
+
+        .subtitle {
+            font-family: 'Raleway', serif;
+        }
+
+        .dropzone .dz-message {
+            text-align: left;
+            margin: 0px;
+            padding: 0px 0px;
+        }
+
+        .dropzone {
+            padding: 0px 0px;
+            border: 0px;
+        }
+
+        .circle {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            font-size: 40px;
+            color: #fff;
+            line-height: 75px;
+            text-align: center;
+            background: #363636;
+        }
+    </style>
+    <link rel="apple-touch-icon-precomposed" sizes="57x57"
+          href="{{ url_for('static', filename='apple-touch-icon-57x57.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+          href="{{ url_for('static', filename='apple-touch-icon-114x114.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+          href="{{ url_for('static', filename='apple-touch-icon-72x72.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="{{ url_for('static', filename='apple-touch-icon-144x144.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="60x60"
+          href="{{ url_for('static', filename='apple-touch-icon-60x60.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="120x120"
+          href="{{ url_for('static', filename='apple-touch-icon-120x120.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="76x76"
+          href="{{ url_for('static', filename='apple-touch-icon-76x76.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="152x152"
+          href="{{ url_for('static', filename='apple-touch-icon-152x152.png') }}"/>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon-196x196.png') }}" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon-96x96.png') }}" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon-32x32.png') }}" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon-16x16.png') }}" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon-128.png') }}" sizes="128x128"/>
+    <meta name="application-name" content="&nbsp;"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF"/>
+    <meta name="msapplication-TileImage" content="{{ url_for('static', filename='mstile-144x144.png') }}"/>
+    <meta name="msapplication-square70x70logo" content="{{ url_for('static', filename='mstile-70x70.png') }}"/>
+    <meta name="msapplication-square150x150logo" content="{{ url_for('static', filename='mstile-150x150.png') }}"/>
+    <meta name="msapplication-wide310x150logo" content="{{ url_for('static', filename='mstile-310x150.png') }}"/>
+    <meta name="msapplication-square310x310logo" content="{{ url_for('static', filename='mstile-310x310.png') }}"/>
+    <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', {{ google_analytics }});
+    </script>
+</head>
+<body>
+<section class="hero">
+    <!-- Hero head: will stick at the top -->
+    <div class="hero-head">
+        <nav class="navbar">
+            <div class="container">
+                <div id="navbarMenuHeroA" class="navbar-menu">
+                    <div class="navbar-end">
+            <span class="navbar-item">
+              <a class="button is-inverted" href="https://github.com/maehr/typademic">
+                <span class="icon">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>Source Code</span>
+              </a>
+            </span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                <i class="fas fa-pen-nib"></i> Typademic
+            </h1>
+            <h2 class="subtitle">
+                An academic publishing pipeline
+            </h2>
+        </div>
+    </div>
+
+    <!-- Hero footer: will stick at the bottom -->
+    {#  <div class="hero-foot">
+    <nav class="tabs">
+      <div class="container">
+        <ul>
+          <li class="is-active"><a>Overview</a></li>
+          <li><a>Modifiers</a></li>
+          <li><a>Grid</a></li>
+          <li><a>Elements</a></li>
+          <li><a>Components</a></li>
+          <li><a>Layout</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>#}
+</section>
+{% block content %}{% endblock %}
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>
+            <strong>Typademic</strong> by <a href="https://jgthms.com" class="has-text-dark">Moritz Mähr</a>. The source code is licensed
+            <a href="http://opensource.org/licenses/mit-license.php" class="has-text-dark">MIT</a>.
+        </p>
+    </div>
+</footer>
+</body>
+</html>
