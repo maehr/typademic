@@ -2,11 +2,12 @@ version: '2'
 
 services:
   typademic:
-    image: maehr/typademic:latest
+    # image: maehr/typademic:latest
+    build: .
+    expose:
+      - "8000"
     ports:
-      - 5000:80
-    # TODO Change port bindings for https
-    #  - 8000:443
+      - "8000:8000"
 
     # TODO Isolate uploads from VM
     # volumes:

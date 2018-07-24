@@ -26,14 +26,8 @@ USER web
 
 WORKDIR /home/web
 
-# TODO generate private ssl certificates
-# COPY generate_ssl.sh /opt/app/generate_ssl.sh
-# RUN sh /opt/app/generate_ssl.sh
+COPY generate_ssl.sh /generate_ssl.sh
+RUN sh /generate_ssl.sh
 
-# TODO use deployment server with ssl
-# RUN export GUNICORN_CMD_ARGS="--bind :8000 --access-logfile --error-logfile --workers=4 --certfile crt.pem --keyfile key.pem"
-# ENTRYPOINT ["gunicorn"]
-# CMD ["app:app"]
-
-ENTRYPOINT [ "python" ]
-CMD [ "app.py" ]
+ENTRYPOINT ["gunicorn"]
+CMD ["app:app", "--bind=127.0.0.1:8000", "--name=typademic", "--workers=4", "--log-level=info", "--certfile=crt.pem", "--keyfile=key.pem"]

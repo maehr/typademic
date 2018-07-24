@@ -136,4 +136,4 @@ Vagrantfile
 # Secrets
 secrets.txt
 key.pem
-cert.pem
+crt.pem
