@@ -9,7 +9,7 @@ services:
     ports:
       - "443:8000"
     volumes:
-      - ./uploads:/home/web/uploads
+      - ${UPLOAD_PATH}:/home/web/uploads
     restart: always
     environment:
       - GOOGLE_ANALYTICS=${GOOGLE_ANALYTICS}
