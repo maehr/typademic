@@ -6,6 +6,7 @@ services:
     build: .
     expose:
       - "8000"
+      - "80"
     ports:
       - "8000:80"
 
