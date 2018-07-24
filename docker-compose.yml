@@ -7,9 +7,9 @@ services:
     expose:
       - "8000"
     ports:
-      - "80:80"
-      - "443:443"
-      - "8000:8443"
+      #- "80:80"
+      #- "443:443"
+      - "443:8000"
 
     # TODO Isolate uploads from VM
     # volumes:
