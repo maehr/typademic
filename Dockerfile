@@ -30,4 +30,4 @@ COPY generate_ssl.sh /generate_ssl.sh
 RUN sh /generate_ssl.sh
 
 ENTRYPOINT ["gunicorn"]
-CMD ["app:app", "--bind=127.0.0.1:8000", "--name=typademic", "--workers=4", "--log-level=info", "--certfile=crt.pem", "--keyfile=key.pem"]
+CMD ["app:app", "--bind=:8000", "--name=typademic", "--workers=4", "--log-level=info", "--certfile=crt.pem", "--keyfile=key.pem"]
