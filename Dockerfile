@@ -21,6 +21,7 @@ RUN useradd -ms /bin/bash web
 
 COPY . /home/web
 RUN chown -R web:web /home/web
+RUN chmod a+rwx -R /home/web/uploads/
 
 USER web
 
