@@ -8,10 +8,8 @@ services:
       - "8000"
     ports:
       - "443:8000"
-
-    # TODO Isolate uploads from VM
-    # volumes:
-    #   - /vm/:/host/
+    volumes:
+      - ./uploads:/home/web/uploads
     restart: always
     environment:
       - GOOGLE_ANALYTICS=${GOOGLE_ANALYTICS}
