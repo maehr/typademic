@@ -9,11 +9,14 @@ services:
     ports:
       - "443:8000"
     volumes:
-      - ${UPLOAD_PATH}:/home/web/uploads
+      - ./upload:/home/web/uploads
+      - ./logs:/home/web/logs
     restart: always
+    env_file: secrets.env
     environment:
       - GOOGLE_ANALYTICS=${GOOGLE_ANALYTICS}
       - SECRET_KEY=${SECRET_KEY}
+
 
   # TODO add development environment
   # development:

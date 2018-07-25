@@ -1,10 +1,12 @@
 # typademic
 
-Academic publishing built with love and [Flask](http://flask.pocoo.org/), [Pandoc](http://pandoc.org/), [LaTeX](https://www.latex-project.org/) and [Google Fonts](https://fonts.google.com/).
+Typademic turns distraction freely written markdown files into beatiful PDFs. Built with love, [Flask](http://flask.pocoo.org/), [Pandoc](http://pandoc.org/), [LaTeX](https://www.latex-project.org/), [Google Fonts](https://fonts.google.com/) and [Bulma.io](https://bulma.io/).
 
-# Project Title
-
-Typademic turns distraction freely written markdown files into beatiful PDFs.
+[![CircleCI](https://circleci.com/gh/maehr/typademic.svg?style=svg&circle-token=f7ea42d593cc8107242a9ebd489b025c4c33328f)](https://circleci.com/gh/maehr/typademic)
+[![GitHub issues](https://img.shields.io/github/issues/maehr/typademic.svg)](https://github.com/maehr/typademic/issues)
+[![GitHub forks](https://img.shields.io/github/forks/maehr/typademic.svg)](https://github.com/maehr/typademic/network)
+[![GitHub stars](https://img.shields.io/github/stars/maehr/typademic.svg)](https://github.com/maehr/typademic/stargazers)
+[![GitHub license](https://img.shields.io/github/license/maehr/typademic.svg)](https://github.com/maehr/typademic/blob/master/LICENSE.md)
 
 ## Getting Started
 
@@ -63,7 +65,7 @@ python pytest
 
 ## Deployment
 
-Install [Docker CE](https://www.docker.com/community-edition) and copy key.pem and cert.pem to the root to add ssl support.
+Install [Docker CE](https://www.docker.com/community-edition).
 
 ```bash
 export GOOGLE_ANALYTICS=UA-YOURGOOGLECODE
@@ -71,8 +73,14 @@ export SECRET_KEY=SOMESECRETKEY
 docker-compose up
 ```
 
+To further strengthen your deployment process you should:
+
+- copy `key.pem` and `cert.pem` to the root to add a valid ssl certificate
+- create a `secrets.env` for your env vars
+
 ## Built With
 
+* [Bulma.io](https://bulma.io/)
 * [CircleCI](https://circleci.com)
 * [Docker CE](https://www.docker.com/community-edition)
 * [Flask](http://flask.pocoo.org/)
@@ -86,7 +94,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/maehr/typademic/tags).
 
 ## Authors
 
@@ -100,5 +108,8 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Amazing work by [John MacFarlane](http://johnmacfarlane.net/)
-* More mentions to come!
+* [John Gruber](https://daringfireball.net/projects/markdown/)
+* [John MacFarlane](http://johnmacfarlane.net/)
+* [Sarah Simpkin, "Getting Started with Markdown," The Programming Historian 4 (2015)](https://programminghistorian.org/en/lessons/getting-started-with-markdown)
+* [Dennis Tenen and Grant Wythoff, "Sustainable Authorship in Plain Text using Pandoc and Markdown," The Programming Historian 3 (2014)](https://programminghistorian.org/en/lessons/sustainable-authorship-in-plain-text-using-pandoc-and-markdown)
+

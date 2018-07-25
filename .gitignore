@@ -134,6 +134,6 @@ Vagrantfile
 /uploads/.gitkeep
 
 # Secrets
-secrets.txt
+secrets.env
 key.pem
 crt.pem
