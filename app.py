@@ -32,6 +32,8 @@ app.config.update(
     DROPZONE_DEFAULT_MESSAGE='<i class="fas fa-file-upload fa-2x"></i> Upload your text'
 )
 
+app._static_folder = os.path.join(basedir, 'static')
+
 dropzone = Dropzone(app)
 csrf = CSRFProtect(app)
 
