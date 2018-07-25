@@ -9,7 +9,7 @@
 import os
 import uuid
 
-from flask import Flask, session, render_template, request, send_file, redirect, url_for
+from flask import Flask, session, render_template, request, send_file, redirect, url_for, send_from_directory
 from flask_dropzone import Dropzone
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from sh import pandoc
@@ -20,24 +20,26 @@ google_analytics = os.getenv('GOOGLE_ANALYTICS', 'UA-XXXXXXXXX-X')
 app = Flask(__name__)
 
 app.config.update(
+    # Secret key used to generate CSRF token should not be set at random while in production. It breaks sessions.
     SECRET_KEY=os.getenv('SECRET_KEY', uuid.uuid4().hex),
-    # the secret key used to generate CSRF token
     UPLOADED_PATH=os.path.join(basedir, 'uploads'),
     # Flask-Dropzone config:
     DROPZONE_ALLOWED_FILE_CUSTOM=True,
     DROPZONE_ALLOWED_FILE_TYPE='.md, image/*, .bib, .bibtex, .biblatex, .csl, .yaml, .yml, .json',
     DROPZONE_MAX_FILE_SIZE=10,
     DROPZONE_MAX_FILES=30,
-    DROPZONE_ENABLE_CSRF=True,  # enable CSRF protection
+    DROPZONE_ENABLE_CSRF=True,
     DROPZONE_DEFAULT_MESSAGE='<i class="fas fa-file-upload fa-2x"></i> Upload your text'
 )
 
 dropzone = Dropzone(app)
-csrf = CSRFProtect(app)  # initialize CSRFProtect
+csrf = CSRFProtect(app)
+
 
 def clean_old_files():
     # TODO implement cleaning "worker"
     return None
+
 
 def uploaded_files():
     try:
@@ -93,8 +95,7 @@ def docx():
                'typademic.docx',
                '--from',
                'markdown+ascii_identifiers+tex_math_single_backslash+raw_tex+table_captions+yaml_metadata_block+autolink_bare_uris',
-               '--pdf-engine',
-               'xelatex',
+               '--latex-engine=xelatex',
                '--filter',
                'pandoc-citeproc',
                '--standalone',
@@ -119,8 +120,7 @@ def pdf():
                'typademic.pdf',
                '--from',
                'markdown+ascii_identifiers+tex_math_single_backslash+raw_tex+table_captions+yaml_metadata_block+autolink_bare_uris',
-               '--pdf-engine',
-               'xelatex',
+               '--latex-engine=xelatex',
                '--filter',
                'pandoc-citeproc',
                '--standalone',
@@ -138,4 +138,4 @@ def csrf_error(e):
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host=os.getenv('HOST', '0.0.0.0'))
+    app.run(debug=False, host=os.getenv('HOST', '0.0.0.0'), port=5000)

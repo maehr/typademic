@@ -59,9 +59,12 @@ jobs:
       - run:
           name: Build and push Docker image
           command: |
-            docker build -t maehr/typademic:$CIRCLE_TAG -t maehr/typademic:latest -f .
+            tag="$(echo $CIRCLE_TAG)"
+            tag=${tag#"v"}
+            docker build -t maehr/typademic:${tag} -t maehr/typademic:latest .
             docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
             docker push maehr/typademic:latest
+            docker push maehr/typademic:${tag}
 
 workflows:
   version: 2
