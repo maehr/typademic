@@ -9,7 +9,7 @@
 import os
 import uuid
 
-from flask import Flask, session, render_template, request, send_file, redirect, url_for
+from flask import Flask, session, render_template, request, send_file, redirect, url_for, send_from_directory
 from flask_dropzone import Dropzone
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from sh import pandoc
@@ -32,14 +32,14 @@ app.config.update(
     DROPZONE_DEFAULT_MESSAGE='<i class="fas fa-file-upload fa-2x"></i> Upload your text'
 )
 
-app._static_folder = os.path.join(basedir, 'static')
-
 dropzone = Dropzone(app)
 csrf = CSRFProtect(app)
+
 
 def clean_old_files():
     # TODO implement cleaning "worker"
     return None
+
 
 def uploaded_files():
     try:
@@ -129,6 +129,11 @@ def pdf():
                          attachment_filename='typademic.pdf')
     except Exception as e:
         return render_template('index.html', google_analytics=google_analytics, files=files, error=str(e))
+
+
+@app.route('/<path:filename>')
+def serve_static(filename):
+    return send_from_directory(os.path.join(basedir, 'static'), filename)
 
 
 # handle CSRF error
