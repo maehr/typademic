@@ -15,8 +15,8 @@ services:
       - "443:8000"
 
     volumes:
-      - upload:/home/web/uploads
-      - logs:/home/web/logs
+      - /home/web/uploads
+      - /home/web/logs
 
     restart: always
 
