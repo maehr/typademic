@@ -2,7 +2,10 @@ version: '2'
 
 services:
   typademic:
+    # uncomment this line for production use
     # image: maehr/typademic:latest
+
+    # comment this line for production use
     build: .
     expose:
       - "8000"
@@ -12,14 +15,7 @@ services:
       - ./upload:/home/web/uploads
       - ./logs:/home/web/logs
     restart: always
-    env_file: secrets.env
+    env_file: ./secrets.env
     environment:
       - GOOGLE_ANALYTICS=${GOOGLE_ANALYTICS}
       - SECRET_KEY=${SECRET_KEY}
-
-
-  # TODO add development environment
-  # development:
-  #   build: .
-  #   ports:
-  #     - 8000:8000
