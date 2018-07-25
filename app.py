@@ -87,8 +87,6 @@ def docx():
     md_files = ''
     try:
         for file in files:
-            if file.endswith('typademic.docx'):
-                break
             if file.endswith('.md'):
                 md_files = md_files + ' ' + file
         cwd = os.path.join(app.config['UPLOADED_PATH'], session['uid'])
@@ -114,8 +112,6 @@ def pdf():
     md_files = ''
     try:
         for file in files:
-            if file.endswith('typademic.pdf'):
-                break
             if file.endswith('.md'):
                 md_files = md_files + ' ' + file
         cwd = os.path.join(app.config['UPLOADED_PATH'], session['uid'])
