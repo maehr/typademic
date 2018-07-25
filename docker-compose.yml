@@ -7,15 +7,23 @@ services:
 
     # comment this line for production use
     build: .
+
     expose:
       - "8000"
+
     ports:
       - "443:8000"
+
     volumes:
       - ./upload:/home/web/uploads
       - ./logs:/home/web/logs
+      
     restart: always
-    env_file: ./secrets.env
+
+    # uncomment this line for production use
+    # env_file: ./secrets.env
+
+    # comment this line for production use
     environment:
       - GOOGLE_ANALYTICS=${GOOGLE_ANALYTICS}
       - SECRET_KEY=${SECRET_KEY}
