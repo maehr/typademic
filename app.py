@@ -131,11 +131,6 @@ def pdf():
         return render_template('index.html', google_analytics=google_analytics, files=files, error=str(e))
 
 
-@app.route('/<path:filename>')
-def serve_static(filename):
-    return send_from_directory(os.path.join(basedir, 'static'), filename)
-
-
 # handle CSRF error
 @app.errorhandler(CSRFError)
 def csrf_error(e):
