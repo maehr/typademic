@@ -25,7 +25,7 @@ app.config.update(
     UPLOADED_PATH=os.path.join(basedir, 'uploads'),
     # Flask-Dropzone config:
     DROPZONE_ALLOWED_FILE_CUSTOM=True,
-    DROPZONE_ALLOWED_FILE_TYPE='.md, image/*, .bib, .bibtex, .biblatex, .csl, .yaml, .yml, .json',
+    DROPZONE_ALLOWED_FILE_TYPE='.md, .png, .jpg, .jpeg, .bib, .bibtex, .biblatex, .csl, .yaml, .yml, .json',
     DROPZONE_MAX_FILE_SIZE=10,
     DROPZONE_MAX_FILES=30,
     DROPZONE_ENABLE_CSRF=True,
