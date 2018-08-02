@@ -90,6 +90,8 @@ def docx():
             if file.endswith('.md'):
                 md_files = md_files + ' ' + file
         cwd = os.path.join(app.config['UPLOADED_PATH'], session['uid'])
+        if md_files == '':
+            return render_template('index.html', google_analytics=google_analytics, files=files, error='No Markdown file was uploaded. Please reset and try again.')
         pandoc(md_files.strip(),
                '--output',
                'typademic.docx',
