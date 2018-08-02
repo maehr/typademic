@@ -49,7 +49,8 @@ pip install --upgrade pip
 virtualenv venv
 cd venv
 source bin/activate
-python app.py
+cd ..
+pip install -r requirements.txt
 ```
 
 ### Start the development server
