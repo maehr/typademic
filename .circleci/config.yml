@@ -56,9 +56,12 @@ jobs:
     steps:
       - checkout
 
+      - setup_remote_docker
+      
       - run:
           name: Build and push Docker image
           command: |
+            cd app
             tag="$(echo $CIRCLE_TAG)"
             tag=${tag#"v"}
             docker build -t maehr/typademic:${tag} -t maehr/typademic:latest .

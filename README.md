@@ -3,6 +3,7 @@
 Typademic turns distraction freely written markdown files into beatiful PDFs. Built with love, [Flask](http://flask.pocoo.org/), [Pandoc](http://pandoc.org/), [LaTeX](https://www.latex-project.org/), [Google Fonts](https://fonts.google.com/) and [Bulma.io](https://bulma.io/).
 
 [![CircleCI](https://circleci.com/gh/maehr/typademic.svg?style=svg&circle-token=f7ea42d593cc8107242a9ebd489b025c4c33328f)](https://circleci.com/gh/maehr/typademic)
+[![Requirements Status](https://requires.io/github/maehr/typademic/requirements.svg?branch=master)](https://requires.io/github/maehr/typademic/requirements/?branch=master)
 [![GitHub issues](https://img.shields.io/github/issues/maehr/typademic.svg)](https://github.com/maehr/typademic/issues)
 [![GitHub forks](https://img.shields.io/github/forks/maehr/typademic.svg)](https://github.com/maehr/typademic/network)
 [![GitHub stars](https://img.shields.io/github/stars/maehr/typademic.svg)](https://github.com/maehr/typademic/stargazers)
@@ -48,7 +49,8 @@ pip install --upgrade pip
 virtualenv venv
 cd venv
 source bin/activate
-python app.py
+cd ..
+pip install -r requirements.txt
 ```
 
 ### Start the development server
