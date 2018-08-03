@@ -3,6 +3,7 @@
 Typademic turns distraction freely written markdown files into beatiful PDFs. Built with love, [Flask](http://flask.pocoo.org/), [Pandoc](http://pandoc.org/), [LaTeX](https://www.latex-project.org/), [Google Fonts](https://fonts.google.com/) and [Bulma.io](https://bulma.io/).
 
 [![CircleCI](https://circleci.com/gh/maehr/typademic.svg?style=svg&circle-token=f7ea42d593cc8107242a9ebd489b025c4c33328f)](https://circleci.com/gh/maehr/typademic)
+[![codecov](https://codecov.io/gh/maehr/typademic/branch/master/graph/badge.svg)](https://codecov.io/gh/maehr/typademic)
 [![Requirements Status](https://requires.io/github/maehr/typademic/requirements.svg?branch=master)](https://requires.io/github/maehr/typademic/requirements/?branch=master)
 [![GitHub issues](https://img.shields.io/github/issues/maehr/typademic.svg)](https://github.com/maehr/typademic/issues)
 [![GitHub forks](https://img.shields.io/github/forks/maehr/typademic.svg)](https://github.com/maehr/typademic/network)
@@ -113,4 +114,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * [John MacFarlane](http://johnmacfarlane.net/)
 * [Sarah Simpkin, "Getting Started with Markdown," The Programming Historian 4 (2015)](https://programminghistorian.org/en/lessons/getting-started-with-markdown)
 * [Dennis Tenen and Grant Wythoff, "Sustainable Authorship in Plain Text using Pandoc and Markdown," The Programming Historian 3 (2014)](https://programminghistorian.org/en/lessons/sustainable-authorship-in-plain-text-using-pandoc-and-markdown)
-
