@@ -17,7 +17,7 @@ jobs:
           name: install python3
           command: |
             apt-get update
-            apt-get install -y python3-minimal
+            DEBIAN_FRONTEND=noninteractive apt-get install -y python3-minimal
 
       - restore_cache:
           keys:
@@ -40,7 +40,7 @@ jobs:
       - run:
           name: install pandoc & texlive
           command: |
-            apt-get install -y pandoc pandoc-citeproc texlive
+            DEBIAN_FRONTEND=noninteractive apt-get install -y pandoc pandoc-citeproc texlive
 
       # TODO write and run tests with https://pytest.org
       - run:
