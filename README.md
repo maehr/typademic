@@ -1,6 +1,6 @@
 # typademic
 
-Typademic turns distraction freely written markdown files into beatiful PDFs. Built with love, [Flask](http://flask.pocoo.org/), [Pandoc](http://pandoc.org/), [LaTeX](https://www.latex-project.org/), [Google Fonts](https://fonts.google.com/) and [Bulma.io](https://bulma.io/).
+Typademic turns distraction freely written markdown files into beautiful PDFs. Built with love, [Bulma.io](https://bulma.io/), [Flask](http://flask.pocoo.org/), [Google Fonts](https://fonts.google.com/), [Pandoc](http://pandoc.org/), and [LaTeX](https://www.latex-project.org/).
 
 [![CircleCI](https://circleci.com/gh/maehr/typademic.svg?style=svg&circle-token=f7ea42d593cc8107242a9ebd489b025c4c33328f)](https://circleci.com/gh/maehr/typademic)
 [![codecov](https://codecov.io/gh/maehr/typademic/branch/master/graph/badge.svg)](https://codecov.io/gh/maehr/typademic)
@@ -18,18 +18,30 @@ These instructions will get you a copy of the project up and running on your loc
 
 Install all this to use all functions of typademic.
 
-- [Python 3.6.6](https://www.python.org/downloads/release/python-366/)
-- [OpenSSL 1.0.2](https://www.openssl.org/source/)
+- [Google Fonts](https://github.com/google/fonts)
+- [LaTeX](https://www.latex-project.org/get/)
 - [Pandoc 2.2](http://pandoc.org/installing.html)
 - [Pandoc Citeproc](https://github.com/jgm/pandoc-citeproc)
-- [LaTeX](https://www.latex-project.org/get/)
-- [Google Fonts](https://github.com/google/fonts)
+- [Python 3.6](https://www.python.org/downloads/release/python-366/)
+- [OpenSSL 1.0.2](https://www.openssl.org/source/)
+
 
 #### Mac with [Homebrew](https://brew.sh/index_de)
 
 ```bash
 brew install python openssl pandoc pandoc-citeproc mactex
 curl https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
+```
+
+#### Ubuntu 18.04
+
+```bash
+sudo apt-get update -y
+sudo apt-get install -y texlive-full pandoc pandoc-citeproc
+
+https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
+
+pip install --upgrade pip
 ```
 
 #### Ubuntu 16.04
@@ -86,10 +98,10 @@ To further strengthen your deployment process you should:
 * [Bulma.io](https://bulma.io/)
 * [CircleCI](https://circleci.com)
 * [Docker CE](https://www.docker.com/community-edition)
-* [Flask](http://flask.pocoo.org/)
-* [Pandoc](http://pandoc.org/)
-* [LaTeX](https://www.latex-project.org/)
 * [Google Fonts](https://fonts.google.com/)
+* [Flask](http://flask.pocoo.org/)
+* [LaTeX](https://www.latex-project.org/)
+* [Pandoc](http://pandoc.org/)
 
 ## Contributing
 
