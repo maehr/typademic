@@ -6,12 +6,18 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.6.6
+      - image: ubuntu:18.04
 
     working_directory: ~/app
 
     steps:
       - checkout
+
+      - run:
+          name: install python3
+          command: |
+            sudo apt-get update
+            sudo apt-get install python3-minimal
 
       - restore_cache:
           keys:
@@ -34,7 +40,6 @@ jobs:
       - run:
           name: install pandoc & texlive
           command: |
-            sudo apt-get update
             sudo apt-get install pandoc pandoc-citeproc texlive
 
       # TODO write and run tests with https://pytest.org
@@ -50,7 +55,7 @@ jobs:
           destination: test-reports
   deploy:
     docker:
-      - image: circleci/python:3.6.6
+      - image: ubuntu:18.04
 
     working_directory: ~/app
 
