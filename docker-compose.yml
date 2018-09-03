@@ -9,9 +9,6 @@ services:
     # comment this line for production use
     build: .
 
-    expose:
-      - "8000"
-
     ports:
       - "443:8000"
 

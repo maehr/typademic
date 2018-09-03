@@ -1,11 +1,11 @@
-FROM circleci/python:3.6.6
+FROM ubuntu:18.04
 
 MAINTAINER Moritz Mähr "moritz.maehr@gmail.com"
 
 USER root
 
 RUN apt-get update -y
-RUN apt-get install -y texlive-full pandoc pandoc-citeproc
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-minimal python3-venv texlive-full pandoc pandoc-citeproc wget
 
 RUN wget https://github.com/google/fonts/archive/master.zip
 RUN unzip master.zip -d /usr/share/fonts
@@ -39,4 +39,3 @@ CMD ["app:app", \
     "--certfile=crt.pem", \
     "--keyfile=key.pem", \
     "--name=typademic"]
-
