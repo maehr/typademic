@@ -29,7 +29,7 @@ app.config.update(
     DROPZONE_MAX_FILE_SIZE=10,
     DROPZONE_MAX_FILES=30,
     DROPZONE_ENABLE_CSRF=True,
-    DROPZONE_DEFAULT_MESSAGE='<i class="fas fa-file-upload fa-2x"></i> Upload your text'
+    DROPZONE_DEFAULT_MESSAGE='<i class="fas fa-file-upload fa-2x"></i> Upload your files (Text, Images, Bibliography, Style etc.)'
 )
 
 dropzone = Dropzone(app)
