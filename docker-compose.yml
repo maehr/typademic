@@ -2,6 +2,7 @@ version: '2'
 
 services:
   typademic:
+    container_name: typademic
     # uncomment this line for production use
     # image: maehr/typademic:latest
 
