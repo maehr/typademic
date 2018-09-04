@@ -17,7 +17,7 @@ jobs:
           name: install python3
           command: |
             apt-get update
-            DEBIAN_FRONTEND=noninteractive apt-get install -y python3-minimal python3-venv
+            DEBIAN_FRONTEND=noninteractive apt-get install -y python3-minimal python3-venv python-pip
 
       - restore_cache:
           keys:
