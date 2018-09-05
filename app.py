@@ -84,13 +84,13 @@ def clear():
 @app.route('/docx', methods=['GET'])
 def docx():
     files = uploaded_files()
-    # Serve from cache
-    if os.path.exists(os.path.join(app.config['UPLOADED_PATH'], session['uid'], 'typademic.docx')):
-        return send_file(os.path.join(app.config['UPLOADED_PATH'], session['uid'], 'typademic.docx'),
-                             attachment_filename='typademic.docx')
     md_files = ''
     try:
         for file in files:
+            # Serve from cache
+            if file.endswith('typademic.docx'):
+                return send_file(os.path.join(app.config['UPLOADED_PATH'], session['uid'], 'typademic.docx'),
+                                 attachment_filename='typademic.docx')
             if file.endswith('.md'):
                 md_files = md_files + ' ' + file
         cwd = os.path.join(app.config['UPLOADED_PATH'], session['uid'])
@@ -115,13 +115,13 @@ def docx():
 @app.route('/pdf', methods=['GET'])
 def pdf():
     files = uploaded_files()
-    # Serve from cache
-    if os.path.exists(os.path.join(app.config['UPLOADED_PATH'], session['uid'], 'typademic.docx')):
-        return send_file(os.path.join(app.config['UPLOADED_PATH'], session['uid'], 'typademic.pdf'),
-                         attachment_filename='typademic.pdf')
     md_files = ''
     try:
         for file in files:
+            # Serve from cache
+            if file.endswith('typademic.pdf'):
+                return send_file(os.path.join(app.config['UPLOADED_PATH'], session['uid'], 'typademic.pdf'),
+                                 attachment_filename='typademic.pdf')
             if file.endswith('.md'):
                 md_files = md_files + ' ' + file
         cwd = os.path.join(app.config['UPLOADED_PATH'], session['uid'])
