@@ -25,11 +25,11 @@ app.config.update(
     UPLOADED_PATH=os.path.join(basedir, 'uploads'),
     # Flask-Dropzone config:
     DROPZONE_ALLOWED_FILE_CUSTOM=True,
-    DROPZONE_ALLOWED_FILE_TYPE='.md, .png, .jpg, .jpeg, .bib, .bibtex, .biblatex, .csl, .yaml, .yml, .json',
+    DROPZONE_ALLOWED_FILE_TYPE='.md, .png, .jpg, .jpeg, .bib, .bibtex, .biblatex, .csl, .yaml, .yml, .json, .tex',
     DROPZONE_MAX_FILE_SIZE=10,
     DROPZONE_MAX_FILES=30,
     DROPZONE_ENABLE_CSRF=True,
-    DROPZONE_DEFAULT_MESSAGE='<i class="fas fa-file-upload fa-2x"></i> Upload your text'
+    DROPZONE_DEFAULT_MESSAGE='<i class="fas fa-file-upload fa-2x"></i> Upload your files (Text, Images, Bibliography, Style etc.)'
 )
 
 dropzone = Dropzone(app)
@@ -87,9 +87,15 @@ def docx():
     md_files = ''
     try:
         for file in files:
+            # Serve from cache
+            if file.endswith('typademic.docx'):
+                return send_file(os.path.join(app.config['UPLOADED_PATH'], session['uid'], 'typademic.docx'),
+                                 attachment_filename='typademic.docx')
             if file.endswith('.md'):
                 md_files = md_files + ' ' + file
         cwd = os.path.join(app.config['UPLOADED_PATH'], session['uid'])
+        if md_files == '':
+            return render_template('index.html', google_analytics=google_analytics, files=files, error='No Markdown file was uploaded. Please reset and try again.')
         pandoc(md_files.strip(),
                '--output',
                'typademic.docx',
@@ -112,6 +118,10 @@ def pdf():
     md_files = ''
     try:
         for file in files:
+            # Serve from cache
+            if file.endswith('typademic.pdf'):
+                return send_file(os.path.join(app.config['UPLOADED_PATH'], session['uid'], 'typademic.pdf'),
+                                 attachment_filename='typademic.pdf')
             if file.endswith('.md'):
                 md_files = md_files + ' ' + file
         cwd = os.path.join(app.config['UPLOADED_PATH'], session['uid'])

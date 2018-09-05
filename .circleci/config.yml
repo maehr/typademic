@@ -6,12 +6,18 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.6.6
+      - image: ubuntu:18.04
 
     working_directory: ~/app
 
     steps:
       - checkout
+
+      - run:
+          name: install python3
+          command: |
+            apt-get update
+            DEBIAN_FRONTEND=noninteractive apt-get install -y python3-minimal python3-venv python-pip
 
       - restore_cache:
           keys:
@@ -24,6 +30,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            pip install --upgrade pip
             pip install -r requirements.txt
 
       - save_cache:
@@ -34,22 +41,22 @@ jobs:
       - run:
           name: install pandoc & texlive
           command: |
-            sudo apt-get update
-            sudo apt-get install pandoc pandoc-citeproc texlive
+            DEBIAN_FRONTEND=noninteractive apt-get install -y pandoc pandoc-citeproc texlive
 
       # TODO write and run tests with https://pytest.org
       - run:
           name: run tests
           command: |
             . venv/bin/activate
-      #      pytest
+      #      pytest --cov=./
+      #      codecov
 
       - store_artifacts:
           path: test-reports
           destination: test-reports
   deploy:
     docker:
-      - image: circleci/python:3.6.6
+      - image: ubuntu:18.04
 
     working_directory: ~/app
 
@@ -57,11 +64,10 @@ jobs:
       - checkout
 
       - setup_remote_docker
-      
+
       - run:
           name: Build and push Docker image
           command: |
-            cd app
             tag="$(echo $CIRCLE_TAG)"
             tag=${tag#"v"}
             docker build -t maehr/typademic:${tag} -t maehr/typademic:latest .
