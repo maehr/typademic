@@ -9,7 +9,7 @@
 import os
 import uuid
 
-from flask import Flask, session, render_template, request, send_file, redirect, url_for, send_from_directory
+from flask import Flask, session, render_template, request, send_file, redirect, url_for
 from flask_dropzone import Dropzone
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from sh import pandoc
@@ -20,7 +20,7 @@ google_analytics = os.getenv('GOOGLE_ANALYTICS', 'UA-XXXXXXXXX-X')
 app = Flask(__name__)
 
 app.config.update(
-    # Secret key used to generate CSRF token should not be set at random while in production. It breaks sessions.
+    # Secret key used to generate CSRF token should not be set at random in production. It breaks sessions.
     SECRET_KEY=os.getenv('SECRET_KEY', uuid.uuid4().hex),
     UPLOADED_PATH=os.path.join(basedir, 'uploads'),
     # Flask-Dropzone config:
@@ -74,31 +74,34 @@ def clear():
                 os.remove(os.path.join(root, name))
             for name in dirs:
                 os.remove(os.path.join(root, name))
-        # for f in os.path.join(app.config['UPLOADED_PATH'], session['uid']):
-        #     os.remove(f)
         return redirect(url_for('upload'))
     except Exception as e:
         return render_template('index.html', google_analytics=google_analytics, files=uploaded_files(), error=str(e))
 
 
-@app.route('/docx', methods=['GET'])
-def docx():
+@app.route('/<output_format>', methods=['GET'])
+def render(output_format):
+    if output_format not in ['docx', 'pdf']:
+        return redirect(url_for('upload'))
+    output_filename = 'typademic.'.join(output_format)
     files = uploaded_files()
-    md_files = ''
     try:
+        md_files = ''
         for file in files:
             # Serve from cache
-            if file.endswith('typademic.docx'):
-                return send_file(os.path.join(app.config['UPLOADED_PATH'], session['uid'], 'typademic.docx'),
-                                 attachment_filename='typademic.docx')
+            if file.endswith(output_filename):
+                return send_file(os.path.join(app.config['UPLOADED_PATH'], session['uid'], output_filename),
+                                 attachment_filename=output_filename)
+            # Extract md file(s)
             if file.endswith('.md'):
                 md_files = md_files + ' ' + file
+        if md_files is '':
+            return render_template('index.html', google_analytics=google_analytics, files=files,
+                                   error='No Markdown file was uploaded. Please reset and try again.')
         cwd = os.path.join(app.config['UPLOADED_PATH'], session['uid'])
-        if md_files == '':
-            return render_template('index.html', google_analytics=google_analytics, files=files, error='No Markdown file was uploaded. Please reset and try again.')
         pandoc(md_files.strip(),
                '--output',
-               'typademic.docx',
+               output_filename,
                '--from',
                'markdown+ascii_identifiers+tex_math_single_backslash+raw_tex+table_captions+yaml_metadata_block+autolink_bare_uris',
                '--latex-engine=xelatex',
@@ -106,39 +109,8 @@ def docx():
                'pandoc-citeproc',
                '--standalone',
                _cwd=cwd)
-        return send_file(os.path.join(app.config['UPLOADED_PATH'], session['uid'], 'typademic.docx'),
-                         attachment_filename='typademic.docx')
-    except Exception as e:
-        return render_template('index.html', google_analytics=google_analytics, files=files, error=str(e))
-
-
-@app.route('/pdf', methods=['GET'])
-def pdf():
-    files = uploaded_files()
-    md_files = ''
-    try:
-        for file in files:
-            # Serve from cache
-            if file.endswith('typademic.pdf'):
-                return send_file(os.path.join(app.config['UPLOADED_PATH'], session['uid'], 'typademic.pdf'),
-                                 attachment_filename='typademic.pdf')
-            if file.endswith('.md'):
-                md_files = md_files + ' ' + file
-        cwd = os.path.join(app.config['UPLOADED_PATH'], session['uid'])
-        if md_files == '':
-            return render_template('index.html', google_analytics=google_analytics, files=files, error='No Markdown file was uploaded. Please reset and try again.')
-        pandoc(md_files.strip(),
-               '--output',
-               'typademic.pdf',
-               '--from',
-               'markdown+ascii_identifiers+tex_math_single_backslash+raw_tex+table_captions+yaml_metadata_block+autolink_bare_uris',
-               '--latex-engine=xelatex',
-               '--filter',
-               'pandoc-citeproc',
-               '--standalone',
-               _cwd=cwd)
-        return send_file(os.path.join(app.config['UPLOADED_PATH'], session['uid'], 'typademic.pdf'),
-                         attachment_filename='typademic.pdf')
+        return send_file(os.path.join(app.config['UPLOADED_PATH'], session['uid'], output_filename),
+                         attachment_filename=output_filename)
     except Exception as e:
         return render_template('index.html', google_analytics=google_analytics, files=files, error=str(e))
 
