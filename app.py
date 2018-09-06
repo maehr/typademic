@@ -122,4 +122,4 @@ def csrf_error(e):
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host=os.getenv('HOST', '0.0.0.0'), port=5000)
+    app.run(debug=True, host=os.getenv('HOST', '0.0.0.0'), port=5000)
