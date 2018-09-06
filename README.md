@@ -1,6 +1,6 @@
 # typademic
 
-Typademic turns distraction freely written markdown files into beautiful PDFs. Built with love, [Bulma.io](https://bulma.io/), [Flask](http://flask.pocoo.org/), [Google Fonts](https://fonts.google.com/), [Pandoc](http://pandoc.org/), and [LaTeX](https://www.latex-project.org/).
+Typademic turns distraction freely written markdown files into beautiful PDFs. Built with love, [Google Fonts](https://fonts.google.com/), [Pandoc](http://pandoc.org/), and [LaTeX](https://www.latex-project.org/).
 
 [![CircleCI](https://circleci.com/gh/maehr/typademic.svg?style=svg&circle-token=f7ea42d593cc8107242a9ebd489b025c4c33328f)](https://circleci.com/gh/maehr/typademic)
 [![codecov](https://codecov.io/gh/maehr/typademic/branch/master/graph/badge.svg)](https://codecov.io/gh/maehr/typademic)
@@ -29,7 +29,7 @@ Install all this to use all functions of typademic.
 #### Mac with [Homebrew](https://brew.sh/index_de)
 
 ```bash
-brew install python openssl pandoc pandoc-citeproc mactex
+brew install python openssl pandoc pandoc-citeproc mactex curl
 curl https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
 ```
 
@@ -37,9 +37,9 @@ curl https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | 
 
 ```bash
 sudo apt-get update -y
-sudo apt-get install -y texlive-full pandoc pandoc-citeproc
+sudo apt-get install -y texlive-full pandoc pandoc-citeproc curl
 
-https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
+curl https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
 
 pip install --upgrade pip
 ```
@@ -49,9 +49,9 @@ pip install --upgrade pip
 ```bash
 sudo add-apt-repository ppa:jonathonf/python-3.6
 sudo apt-get update -y
-sudo apt-get install -y python3.6 texlive-full pandoc pandoc-citeproc
+sudo apt-get install -y python3.6 texlive-full pandoc pandoc-citeproc curl
 
-https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
+curl https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
 
 pip install --upgrade pip
 ```
@@ -60,9 +60,7 @@ pip install --upgrade pip
 
 ```bash
 virtualenv venv
-cd venv
-source bin/activate
-cd ..
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -78,9 +76,11 @@ python app.py
 python pytest
 ```
 
-## Deployment
+## Deployment (BEGINNER)
 
-Install [Docker CE](https://www.docker.com/community-edition).
+1. Install [Docker CE](https://www.docker.com/community-edition).
+
+2. Export your secrets and start typademic.
 
 ```bash
 export GOOGLE_ANALYTICS=UA-YOURGOOGLECODE
@@ -88,20 +88,47 @@ export SECRET_KEY=SOMESECRETKEY
 docker-compose up
 ```
 
-To further strengthen your deployment process you should:
+## Deployment (ADVANCED)
 
-- copy `key.pem` and `cert.pem` to the root to add a valid ssl certificate
-- create a `secrets.env` for your env vars
+1. Add your custom SSL certificates (`key.pem` and `crt.pem`) to the root directory. Otherwise private certificates will be issued.
+
+2. Create a `secrets.env` and add your env vars.
+
+```bash
+cp secrets.example.env secrets.env
+nano secrets.env
+```
+
+3. Change `docker-compose.yml` accordingly.
+
+```yaml
+# uncomment this line for production use
+# env_file: ./secrets.env
+
+# comment this line for production use
+environment:
+  - GOOGLE_ANALYTICS=${GOOGLE_ANALYTICS}
+  - SECRET_KEY=${SECRET_KEY}
+```
+
+4. Start typademic.
+
+```bash
+docker-compose up
+```
 
 ## Built With
 
 * [Bulma.io](https://bulma.io/)
-* [CircleCI](https://circleci.com)
+* [CircleCI](https://circleci.com/)
 * [Docker CE](https://www.docker.com/community-edition)
-* [Google Fonts](https://fonts.google.com/)
 * [Flask](http://flask.pocoo.org/)
+* [Flask-Dropzone](https://github.com/greyli/flask-dropzone)
+* [Flask-WTF](https://flask-wtf.readthedocs.io/)
+* [Google Fonts](https://fonts.google.com/)
 * [LaTeX](https://www.latex-project.org/)
 * [Pandoc](http://pandoc.org/)
+* [Web-Font-Loader](https://github.com/qrpike/Web-Font-Load)
 
 ## Contributing
 
