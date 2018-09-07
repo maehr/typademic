@@ -80,13 +80,21 @@ python pytest
 
 1. Install [Docker CE](https://www.docker.com/community-edition).
 
-2. Export your secrets and start typademic.
+2. Export your secrets and start the latest [typademic docker image](https://hub.docker.com/r/maehr/typademic/).
 
 ```bash
 export GOOGLE_ANALYTICS=UA-YOURGOOGLECODE
 export SECRET_KEY=SOMESECRETKEY
-docker-compose up
+docker run --name typademic \
+    -p 443:8000 \
+    -e "GOOGLE_ANALYTICS=${GOOGLE_ANALYTICS}" \
+    -e "SECRET_KEY=${SECRET_KEY}" \
+    -v "/home/web/uploads" \
+    -v "/home/web/logs" \
+    maehr/typademic:latest
 ```
+
+3. Go to https://localhost/ (If you did not add valid SSL certificates, ignore the error message.)
 
 ## Deployment (ADVANCED)
 
@@ -111,7 +119,7 @@ environment:
   - SECRET_KEY=${SECRET_KEY}
 ```
 
-4. Start typademic.
+4. Start typademic and go to https://localhost/
 
 ```bash
 docker-compose up

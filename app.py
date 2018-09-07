@@ -15,7 +15,6 @@ from flask_wtf.csrf import CSRFProtect, CSRFError
 from sh import pandoc
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-google_analytics = os.getenv('GOOGLE_ANALYTICS', 'UA-XXXXXXXXX-X')
 
 app = Flask(__name__)
 
@@ -29,7 +28,8 @@ app.config.update(
     DROPZONE_MAX_FILE_SIZE=10,
     DROPZONE_MAX_FILES=30,
     DROPZONE_ENABLE_CSRF=True,
-    DROPZONE_DEFAULT_MESSAGE='<i class="fas fa-file-upload fa-2x"></i> Upload your files (Text, Images, Bibliography, Style etc.)'
+    DROPZONE_DEFAULT_MESSAGE='<i class="fas fa-file-upload fa-2x"></i> Upload your files (Text, Images, Bibliography, Style etc.)',
+    GOOGLE_ANALYTICS=os.getenv('GOOGLE_ANALYTICS', 'UA-XXXXXXXXX-X')
 )
 
 dropzone = Dropzone(app)
@@ -63,7 +63,7 @@ def upload():
         f.save(os.path.join(app.config['UPLOADED_PATH'], session['uid'], f.filename))
     files = uploaded_files()
 
-    return render_template('index.html', google_analytics=google_analytics, files=files, error=error)
+    return render_template('index.html', files=files, error=error)
 
 
 @app.route('/clear', methods=['GET'])
@@ -76,7 +76,7 @@ def clear():
                 os.remove(os.path.join(root, name))
         return redirect(url_for('upload'))
     except Exception as e:
-        return render_template('index.html', google_analytics=google_analytics, files=uploaded_files(), error=str(e))
+        return render_template('index.html', files=uploaded_files(), error=str(e))
 
 
 @app.route('/<output_format>', methods=['GET'])
@@ -96,7 +96,7 @@ def render(output_format):
             if file.endswith('.md'):
                 md_files = md_files + ' ' + file
         if md_files is '':
-            return render_template('index.html', google_analytics=google_analytics, files=files,
+            return render_template('index.html', files=files,
                                    error='No Markdown file was uploaded. Please reset and try again.')
         cwd = os.path.join(app.config['UPLOADED_PATH'], session['uid'])
         pandoc(md_files.strip(),
@@ -114,7 +114,7 @@ def render(output_format):
         return send_file(os.path.join(app.config['UPLOADED_PATH'], session['uid'], output_filename),
                          attachment_filename=output_filename)
     except Exception as e:
-        return render_template('index.html', google_analytics=google_analytics, files=files, error=str(e))
+        return render_template('index.html', files=files, error=str(e))
 
 
 # handle CSRF error
