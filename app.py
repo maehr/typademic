@@ -83,7 +83,7 @@ def clear():
 def render(output_format):
     if output_format not in ['docx', 'pdf']:
         return redirect(url_for('upload'))
-    output_filename = 'typademic.'.join(output_format)
+    output_filename = 'typademic.' + output_format
     files = uploaded_files()
     try:
         md_files = ''
@@ -105,6 +105,8 @@ def render(output_format):
                '--from',
                'markdown+ascii_identifiers+tex_math_single_backslash+raw_tex+table_captions+yaml_metadata_block+autolink_bare_uris',
                '--latex-engine=xelatex',
+               # Pandoc 2.2.3 fix
+               # '--pdf-engine=xelatex',
                '--filter',
                'pandoc-citeproc',
                '--standalone',
