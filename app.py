@@ -39,6 +39,9 @@ csrf = CSRFProtect(app)
 def clean_old_files():
     # TODO implement cleaning "worker"
     return None
+@app.errorhandler(404)
+def error_404(error):
+    return render_template("404.html"), 404
 
 
 def uploaded_files():
