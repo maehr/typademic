@@ -11,6 +11,8 @@ import uuid
 
 from flask import Flask, session, render_template, request, send_file, redirect, url_for
 from flask_dropzone import Dropzone
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from sh import pandoc
 
@@ -34,11 +36,13 @@ app.config.update(
 
 dropzone = Dropzone(app)
 csrf = CSRFProtect(app)
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+    default_limits=["500 per day", "50 per hour"]
+)
 
 
-def clean_old_files():
-    # TODO implement cleaning "worker"
-    return None
 @app.errorhandler(404)
 def error_404(error):
     return render_template("404.html"), 404
@@ -53,7 +57,6 @@ def uploaded_files():
 
 @app.route('/', methods=['POST', 'GET'])
 def upload():
-    clean_old_files()
     error = ''
     if 'uid' not in session:
         uid = uuid.uuid4().hex
@@ -70,6 +73,7 @@ def upload():
 
 
 @app.route('/clear', methods=['GET'])
+@limiter.limit("1 per day")
 def clear():
     try:
         for root, dirs, files in os.walk(os.path.join(app.config['UPLOADED_PATH'], session['uid']), topdown=False):
@@ -82,7 +86,23 @@ def clear():
         return render_template('index.html', files=uploaded_files(), error=str(e))
 
 
-@app.route('/<output_format>', methods=['GET'])
+@app.route('/clear_all/<key>', methods=['GET'])
+def clear_all(key):
+    if key is app.config['SECRET_KEY']:
+        try:
+            for root, dirs, files in os.walk(os.path.abspath(app.config['UPLOADED_PATH']), topdown=False):
+                for name in files:
+                    os.remove(os.path.join(root, name))
+                for name in dirs:
+                    os.remove(os.path.join(root, name))
+            return redirect(url_for('upload'))
+        except Exception as e:
+            return render_template('index.html', files=uploaded_files(), error=str(e))
+    else:
+        return redirect(url_for('upload'))
+
+
+@app.route('/render/<output_format>', methods=['GET'])
 def render(output_format):
     if output_format not in ['docx', 'pdf']:
         return redirect(url_for('upload'))
