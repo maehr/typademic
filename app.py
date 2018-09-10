@@ -47,6 +47,10 @@ limiter = Limiter(
 def error_404(error):
     return render_template("404.html"), 404
 
+@app.errorhandler(500)
+def error_404(error):
+    return render_template("404.html"), 500
+
 
 def uploaded_files():
     try:
@@ -73,7 +77,6 @@ def upload():
 
 
 @app.route('/clear', methods=['GET'])
-@limiter.limit("1 per day")
 def clear():
     try:
         for root, dirs, files in os.walk(os.path.join(app.config['UPLOADED_PATH'], session['uid']), topdown=False):
