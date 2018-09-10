@@ -90,6 +90,7 @@ def clear():
 
 
 @app.route('/clear_all/<key>', methods=['GET'])
+@limiter.limit("1 per day")
 def clear_all(key):
     if key is app.config['SECRET_KEY']:
         try:
