@@ -29,17 +29,17 @@ Install all this to use all functions of typademic.
 #### Mac with [Homebrew](https://brew.sh/index_de)
 
 ```bash
-brew install python openssl pandoc pandoc-citeproc mactex curl
-curl https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
+brew install python openssl pandoc pandoc-citeproc mactex wget
+wget https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
 ```
 
 #### Ubuntu 18.04
 
 ```bash
 sudo apt-get update -y
-sudo apt-get install -y texlive-full pandoc pandoc-citeproc curl
+sudo apt-get install -y texlive-full pandoc pandoc-citeproc wget
 
-curl https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
+wget https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
 
 pip install --upgrade pip
 ```
@@ -49,9 +49,9 @@ pip install --upgrade pip
 ```bash
 sudo add-apt-repository ppa:jonathonf/python-3.6
 sudo apt-get update -y
-sudo apt-get install -y python3.6 texlive-full pandoc pandoc-citeproc curl
+sudo apt-get install -y python3.6 texlive-full pandoc pandoc-citeproc wget
 
-curl https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
+wget https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
 
 pip install --upgrade pip
 ```

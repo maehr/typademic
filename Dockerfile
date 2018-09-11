@@ -5,7 +5,7 @@ MAINTAINER Moritz Mähr "moritz.maehr@gmail.com"
 USER root
 
 RUN apt-get update -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-minimal python3-venv python-pip texlive-full pandoc pandoc-citeproc wget
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-minimal python3-pip texlive-full pandoc pandoc-citeproc wget
 
 RUN wget https://github.com/google/fonts/archive/master.zip
 RUN unzip master.zip -d /usr/share/fonts
@@ -13,9 +13,9 @@ RUN rm master.zip
 RUN fc-cache -fv
 
 COPY requirements.txt /opt/app/requirements.txt
-RUN pip install --upgrade pip
-RUN pip install -r /opt/app/requirements.txt
-RUN pip install gunicorn
+RUN pip3 install --upgrade pip
+RUN pip3 install -r /opt/app/requirements.txt
+RUN pip3 install gunicorn
 
 RUN useradd -ms /bin/bash web
 
