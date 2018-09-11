@@ -13,9 +13,9 @@ RUN rm master.zip
 RUN fc-cache -fv
 
 COPY requirements.txt /opt/app/requirements.txt
-RUN pip install --upgrade pip
-RUN pip install -r /opt/app/requirements.txt
-RUN pip install gunicorn
+RUN pip3 install --upgrade pip
+RUN pip3 install -r /opt/app/requirements.txt
+RUN pip3 install gunicorn
 
 RUN useradd -ms /bin/bash web
 
