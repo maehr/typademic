@@ -5,7 +5,7 @@ MAINTAINER Moritz Mähr "moritz.maehr@gmail.com"
 USER root
 
 RUN apt-get update -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-minimal python3-venv python3-pip texlive-full pandoc pandoc-citeproc wget
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-minimal python3-pip texlive-full pandoc pandoc-citeproc wget
 
 RUN wget https://github.com/google/fonts/archive/master.zip
 RUN unzip master.zip -d /usr/share/fonts

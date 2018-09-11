@@ -1,6 +1,8 @@
-codecov==2.0.15
-Flask==1.0.2
-Flask-Dropzone==1.5.3
-Flask-Limiter==1.0.1
-Flask-WTF==0.14.2
-pytest==3.8.0
+codecov
+Flask
+Flask-Dropzone
+Flask-WTF
+Flask-Limiter
+Flask-WTF
+pytest
+sh
