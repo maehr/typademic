@@ -47,9 +47,10 @@ limiter = Limiter(
 def error_404(error):
     return render_template("404.html"), 404
 
+
 @app.errorhandler(500)
 def error_404(error):
-    return render_template("404.html"), 500
+    return render_template("500.html"), 500
 
 
 def uploaded_files():
