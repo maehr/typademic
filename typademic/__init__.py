@@ -1,12 +1,11 @@
 import os
 import uuid
 
-from flask import Flask, session, render_template, request, send_file, redirect, url_for
+from flask import Flask
 from flask_dropzone import Dropzone
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_wtf.csrf import CSRFProtect
-from sh import pandoc
 
 dropzone = Dropzone()
 csrf = CSRFProtect()
@@ -50,104 +49,10 @@ def create_app(test_config=None):
     csrf.init_app(app)
     limiter.init_app(app)
 
-    from typademic.errors import bp as errors_bp
+    from typademic.errors import blueprint as errors_bp
     app.register_blueprint(errors_bp)
 
-    from typademic.uploads import bp as uploads_bp
+    from typademic.uploads import blueprint as uploads_bp
     app.register_blueprint(uploads_bp)
-
-
-    def uploaded_files():
-        try:
-            return os.listdir(os.path.join(app.config['UPLOADED_PATH'], session['uid']))
-        except Exception:
-            return []
-
-    @app.route('/', methods=['POST', 'GET'])
-    def upload():
-        if 'uid' not in session:
-            try:
-                uid = uuid.uuid4().hex
-                session['uid'] = uid
-                session_upload_path = os.path.join(app.config['UPLOADED_PATH'], uid)
-                # ensure the upload folder exists
-                os.mkdir(session_upload_path)
-            except Exception as e:
-                return render_template('index.html', files=uploaded_files(), error=str(e))
-
-        if request.method == 'POST':
-            try:
-                f = request.files.get('file')
-                f.save(os.path.join(app.config['UPLOADED_PATH'], session['uid'], f.filename))
-            except Exception as e:
-                return render_template('index.html', files=uploaded_files(), error=str(e))
-
-        return render_template('index.html', files=uploaded_files(), error='')
-
-    @app.route('/clear', methods=['GET'])
-    def clear():
-        try:
-            for root, dirs, files in os.walk(os.path.join(app.config['UPLOADED_PATH'], session['uid']), topdown=False):
-                for name in files:
-                    os.remove(os.path.join(root, name))
-                for name in dirs:
-                    os.remove(os.path.join(root, name))
-            return redirect(url_for('upload'))
-        except Exception as e:
-            return render_template('index.html', files=uploaded_files(), error=str(e))
-
-    @app.route('/clear_all/<key>', methods=['GET'])
-    @limiter.limit("1 per day")
-    def clear_all(key):
-        if key is app.config['SECRET_KEY']:
-            try:
-                for root, dirs, files in os.walk(os.path.abspath(app.config['UPLOADED_PATH']), topdown=False):
-                    for name in files:
-                        os.remove(os.path.join(root, name))
-                    for name in dirs:
-                        os.remove(os.path.join(root, name))
-                return render_template('index.html', files=uploaded_files(),
-                                       error='All files are successfully removed.')
-            except Exception as e:
-                return render_template('index.html', files=uploaded_files(), error=str(e))
-        else:
-            return redirect(url_for('upload'))
-
-    @app.route('/render/<output_format>', methods=['GET'])
-    def render(output_format):
-        if output_format not in ['docx', 'pdf']:
-            return redirect(url_for('upload'))
-        output_filename = 'typademic.' + output_format
-        files = uploaded_files()
-        try:
-            md_files = ''
-            for file in files:
-                # Serve from cache
-                if file.endswith(output_filename):
-                    return send_file(os.path.join(app.config['UPLOADED_PATH'], session['uid'], output_filename),
-                                     attachment_filename=output_filename)
-                # Extract md file(s)
-                if file.endswith('.md'):
-                    md_files = md_files + ' ' + file
-            if md_files is '':
-                return render_template('index.html', files=files,
-                                       error='No Markdown file was uploaded. Please reset and try again.')
-            cwd = os.path.join(app.config['UPLOADED_PATH'], session['uid'])
-            pandoc(md_files.strip(),
-                   '--output',
-                   output_filename,
-                   '--from',
-                   'markdown+ascii_identifiers+tex_math_single_backslash+raw_tex+table_captions+yaml_metadata_block+autolink_bare_uris',
-                   '--latex-engine=xelatex',
-                   # Pandoc 2.2.3 fix
-                   # '--pdf-engine=xelatex',
-                   '--filter',
-                   'pandoc-citeproc',
-                   '--standalone',
-                   _cwd=cwd)
-            return send_file(os.path.join(app.config['UPLOADED_PATH'], session['uid'], output_filename),
-                             attachment_filename=output_filename)
-        except Exception as e:
-            return render_template('index.html', files=files, error=str(e))
 
     return app
