@@ -5,7 +5,7 @@ from flask import Flask, session, render_template, request, send_file, redirect,
 from flask_dropzone import Dropzone
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-from flask_wtf.csrf import CSRFProtect, CSRFError
+from flask_wtf.csrf import CSRFProtect
 from sh import pandoc
 
 dropzone = Dropzone()
@@ -50,18 +50,12 @@ def create_app(test_config=None):
     csrf.init_app(app)
     limiter.init_app(app)
 
-    # handle CSRF error
-    @app.errorhandler(CSRFError)
-    def csrf_error(e):
-        return e.description, 400
+    from typademic.errors import bp as errors_bp
+    app.register_blueprint(errors_bp)
 
-    @app.errorhandler(404)
-    def error_404(error):
-        return render_template("errors/404.html"), 404
+    from typademic.uploads import bp as uploads_bp
+    app.register_blueprint(uploads_bp)
 
-    @app.errorhandler(500)
-    def error_404(error):
-        return render_template("errors/500.html"), 500
 
     def uploaded_files():
         try:
