@@ -1,5 +1,3 @@
-# TODO remove logger
-import logging
 import os
 import uuid
 
@@ -9,9 +7,6 @@ from sh import pandoc
 from typademic import limiter
 from typademic.uploads import blueprint
 
-# TODO remove logger
-log = logging.getLogger('typademic')
-
 
 def uploaded_files():
     try:
@@ -20,46 +15,46 @@ def uploaded_files():
         return []
 
 
-@blueprint.route('/')
-@blueprint.route('/index')
-def index():
-    if 'uid' not in session:
-        return render_template('index.html',
-                               files=None,
-                               error='')
-    else:
-        return render_template('index.html',
-                               files=uploaded_files(),
-                               error='')
+# @blueprint.route('/')
+# @blueprint.route('/index')
+# def index():
+#     if 'uid' not in session:
+#         return render_template('index.html',
+#                                files=None,
+#                                error='')
+#     else:
+#         return render_template('index.html',
+#                                files=uploaded_files(),
+#                                error='')
 
 
-@blueprint.route('/upload', methods=['POST'])
+@blueprint.route('/', methods=['GET', 'POST'])
 def upload():
     if 'uid' not in session:
+        uid = uuid.uuid4().hex
+        session['uid'] = uid
+        session_upload_path = os.path.join(current_app.config['UPLOADED_PATH'], uid)
         try:
-            uid = uuid.uuid4().hex
-            session['uid'] = uid
-            session_upload_path = os.path.join(current_app.config['UPLOADED_PATH'], uid)
             # ensure the upload folder exists
             os.mkdir(session_upload_path)
         except Exception as e:
             return render_template('index.html',
                                    files=uploaded_files(),
                                    error=str(e))
-
-    try:
-        # TODO remove logger
-        log.info(request.form)
-        log.info(request.files)
-        f = request.files.get('file')
-        f.save(os.path.join(current_app.config['UPLOADED_PATH'], session['uid'], f.filename))
-        return render_template('index.html',
-                               files=uploaded_files(),
-                               error='')
-    except Exception as e:
-        return render_template('index.html',
-                               files=uploaded_files(),
-                               error=str(e))
+    if request.method == 'POST':
+        try:
+            f = request.files.get('file')
+            f.save(os.path.join(current_app.config['UPLOADED_PATH'], session['uid'], f.filename))
+            return render_template('index.html',
+                                   files=uploaded_files(),
+                                   error='')
+        except Exception as e:
+            return render_template('index.html',
+                                   files=uploaded_files(),
+                                   error=str(e))
+    return render_template('index.html',
+                           files=uploaded_files(),
+                           error='')
 
 
 @blueprint.route('/clear', methods=['GET'])
@@ -110,7 +105,7 @@ def render(output_format):
         for file in files:
             # Serve from cache
             if file.endswith(output_filename):
-                return send_file(os.path.join(app.config['UPLOADED_PATH'], session['uid'], output_filename),
+                return send_file(os.path.join(current_app.config['UPLOADED_PATH'], session['uid'], output_filename),
                                  attachment_filename=output_filename)
             # Extract md file(s)
             if file.endswith('.md'):
@@ -119,7 +114,7 @@ def render(output_format):
             return render_template('index.html',
                                    files=files,
                                    error='No Markdown file was uploaded. Please reset and try again.')
-        cwd = os.path.join(app.config['UPLOADED_PATH'], session['uid'])
+        cwd = os.path.join(current_app.config['UPLOADED_PATH'], session['uid'])
         pandoc(md_files.strip(),
                '--output',
                output_filename,
@@ -132,7 +127,7 @@ def render(output_format):
                'pandoc-citeproc',
                '--standalone',
                _cwd=cwd)
-        return send_file(os.path.join(app.config['UPLOADED_PATH'], session['uid'], output_filename),
+        return send_file(os.path.join(current_app.config['UPLOADED_PATH'], session['uid'], output_filename),
                          attachment_filename=output_filename)
     except Exception as e:
         return render_template('index.html',
