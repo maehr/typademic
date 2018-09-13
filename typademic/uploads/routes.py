@@ -91,7 +91,7 @@ def pdf():
         return redirect(url_for('uploads.index'))
     else:
         session_path = os.path.join(current_app.config['UPLOADED_PATH'], session['uid'])
-        return render(session_path=session_path, outputformat=pdf)
+        return render(session_path=session_path, output_format='pdf')
 
 
 @blueprint.route('/docx', methods=['GET'])
@@ -100,10 +100,10 @@ def docx():
         return redirect(url_for('uploads.index'))
     else:
         session_path = os.path.join(current_app.config['UPLOADED_PATH'], session['uid'])
-        return render(session_path=session_path, outputformat=docx)
+        return render(session_path=session_path, output_format='docx')
 
 
-def render(session_path, output_format):
+def render(session_path, output_format='pdf'):
     files = os.listdir(session_path)
     output_filename = 'typademic.' + output_format
     try:
