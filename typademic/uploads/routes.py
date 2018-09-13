@@ -12,20 +12,7 @@ def uploaded_files():
     try:
         return os.listdir(os.path.join(current_app.config['UPLOADED_PATH'], session['uid']))
     except Exception:
-        return []
-
-
-# @blueprint.route('/')
-# @blueprint.route('/index')
-# def index():
-#     if 'uid' not in session:
-#         return render_template('index.html',
-#                                files=None,
-#                                error='')
-#     else:
-#         return render_template('index.html',
-#                                files=uploaded_files(),
-#                                error='')
+        return None
 
 
 @blueprint.route('/', methods=['GET', 'POST'])
@@ -41,7 +28,7 @@ def upload():
             return render_template('index.html',
                                    files=uploaded_files(),
                                    error=str(e))
-    if request.method == 'POST':
+    if request.method is 'POST':
         try:
             f = request.files.get('file')
             f.save(os.path.join(current_app.config['UPLOADED_PATH'], session['uid'], f.filename))
@@ -60,12 +47,7 @@ def upload():
 @blueprint.route('/clear', methods=['GET'])
 def clear():
     try:
-        for root, dirs, files in os.walk(os.path.join(current_app.config['UPLOADED_PATH'], session['uid']),
-                                         topdown=False):
-            for name in files:
-                os.remove(os.path.join(root, name))
-            for name in dirs:
-                os.remove(os.path.join(root, name))
+        remove_all_recursively(os.path.join(current_app.config['UPLOADED_PATH'], session['uid'])
         return redirect(url_for('upload'))
     except Exception as e:
         return render_template('index.html',
@@ -78,11 +60,7 @@ def clear():
 def clear_all(key):
     if key is current_app.config['SECRET_KEY']:
         try:
-            for root, dirs, files in os.walk(os.path.abspath(current_app.config['UPLOADED_PATH']), topdown=False):
-                for name in files:
-                    os.remove(os.path.join(root, name))
-                for name in dirs:
-                    os.remove(os.path.join(root, name))
+            remove_all_recursively(os.path.abspath(current_app.config['UPLOADED_PATH']))
             return render_template('index.html',
                                    files=uploaded_files(),
                                    error='All files are successfully removed.')
@@ -92,6 +70,18 @@ def clear_all(key):
                                    error=str(e))
     else:
         return redirect(url_for('upload'))
+
+
+def remove_all_recursively(path):
+    try:
+        for root, dirs, files in os.walk(path, topdown=False):
+            for name in files:
+                os.remove(os.path.join(root, name))
+            for name in dirs:
+                os.remove(os.path.join(root, name))
+        return None
+    except Exception as e:
+        return e
 
 
 @blueprint.route('/render/<output_format>', methods=['GET'])

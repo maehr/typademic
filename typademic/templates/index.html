@@ -30,7 +30,7 @@
                         <p class="circle">4</p>
                         <div class="field has-addons">
                             <p class="control">
-                                <a class="button" href="/render/pdf" target="_blank">
+                                <a class="button" href="/render/pdf">
       <span class="icon is-small">
         <i class="fas fa-file-pdf"></i>
       </span>
@@ -38,7 +38,7 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <a class="button" href="/render/docx" target="_blank">
+                                <a class="button" href="/render/docx">
       <span class="icon is-small">
         <i class="fas fa-file-word"></i>
       </span>
@@ -60,18 +60,20 @@
         </div>
         <div class="container">
             {% if files %}
-                <div class="notification">
-                    <p>Uploaded files</p>
+                <div class="notification is-success">
+                    <h3 class="title is-3">uploads</h3>
+                    <div class="tags">
                     {% for file in files %}
-                        <p>{{ file }}</p>
+                        <span class="tag is-medium">{{ file }}</span>
                     {% endfor %}
+                    </div>
                 </div>
             {% endif %}
 
             {% if error %}
                 <div class="notification is-danger">
-                    <p>Error</p>
-                    {{ error }}
+                    <h3 class="title is-3">error message</h3>
+                    <p><i class="far fa-times"></i> {{ error }}</p>
                 </div>
             {% endif %}
         </div>
