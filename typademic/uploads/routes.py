@@ -8,12 +8,13 @@ from typademic.app import limiter
 from typademic.uploads import blueprint
 from typademic.utils import remove_all_files_recursively
 
+
 @blueprint.route('/', methods=['GET'])
 def index():
     if 'uid' not in session:
         return render_template('index.html',
-                                   files=None,
-                                   error='')
+                               files=None,
+                               error='')
     else:
         session_path = os.path.join(current_app.config['UPLOADED_PATH'], session['uid'])
         files = os.listdir(session_path)
@@ -47,7 +48,7 @@ def upload():
     except Exception as e:
         files = os.listdir(session_path)
         return render_template('index.html',
-                                files=files,
+                               files=files,
                                error=str(e))
 
 
@@ -84,11 +85,25 @@ def clear_all(key):
         return redirect(url_for('uploads.index'))
 
 
-@blueprint.route('/render/<output_format>', methods=['GET'])
-def render(output_format):
-    if output_format not in ['docx', 'pdf'] or 'uid' not in session:
+@blueprint.route('/pdf', methods=['GET'])
+def pdf():
+    if 'uid' not in session:
         return redirect(url_for('uploads.index'))
-    session_path = os.path.join(current_app.config['UPLOADED_PATH'], session['uid'])
+    else:
+        session_path = os.path.join(current_app.config['UPLOADED_PATH'], session['uid'])
+        return render(session_path=session_path, outputformat=pdf)
+
+
+@blueprint.route('/docx', methods=['GET'])
+def docx():
+    if 'uid' not in session:
+        return redirect(url_for('uploads.index'))
+    else:
+        session_path = os.path.join(current_app.config['UPLOADED_PATH'], session['uid'])
+        return render(session_path=session_path, outputformat=docx)
+
+
+def render(session_path, output_format):
     files = os.listdir(session_path)
     output_filename = 'typademic.' + output_format
     try:
