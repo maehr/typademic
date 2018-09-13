@@ -1,6 +1,5 @@
 import os
 import uuid
-# -*- coding: utf-8 -*-
 
 from flask import Flask
 from flask_dropzone import Dropzone
@@ -15,6 +14,7 @@ limiter = Limiter(
     default_limits=["500 per day", "50 per hour"]
 )
 
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
@@ -25,6 +25,8 @@ def create_app(test_config=None):
         # Flask-Dropzone config:
         DROPZONE_ALLOWED_FILE_CUSTOM=True,
         DROPZONE_ALLOWED_FILE_TYPE='.md, .png, .jpg, .jpeg, .bib, .bibtex, .biblatex, .csl, .yaml, .yml, .json, .tex',
+        aDROPZONE_UPLOAD_MULTIPLE=True,  # enable parallel upload
+        DROPZONE_PARALLEL_UPLOADS=1,  # handle 3 file per request
         DROPZONE_MAX_FILE_SIZE=10,
         DROPZONE_MAX_FILES=30,
         DROPZONE_ENABLE_CSRF=True,
@@ -43,7 +45,7 @@ def create_app(test_config=None):
     # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
-        # TODO add upload folder
+        os.makedirs(app.config['UPLOADED_PATH'])
     except OSError:
         pass
 
