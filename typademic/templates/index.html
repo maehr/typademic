@@ -7,14 +7,19 @@
                 <div class="tile">
                     <div class="content">
                         <p class="circle">1</p>
-                        <i class="fas fa-file-download fa-2x"></i> Get the <a href="https://github.com/maehr/academic-pandoc-template/archive/master.zip">academic pandoc template</a>
+                        <i class="fas fa-file-download fa-2x"></i> Get the <a
+                            href="https://github.com/maehr/academic-pandoc-template/archive/master.zip">academic pandoc
+                        template</a>
 
                     </div>
                 </div>
                 <div class="tile">
                     <div class="content">
                         <p class="circle">2</p>
-                        <i class="fas fa-edit fa-2x"></i> Write your text with <a href="https://github.com/maehr/academic-pandoc-template/blob/master/README_MARKDOWN.md">Markdown syntax</a>, <a href="https://atom.io/">Atom.io</a> and <a href="http://www.jabref.org/">JabRef</a>
+                        <i class="fas fa-edit fa-2x"></i> Write your text with <a
+                            href="https://github.com/maehr/academic-pandoc-template/blob/master/README_MARKDOWN.md">Markdown
+                        syntax</a>, <a href="https://atom.io/">Atom.io</a> and <a
+                            href="http://www.jabref.org/">JabRef</a>
                     </div>
                 </div>
                 <div class="tile">
@@ -63,17 +68,41 @@
                 <div class="notification is-success">
                     <h3 class="title is-3">uploads</h3>
                     <div class="tags">
-                    {% for file in files %}
-                        <span class="tag is-medium">{{ file }}</span>
-                    {% endfor %}
+                        {% for file in files %}
+                            <span class="tag is-medium">{{ file }}</span>
+                        {% endfor %}
                     </div>
                 </div>
             {% endif %}
 
+            {% if info %}
+                <div class="tile">
+                    <div class="tile is-vertical is-8">
+                        <div class="notification is-info">
+                            <h3 class="title is-3">status</h3>
+                            <p><i class="fas fa-info-circle"></i> {{ info }}</p>
+                        </div>
+                    </div>
+                    <div class="tile is-1"></div>
+                    <div class="tile is-vertical is-3">
+                        <a class="button is-large" href="/">Continue</a>
+                    </div>
+                </div>
+
+            {% endif %}
+
             {% if error %}
-                <div class="notification is-danger">
-                    <h3 class="title is-3">error message</h3>
-                    <p><i class="far fa-times"></i> {{ error }}</p>
+                <div class="tile">
+                    <div class="tile is-vertical is-8">
+                        <div class="notification is-danger">
+                            <h3 class="title is-3">error message</h3>
+                            <p><i class="fas fa-exclamation-triangle"></i> {{ error }}</p>
+                        </div>
+                    </div>
+                    <div class="tile is-1"></div>
+                    <div class="tile is-vertical is-3">
+                        <a class="button is-large" href="/">Continue</a>
+                    </div>
                 </div>
             {% endif %}
         </div>

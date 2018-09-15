@@ -55,12 +55,18 @@ def upload():
 @blueprint.route('/clear', methods=['GET'])
 def clear():
     if 'uid' not in session:
-        return redirect(url_for('uploads.index'))
+        return render_template('index.html',
+                                   files=None,
+                                   error=None,
+                                   info='Nothing to remove.')
     else:
         session_path = os.path.join(current_app.config['UPLOADED_PATH'], session['uid'])
         try:
             remove_all_files_recursively(session_path)
-            return redirect(url_for('uploads.index'))
+            return render_template('index.html',
+                                   files=None,
+                                   error=None,
+                                   info='All files are successfully removed.')
         except Exception as e:
             files = os.listdir(session_path)
             return render_template('index.html',
@@ -69,14 +75,15 @@ def clear():
 
 
 @blueprint.route('/clear_all/<key>', methods=['GET'])
-@limiter.limit("1 per day")
+@limiter.limit("2 per day")
 def clear_all(key):
     if key is current_app.config['SECRET_KEY']:
         try:
             remove_all_files_recursively(os.path.abspath(current_app.config['UPLOADED_PATH']))
             return render_template('index.html',
                                    files=None,
-                                   error='All files are successfully removed.')
+                                   error=None,
+                                   info='All files are successfully removed.')
         except Exception as e:
             return render_template('index.html',
                                    files=None,

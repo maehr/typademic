@@ -7,6 +7,7 @@ from typademic.app import create_app
 def app():
     app = create_app({
         'TESTING': True,
+        'SECRECT_KEY': 'REALLY_SECRET',
     })
 
     yield app
@@ -16,10 +17,17 @@ def app():
 def client(app):
     return app.test_client()
 
+@pytest.fixture
+def client_with_uid(app):
+    # TODO impement get session
+    return app.test_client()
+
 
 @pytest.fixture
 def runner(app):
     return app.test_cli_runner()
+
+
 
 
 # class UploadAction(object):
