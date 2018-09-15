@@ -48,7 +48,8 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest
+            pip install pytest pytest-cov
+            pytest --cov=./
             codecov
 
       - store_artifacts:

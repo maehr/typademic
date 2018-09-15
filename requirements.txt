@@ -1,5 +1,3 @@
-codecov
-coverage
 Flask
 Flask-Dropzone
 Flask-WTF
