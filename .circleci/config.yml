@@ -50,7 +50,6 @@ jobs:
             . venv/bin/activate
             pip install pytest pytest-cov
             pytest --cov=./
-            codecov
 
       - store_artifacts:
           path: test-reports
