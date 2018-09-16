@@ -48,7 +48,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            pip install codecov pytest pytest-cov
+            pip install coverage codecov pytest pytest-cov
             pytest --cov=./
             codecov
 
