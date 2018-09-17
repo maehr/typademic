@@ -1,8 +1,7 @@
-codecov
 Flask
 Flask-Dropzone
 Flask-WTF
 Flask-Limiter
 Flask-WTF
-pytest
 sh
+

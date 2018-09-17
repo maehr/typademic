@@ -4,6 +4,7 @@ Typademic turns distraction freely written markdown files into beautiful PDFs. B
 
 [![CircleCI](https://circleci.com/gh/maehr/typademic.svg?style=svg&circle-token=f7ea42d593cc8107242a9ebd489b025c4c33328f)](https://circleci.com/gh/maehr/typademic)
 [![codecov](https://codecov.io/gh/maehr/typademic/branch/master/graph/badge.svg)](https://codecov.io/gh/maehr/typademic)
+[![Maintainability](https://api.codeclimate.com/v1/badges/ea819aa50e494e14fd13/maintainability)](https://codeclimate.com/github/maehr/typademic/maintainability)
 [![Requirements Status](https://requires.io/github/maehr/typademic/requirements.svg?branch=master)](https://requires.io/github/maehr/typademic/requirements/?branch=master)
 [![GitHub issues](https://img.shields.io/github/issues/maehr/typademic.svg)](https://github.com/maehr/typademic/issues)
 [![GitHub forks](https://img.shields.io/github/forks/maehr/typademic.svg)](https://github.com/maehr/typademic/network)

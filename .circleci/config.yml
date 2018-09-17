@@ -48,8 +48,9 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-      #      pytest --cov=./
-      #      codecov
+            pip install coverage codecov pytest pytest-cov
+            pytest --cov=./
+            codecov
 
       - store_artifacts:
           path: test-reports
@@ -69,9 +70,8 @@ jobs:
           name: Install curl and docker
           command: |
             apt-get update
-            apt-get install -y docker.io systemd
-            systemctl start docker
-            systemctl enable docker
+            apt-get install -y docker.io
+            service docker start
 
       - run:
           name: Build and push Docker image
