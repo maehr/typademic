@@ -1,5 +1,7 @@
 [run]
 source =
-    typademic
+    typademic/
 omit =
     /venv/*
+[html]
+directory = test-reports
