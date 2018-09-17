@@ -1,2 +1,5 @@
 [run]
-source=typademic
+source =
+    typademic
+omit =
+    /venv/*
