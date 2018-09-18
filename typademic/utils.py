@@ -1,5 +1,6 @@
 import os
 
+
 def remove_all_files_recursively(path):
     try:
         for root, dirs, files in os.walk(path, topdown=False):

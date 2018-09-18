@@ -33,45 +33,31 @@ def upload():
             # ensure the upload folder exists
             os.mkdir(session_path)
         except Exception as e:
-            return render_template('index.html',
-                                   files=None,
-                                   error=str(e))
+            return render_template('index.html', files=None, error=str(e))
     session_path = os.path.join(current_app.config['UPLOADED_PATH'], session['uid'])
 
     try:
         f = request.files.get('file')
         f.save(os.path.join(session_path, f.filename))
         files = os.listdir(session_path)
-        return render_template('index.html',
-                               files=files,
-                               error='')
+        return render_template('index.html', files=files, error='')
     except Exception as e:
         files = os.listdir(session_path)
-        return render_template('index.html',
-                               files=files,
-                               error=str(e))
+        return render_template('index.html', files=files, error=str(e))
 
 
 @blueprint.route('/clear', methods=['GET'])
 def clear():
     if 'uid' not in session:
-        return render_template('index.html',
-                                   files=None,
-                                   error=None,
-                                   info='Nothing to remove.')
+        return render_template('index.html', files=None, error=None, info='Nothing to remove.')
     else:
         session_path = os.path.join(current_app.config['UPLOADED_PATH'], session['uid'])
         try:
             remove_all_files_recursively(session_path)
-            return render_template('index.html',
-                                   files=None,
-                                   error=None,
-                                   info='All files are successfully removed.')
+            return render_template('index.html', files=None, error=None, info='All files are successfully removed.')
         except Exception as e:
             files = os.listdir(session_path)
-            return render_template('index.html',
-                                   files=files,
-                                   error=str(e))
+            return render_template('index.html', files=files, error=str(e))
 
 
 @blueprint.route('/clear_all/<key>', methods=['GET'])
@@ -80,14 +66,9 @@ def clear_all(key):
     if key is current_app.config['SECRET_KEY']:
         try:
             remove_all_files_recursively(os.path.abspath(current_app.config['UPLOADED_PATH']))
-            return render_template('index.html',
-                                   files=None,
-                                   error=None,
-                                   info='All files are successfully removed.')
+            return render_template('index.html', files=None, error=None, info='All files are successfully removed.')
         except Exception as e:
-            return render_template('index.html',
-                                   files=None,
-                                   error=str(e))
+            return render_template('index.html', files=None, error=str(e))
     else:
         return redirect(url_for('uploads.index'))
 
@@ -124,8 +105,7 @@ def render(session_path, output_format='pdf'):
             if file.endswith('.md'):
                 md_files = md_files + ' ' + file
         if md_files is '':
-            return render_template('index.html',
-                                   files=files,
+            return render_template('index.html', files=files,
                                    error='No Markdown file was uploaded. Please reset and try again.')
         pandoc(md_files.strip(),
                '--output',
@@ -139,9 +119,6 @@ def render(session_path, output_format='pdf'):
                'pandoc-citeproc',
                '--standalone',
                _cwd=session_path)
-        return send_file(os.path.join(session_path, output_filename),
-                         attachment_filename=output_filename)
+        return send_file(os.path.join(session_path, output_filename), attachment_filename=output_filename)
     except Exception as e:
-        return render_template('index.html',
-                               files=files,
-                               error=str(e))
+        return render_template('index.html', files=files, error=str(e))

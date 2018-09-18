@@ -19,6 +19,7 @@ def not_found_error(error):
 def ratelimit_handler(e):
     return render_template('errors/429.html', error=str(e.description)), 429
 
+
 @blueprint.app_errorhandler(500)
 def internal_error(error):
     return render_template('errors/500.html'), 500
