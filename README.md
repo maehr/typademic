@@ -2,7 +2,7 @@
 
 Typademic turns distraction freely written markdown files into beautiful PDFs. Built with love, [Google Fonts](https://fonts.google.com/), [Pandoc](http://pandoc.org/), and [LaTeX](https://www.latex-project.org/).
 
-[![Docs](https://readthedocs.org/projects/pip/badge/?version=latest&style=plastic)](https://docs.typademic.ch/)
+[![Docs](https://readthedocs.org/projects/pip/badge/?version=latest&style=flat)](https://docs.typademic.ch/)
 [![CircleCI](https://circleci.com/gh/maehr/typademic.svg?style=shield&circle-token=f7ea42d593cc8107242a9ebd489b025c4c33328f)](https://circleci.com/gh/maehr/typademic)
 [![Build Status](https://travis-ci.org/maehr/typademic.svg?branch=master)](https://travis-ci.org/maehr/typademic)
 [![codecov](https://codecov.io/gh/maehr/typademic/branch/master/graph/badge.svg)](https://codecov.io/gh/maehr/typademic)
