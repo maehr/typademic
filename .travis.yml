@@ -1,11 +1,13 @@
 language: python
 
+cache: pip
+
 python:
   - "3.6"
-  - "3.7"
 
 before_install:
   - sudo apt-get install -y pandoc pandoc-citeproc texlive
+
 addons:
   apt:
     update: true
