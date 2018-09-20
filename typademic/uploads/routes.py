@@ -2,25 +2,20 @@ import os
 import uuid
 
 from flask import session, render_template, request, send_file, redirect, url_for, current_app
-from sh import pandoc
 
 from typademic.app import limiter
 from typademic.uploads import blueprint
-from typademic.utils import remove_all_files_recursively
+from typademic.utils import remove_all_files_recursively, extract_md_files, sh_pandoc
 
 
 @blueprint.route('/', methods=['GET'])
 def index():
     if 'uid' not in session:
-        return render_template('index.html',
-                               files=None,
-                               error='')
+        return render_template('index.html', files=None, error='')
     else:
         session_path = os.path.join(current_app.config['UPLOADED_PATH'], session['uid'])
         files = os.listdir(session_path)
-        return render_template('index.html',
-                               files=files,
-                               error='')
+        return render_template('index.html', files=files, error='')
 
 
 @blueprint.route('/', methods=['POST'])
@@ -35,7 +30,6 @@ def upload():
         except Exception as e:
             return render_template('index.html', files=None, error=str(e))
     session_path = os.path.join(current_app.config['UPLOADED_PATH'], session['uid'])
-
     try:
         f = request.files.get('file')
         f.save(os.path.join(session_path, f.filename))
@@ -75,50 +69,31 @@ def clear_all(key):
 
 @blueprint.route('/pdf', methods=['GET'])
 def pdf():
-    if 'uid' not in session:
-        return redirect(url_for('uploads.index'))
-    else:
-        session_path = os.path.join(current_app.config['UPLOADED_PATH'], session['uid'])
-        return render(session_path=session_path, output_format='pdf')
+    return render_markdown(output_format='pdf')
 
 
 @blueprint.route('/docx', methods=['GET'])
 def docx():
+    return render_markdown(output_format='docx')
+
+
+def render_markdown(output_format):
+    # No files uploaded
     if 'uid' not in session:
         return redirect(url_for('uploads.index'))
-    else:
-        session_path = os.path.join(current_app.config['UPLOADED_PATH'], session['uid'])
-        return render(session_path=session_path, output_format='docx')
-
-
-def render(session_path, output_format='pdf'):
-    files = os.listdir(session_path)
+    session_path = os.path.join(current_app.config['UPLOADED_PATH'], session['uid'])
     output_filename = 'typademic.' + output_format
+    files = os.listdir(session_path)
+    # Serve from cache
+    if output_filename in files:
+        return send_file(os.path.join(session_path, output_filename),
+                         attachment_filename=output_filename)
+    md_files = extract_md_files(files)
+    if md_files is '':
+        return render_template('index.html', files=files,
+                               error='No Markdown file was uploaded. Please reset and try again.')
     try:
-        md_files = ''
-        for file in files:
-            # Serve from cache
-            if file.endswith(output_filename):
-                return send_file(os.path.join(session_path, output_filename),
-                                 attachment_filename=output_filename)
-            # Extract md file(s)
-            if file.endswith('.md'):
-                md_files = md_files + ' ' + file
-        if md_files is '':
-            return render_template('index.html', files=files,
-                                   error='No Markdown file was uploaded. Please reset and try again.')
-        pandoc(md_files.strip(),
-               '--output',
-               output_filename,
-               '--from',
-               'markdown+ascii_identifiers+tex_math_single_backslash+raw_tex+table_captions+yaml_metadata_block+autolink_bare_uris',
-               '--latex-engine=xelatex',
-               # FIXME Pandoc 2.2.3 fix
-               # '--pdf-engine=xelatex',
-               '--filter',
-               'pandoc-citeproc',
-               '--standalone',
-               _cwd=session_path)
+        sh_pandoc(md_files, output_filename, session_path)
         return send_file(os.path.join(session_path, output_filename), attachment_filename=output_filename)
     except Exception as e:
         return render_template('index.html', files=files, error=str(e))

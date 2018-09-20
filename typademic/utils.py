@@ -1,5 +1,31 @@
 import os
 
+from sh import pandoc
+
+
+def extract_md_files(input_files):
+    md_files = ''
+    for file in input_files:
+        # Extract md file(s)
+        if file.endswith('.md'):
+            md_files = md_files + ' ' + file
+    return md_files
+
+
+def sh_pandoc(input_files, output_filename, cwd_path):
+    pandoc(input_files.strip(),
+           '--output',
+           output_filename,
+           '--from',
+           'markdown+ascii_identifiers+tex_math_single_backslash+raw_tex+table_captions+yaml_metadata_block+autolink_bare_uris',
+           '--latex-engine=xelatex',
+           # FIXME Pandoc 2.2.3 fix
+           # '--pdf-engine=xelatex',
+           '--filter',
+           'pandoc-citeproc',
+           '--standalone',
+           _cwd=cwd_path)
+
 
 def remove_all_files_recursively(path):
     try:
