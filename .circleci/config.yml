@@ -49,39 +49,38 @@ jobs:
           command: |
             . venv/bin/activate
             pip install coverage codecov pytest pytest-cov
-            pytest --cov=./
+            py.test --cov=typademic tests/
+            coverage html --directory=test-reports
             codecov
 
       - store_artifacts:
           path: test-reports
           destination: test-reports
-  deploy:
-    docker:
-      - image: ubuntu:18.04
-
-    working_directory: ~/app
-
-    steps:
-      - checkout
-
-      - setup_remote_docker
-
-      - run:
-          name: Install curl and docker
-          command: |
-            apt-get update
-            apt-get install -y docker.io
-            service docker start
-
-      - run:
-          name: Build and push Docker image
-          command: |
-            export tag="$(echo $CIRCLE_TAG)"
-            export tag=${tag#"v"}
-            docker build -t maehr/typademic:${tag} -t maehr/typademic:latest .
-            docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
-            docker push maehr/typademic:${tag}
-            docker push maehr/typademic:latest
+#  deploy:
+#    docker:
+#      - image: ubuntu:18.04
+#
+#    working_directory: ~/app
+#
+#    steps:
+#      - checkout
+#
+#      - run:
+#          name: Install curl and docker
+#          command: |
+#            apt-get update
+#            apt-get install -y docker.io
+#            service docker start
+#
+#      - run:
+#          name: Build and push Docker image
+#          command: |
+#            export tag="$(echo $CIRCLE_TAG)"
+#            export tag=${tag#"v"}
+#            docker build -t maehr/typademic:${tag} -t maehr/typademic:latest .
+#            docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+#            docker push maehr/typademic:${tag}
+#            docker push maehr/typademic:latest
 
 workflows:
   version: 2
@@ -91,11 +90,11 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - deploy:
-          requires:
-            - build
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
+#      - deploy:
+#          requires:
+#            - build
+#          filters:
+#            tags:
+#              only: /^v.*/
+#            branches:
+#              ignore: /.*/
