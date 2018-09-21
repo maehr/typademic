@@ -156,7 +156,7 @@ Built With
 Contributing
 ------------
 
-Please read `CONTRIBUTING.md <CONTRIBUTING.md>`__ for details on our
+Please read `CONTRIBUTING.rst <CONTRIBUTING.rst>`__ for details on our
 code of conduct, and the process for submitting pull requests to us.
 
 Versioning
@@ -180,7 +180,7 @@ License
 -------
 
 This project is licensed under the MIT License - see the
-`LICENSE.md <LICENSE.md>`__ file for details
+`LICENSE.rst <LICENSE.rst>`__ file for details
 
 Acknowledgments
 ---------------
@@ -213,4 +213,4 @@ Acknowledgments
 .. |GitHub stars| image:: https://img.shields.io/github/stars/maehr/typademic.svg
    :target: https://github.com/maehr/typademic/stargazers
 .. |GitHub license| image:: https://img.shields.io/github/license/maehr/typademic.svg
-   :target: https://github.com/maehr/typademic/blob/master/LICENSE.md
+   :target: https://github.com/maehr/typademic/blob/master/LICENSE.rst
