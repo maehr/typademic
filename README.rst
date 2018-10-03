@@ -24,7 +24,7 @@ Install all this to use all functions of typademic.
 
 -  `Google Fonts <https://github.com/google/fonts>`__
 -  `LaTeX <https://www.latex-project.org/get/>`__
--  `Pandoc 2.2 <http://pandoc.org/installing.html>`__
+-  `Pandoc 2.3 <http://pandoc.org/installing.html>`__
 -  `Pandoc Citeproc <https://github.com/jgm/pandoc-citeproc>`__
 -  `Python 3.6 <https://www.python.org/downloads/release/python-366/>`__
 -  `OpenSSL 1.0.2 <https://www.openssl.org/source/>`__
@@ -34,7 +34,8 @@ Mac with `Homebrew <https://brew.sh/index_de>`__
 
 .. code:: bash
 
-   brew install python openssl pandoc pandoc-citeproc mactex wget
+   brew install python openssl mactex pandoc pandoc-citeproc wget
+
    wget https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
 
 Ubuntu 18.04
@@ -43,9 +44,13 @@ Ubuntu 18.04
 .. code:: bash
 
    sudo apt-get update -y
-   sudo apt-get install -y texlive-full pandoc pandoc-citeproc wget
+   sudo apt-get install -y texlive-full wget
 
    wget https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
+
+   wget https://github.com/jgm/pandoc/releases/download/2.3.1/pandoc-2.3
+ .1-1-amd64.deb
+   sudo dpkg -i pandoc-2.3.1-1-amd64.deb
 
    pip install --upgrade pip
 
@@ -59,6 +64,10 @@ Ubuntu 16.04
    sudo apt-get install -y python3.6 texlive-full pandoc pandoc-citeproc wget
 
    wget https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
+
+   wget https://github.com/jgm/pandoc/releases/download/2.3.1/pandoc-2.3
+ .1-1-amd64.deb
+   sudo dpkg -i pandoc-2.3.1-1-amd64.deb
 
    pip install --upgrade pip
 
@@ -83,7 +92,8 @@ Running the tests
 
 .. code:: bash
 
-   python pytest
+   pip install tox
+   tox
 
 Deployment (BEGINNER)
 ---------------------

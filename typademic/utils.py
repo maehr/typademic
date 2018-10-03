@@ -18,9 +18,7 @@ def sh_pandoc(input_files, output_filename, cwd_path):
            output_filename,
            '--from',
            'markdown+ascii_identifiers+tex_math_single_backslash+raw_tex+table_captions+yaml_metadata_block+autolink_bare_uris',
-           '--latex-engine=xelatex',
-           # FIXME Pandoc 2.2.3 fix
-           # '--pdf-engine=xelatex',
+           '--pdf-engine=xelatex',
            '--filter',
            'pandoc-citeproc',
            '--standalone',
