@@ -41,7 +41,9 @@ jobs:
       - run:
           name: install pandoc & texlive
           command: |
-            DEBIAN_FRONTEND=noninteractive apt-get install -y pandoc pandoc-citeproc texlive
+            DEBIAN_FRONTEND=noninteractive apt-get install -y texlive
+            wget https://github.com/jgm/pandoc/releases/download/2.3.1/pandoc-2.3.1-1-amd64.deb
+            dpkg -i pandoc-2.3.1-1-amd64.deb
 
       # TODO write and run tests with https://pytest.org
       - run:
