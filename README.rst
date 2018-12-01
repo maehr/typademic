@@ -140,7 +140,6 @@ Deployment (ADVANCED)
 
    # comment this line for production use
    environment:
-     - GOOGLE_ANALYTICS=${GOOGLE_ANALYTICS}
      - SECRET_KEY=${SECRET_KEY}
 
 4. Start typademic and go to https://localhost/
