@@ -53,16 +53,3 @@ def test_index_folder_empty(client):
 
 def test_pdf_folder_empty(client):
     assert client.get('/pdf').status_code == 302
-
-# def test_index(client):
-#     response = client.get('/')
-#     assert b"Log In" in response.data
-#     assert b"Register" in response.data
-#
-#     # auth.login()
-#     response = client.get('/')
-#     assert b'Log Out' in response.data
-#     assert b'test title' in response.data
-#     assert b'by test on 2018-01-01' in response.data
-#     assert b'test\nbody' in response.data
-#     assert b'href="/1/update"' in response.data
