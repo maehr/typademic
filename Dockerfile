@@ -20,14 +20,9 @@ RUN pip3 install --upgrade pip
 RUN pip3 install -r /opt/app/requirements.txt
 RUN pip3 install gunicorn
 
-RUN useradd -ms /bin/bash web
+WORKDIR /usr/app
 
-COPY . /home/web
-RUN chown -R web:web /home/web
-
-USER web
-
-WORKDIR /home/web
+COPY . .
 
 COPY generate_ssl.sh /generate_ssl.sh
 RUN sh /generate_ssl.sh
