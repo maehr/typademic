@@ -27,7 +27,7 @@ def create_app(test_config=None):
         DROPZONE_ALLOWED_FILE_TYPE='.md, .png, .jpg, .jpeg, .bib, .bibtex, '
                                    '.biblatex, .csl, .yaml, .yml, .json, '
                                    '.tex, .svg, .gif',
-        aDROPZONE_UPLOAD_MULTIPLE=True,  # enable parallel upload
+        DROPZONE_UPLOAD_MULTIPLE=True,  # enable parallel upload
         DROPZONE_PARALLEL_UPLOADS=1,  # handle 3 file per request
         DROPZONE_MAX_FILE_SIZE=10,
         DROPZONE_MAX_FILES=30,
