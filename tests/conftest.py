@@ -1,6 +1,7 @@
 import pytest
 
 from typademic.app import create_app
+from flask import abort
 
 
 @pytest.fixture
@@ -9,6 +10,10 @@ def app():
         'TESTING': True,
         'SECRECT_KEY': 'REALLY_SECRET',
     })
+
+    @app.route('/500')
+    def error():
+        abort(500)
 
     yield app
 

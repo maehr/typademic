@@ -12,6 +12,12 @@ def test_429(client):
     assert b'Sowwy, you exceeded your limit!' in response.data
 
 
+def test_500(client):
+    response = client.get('/500')
+    assert client.get('/500').status_code == 500
+    assert b'Sowwy, something went wrong' in response.data
+
+
 def test_clear(client):
     response = client.get('/clear')
     # TODO upload some stuff
