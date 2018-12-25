@@ -3,17 +3,8 @@ import os
 from sh import pandoc
 
 
-def extract_md_files(input_files):
-    md_files = ''
-    for file in input_files:
-        # Extract md file(s)
-        if file.endswith('.md'):
-            md_files = md_files + ' ' + file
-    return md_files
-
-
 def sh_pandoc(input_files, output_filename, cwd_path):
-    pandoc(input_files.strip(),
+    pandoc(" ".join(input_files),
            '--output',
            output_filename,
            '--from',
