@@ -21,6 +21,7 @@ def sh_pandoc(input_files, output_filename, cwd_path):
            '--pdf-engine=xelatex',
            '--filter',
            'pandoc-citeproc',
+           '--resource-path=' + cwd_path,
            '--standalone',
            _cwd=cwd_path)
 
