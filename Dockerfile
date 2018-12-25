@@ -1,8 +1,8 @@
-FROM ubuntu:18.04
+FROM python:3
 
 MAINTAINER Moritz Mähr "moritz.maehr@gmail.com"
 
-USER root
+WORKDIR /usr/src/app
 
 RUN apt-get update -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-minimal python3-pip texlive-full wget
@@ -15,21 +15,13 @@ RUN unzip master.zip -d /usr/share/fonts
 RUN rm master.zip
 RUN fc-cache -fv
 
-COPY requirements.txt /opt/app/requirements.txt
-RUN pip3 install --upgrade pip
-RUN pip3 install -r /opt/app/requirements.txt
-RUN pip3 install gunicorn
+COPY requirements.txt ./
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install gunicorn
 
-RUN useradd -ms /bin/bash web
+COPY . .
 
-COPY . /home/web
-RUN chown -R web:web /home/web
-
-USER web
-
-WORKDIR /home/web
-
-COPY generate_ssl.sh /generate_ssl.sh
 RUN sh /generate_ssl.sh
 
 ENTRYPOINT ["gunicorn"]
