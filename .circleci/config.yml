@@ -6,18 +6,12 @@ version: 2
 jobs:
   build:
     docker:
-      - image: ubuntu:18.04
+      - image: python:3
 
-    working_directory: ~/app
+    working_directory: /usr/src/app
 
     steps:
       - checkout
-
-      - run:
-          name: install python3
-          command: |
-            apt-get update
-            DEBIAN_FRONTEND=noninteractive apt-get install -y python3-minimal python3-venv python-pip
 
       - restore_cache:
           keys:
