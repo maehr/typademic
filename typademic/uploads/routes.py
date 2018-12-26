@@ -94,10 +94,6 @@ def render_markdown(output_format):
                                 session['uid'])
     output_filename = 'typademic.' + output_format
     files = os.listdir(session_path)
-    # Serve from cache
-    if output_filename in files:
-        return send_file(os.path.join(session_path, output_filename),
-                         attachment_filename=output_filename)
     md_files = [file for file in files if file.endswith('.md')]
     if not md_files:
         return render_template('index.html', files=files,
