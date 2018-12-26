@@ -24,8 +24,7 @@ WORKDIR /usr/app
 
 COPY . .
 
-COPY generate_ssl.sh /generate_ssl.sh
-RUN sh /generate_ssl.sh
+RUN sh generate_ssl.sh
 
 ENTRYPOINT ["gunicorn"]
 CMD ["app:app", \
