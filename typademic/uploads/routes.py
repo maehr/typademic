@@ -6,8 +6,7 @@ from flask import session, render_template, request, send_file, redirect, \
 
 from typademic.app import limiter
 from typademic.uploads import blueprint
-from typademic.utils import remove_all_files_recursively, extract_md_files, \
-    sh_pandoc
+from typademic.utils import remove_all_files_recursively, sh_pandoc
 
 
 @blueprint.route('/', methods=['GET'])
@@ -95,12 +94,8 @@ def render_markdown(output_format):
                                 session['uid'])
     output_filename = 'typademic.' + output_format
     files = os.listdir(session_path)
-    # Serve from cache
-    if output_filename in files:
-        return send_file(os.path.join(session_path, output_filename),
-                         attachment_filename=output_filename)
-    md_files = extract_md_files(files)
-    if md_files is '':
+    md_files = [file for file in files if file.endswith('.md')]
+    if not md_files:
         return render_template('index.html', files=files,
                                error='No Markdown file was uploaded. Please reset and try again.')
     try:

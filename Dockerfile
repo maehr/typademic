@@ -7,8 +7,8 @@ USER root
 RUN apt-get update -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-minimal python3-pip texlive-full wget
 
-RUN wget https://github.com/jgm/pandoc/releases/download/2.3.1/pandoc-2.3.1-1-amd64.deb
-RUN dpkg -i pandoc-2.3.1-1-amd64.deb
+RUN wget https://github.com/jgm/pandoc/releases/download/2.5/pandoc-2.5-1-amd64.deb
+RUN dpkg -i pandoc-2.5-1-amd64.deb
 
 RUN wget https://github.com/google/fonts/archive/master.zip
 RUN unzip master.zip -d /usr/share/fonts
@@ -20,17 +20,11 @@ RUN pip3 install --upgrade pip
 RUN pip3 install -r /opt/app/requirements.txt
 RUN pip3 install gunicorn
 
-RUN useradd -ms /bin/bash web
+WORKDIR /usr/app
 
-COPY . /home/web
-RUN chown -R web:web /home/web
+COPY . .
 
-USER web
-
-WORKDIR /home/web
-
-COPY generate_ssl.sh /generate_ssl.sh
-RUN sh /generate_ssl.sh
+RUN sh generate_ssl.sh
 
 ENTRYPOINT ["gunicorn"]
 CMD ["app:app", \
