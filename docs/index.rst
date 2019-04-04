@@ -1,4 +1,4 @@
-Welcome to Typademic's documentation!
+Welcome to typademic's documentation!
 ======================================
 
 .. toctree::
@@ -6,8 +6,12 @@ Welcome to Typademic's documentation!
    :caption: Contents:
 
    readme
+   installation
+   usage
    modules
    contributing
+   authors
+   history
 
 Indices and tables
 ==================

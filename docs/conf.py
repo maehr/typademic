@@ -47,9 +47,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Typademic'
-copyright = u"2018, Moritz Mähr"
-author = u"Moritz Mähr"
+project = u'typademic'
+copyright = u"2019, Moritz Maehr"
+author = u"Moritz Maehr"
 
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
@@ -129,8 +129,8 @@ latex_elements = {
 # [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'typademic.tex',
-     u'Typademic Documentation',
-     u'Moritz Mähr', 'manual'),
+     u'typademic Documentation',
+     u'Moritz Maehr', 'manual'),
 ]
 
 
@@ -140,7 +140,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     (master_doc, 'typademic',
-     u'Typademic Documentation',
+     u'typademic Documentation',
      [author], 1)
 ]
 
@@ -152,7 +152,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'typademic',
-     u'Typademic Documentation',
+     u'typademic Documentation',
      author,
      'typademic',
      'One line description of project.',

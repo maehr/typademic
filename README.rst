@@ -6,7 +6,7 @@ PDFs. Built with love, `Google Fonts <https://fonts.google.com/>`__,
 `Pandoc <http://pandoc.org/>`__, and
 `LaTeX <https://www.latex-project.org/>`__.
 
-|Docs| |CircleCI| |Build Status| |codecov| |Maintainability|
+|Docs| |CircleCI| |Build Status| |codecov| |Maintainability| |PyUp|
 |Requirements Status| |GitHub issues| |GitHub forks| |GitHub stars|
 |GitHub license|
 
@@ -24,10 +24,10 @@ Install all this to use all functions of typademic.
 
 -  `Google Fonts <https://github.com/google/fonts>`__
 -  `LaTeX <https://www.latex-project.org/get/>`__
--  `Pandoc 2.3 <http://pandoc.org/installing.html>`__
+-  `Pandoc <http://pandoc.org/installing.html>`__
 -  `Pandoc Citeproc <https://github.com/jgm/pandoc-citeproc>`__
--  `Python 3.6 <https://www.python.org/downloads/release/python-366/>`__
--  `OpenSSL 1.0.2 <https://www.openssl.org/source/>`__
+-  `Python 3 <https://www.python.org/downloads/>`__
+-  `OpenSSL <https://www.openssl.org/source/>`__
 
 Mac with `Homebrew <https://brew.sh/index_de>`__
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -48,26 +48,8 @@ Ubuntu 18.04
 
    wget https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
 
-   wget https://github.com/jgm/pandoc/releases/download/2.3.1/pandoc-2.3
- .1-1-amd64.deb
-   sudo dpkg -i pandoc-2.3.1-1-amd64.deb
-
-   pip install --upgrade pip
-
-Ubuntu 16.04
-^^^^^^^^^^^^
-
-.. code:: bash
-
-   sudo add-apt-repository ppa:jonathonf/python-3.6
-   sudo apt-get update -y
-   sudo apt-get install -y python3.6 texlive-full pandoc pandoc-citeproc wget
-
-   wget https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
-
-   wget https://github.com/jgm/pandoc/releases/download/2.3.1/pandoc-2.3
- .1-1-amd64.deb
-   sudo dpkg -i pandoc-2.3.1-1-amd64.deb
+   wget https://github.com/jgm/pandoc/releases/download/2.7.1/pandoc-2.7.1-1-amd64.deb
+   sudo dpkg -i pandoc-2.7.1-1-amd64.deb
 
    pip install --upgrade pip
 
@@ -78,7 +60,7 @@ Installing
 
    virtualenv venv
    source venv/bin/activate
-   pip install -r requirements.txt
+   pip install typademic
 
 Start the development server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -105,14 +87,14 @@ Deployment (BEGINNER)
 
 .. code:: bash
 
-   export GOOGLE_ANALYTICS=UA-YOURGOOGLECODE
+   touch logs/error.log
+   touch logs/access.log
    export SECRET_KEY=SOMESECRETKEY
    docker run --name typademic \
        -p 443:8000 \
-       -e "GOOGLE_ANALYTICS=${GOOGLE_ANALYTICS}" \
        -e "SECRET_KEY=${SECRET_KEY}" \
-       -v "/home/web/uploads" \
-       -v "/home/web/logs" \
+       -v "./logs/error.log:/logs/error.log" \
+       -v "./logs/access.log:/logs/access.log" \
        maehr/typademic:latest
 
 3. Go to https://localhost/ (If you did not add valid SSL certificates,
@@ -153,6 +135,7 @@ Built With
 
 -  `Bulma.io <https://bulma.io/>`__
 -  `CircleCI <https://circleci.com/>`__
+-  `Cookiecutter <https://github.com/audreyr/cookiecutter>`__
 -  `Docker CE <https://www.docker.com/community-edition>`__
 -  `Flask <http://flask.pocoo.org/>`__
 -  `Flask-Dropzone <https://github.com/greyli/flask-dropzone>`__
@@ -161,6 +144,7 @@ Built With
 -  `LaTeX <https://www.latex-project.org/>`__
 -  `Pandoc <http://pandoc.org/>`__
 -  `Web-Font-Loader <https://github.com/qrpike/Web-Font-Load>`__
+
 
 Contributing
 ------------
@@ -178,11 +162,8 @@ repository <https://github.com/maehr/typademic/tags>`__.
 Authors
 -------
 
--  **Moritz Mähr** - *Initial work* -
-   `maehr <https://github.com/maehr>`__
-
-See also the list of
-`contributors <https://github.com/maehr/typademic/contributors>`__ who
+Please read `AUTHORS.rst <AUTHORS.rst>`__ for details on the authors.
+See also the list of `contributors <https://github.com/maehr/typademic/contributors>`__ who
 participated in this project.
 
 License
@@ -215,6 +196,8 @@ Acknowledgments
    :target: https://codeclimate.com/github/maehr/typademic/maintainability
 .. |Requirements Status| image:: https://requires.io/github/maehr/typademic/requirements.svg?branch=master
    :target: https://requires.io/github/maehr/typademic/requirements/?branch=master
+.. |PyUp| image:: https://pyup.io/repos/github/maehr/typademic/shield.svg
+     :target: https://pyup.io/repos/github/maehr/typademic/
 .. |GitHub issues| image:: https://img.shields.io/github/issues/maehr/typademic.svg
    :target: https://github.com/maehr/typademic/issues
 .. |GitHub forks| image:: https://img.shields.io/github/forks/maehr/typademic.svg

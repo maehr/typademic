@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-"""Top-level package for Typademic."""
+"""Top-level package for typademic."""
 
-__author__ = """Moritz Mähr"""
+__author__ = """Moritz Maehr"""
 __email__ = 'moritz.maehr@gmail.com'
-__version__ = '1.1.1'
+__version__ = '1.2.0'
