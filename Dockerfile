@@ -23,7 +23,7 @@ RUN sh generate_ssl.sh
 ENTRYPOINT ["gunicorn"]
 CMD ["app:app", \
     "--bind=:8000", \
-    "--workers=3", \
+    "--workers=5", \
     "--log-level=info", \
     "--access-logfile=/logs/access.log", \
     "--error-logfile=/logs/error.log", \
