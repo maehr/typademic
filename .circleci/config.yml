@@ -6,53 +6,52 @@ version: 2
 jobs:
   build:
     docker:
-      - image: ubuntu:18.04
+      - image: python:3.7
 
     working_directory: ~/app
 
     steps:
       - checkout
 
-      - run:
-          name: install python3
-          command: |
-            apt-get update
-            DEBIAN_FRONTEND=noninteractive apt-get install -y python3-minimal python3-venv python-pip
-
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
+          - v1-dependencies-{{ checksum "setup.py" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
       - run:
           name: install dependencies
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install --upgrade pip
-            pip install -r requirements.txt
+            pip install .
 
       - save_cache:
           paths:
             - ./data
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+          key: v1-dependencies-{{ checksum "setup.py" }}
 
       - run:
           name: install pandoc & texlive
           command: |
-            DEBIAN_FRONTEND=noninteractive apt-get install -y texlive wget
-            wget https://github.com/jgm/pandoc/releases/download/2.5/pandoc-2.5-1-amd64.deb
-            dpkg -i pandoc-2.5-1-amd64.deb
+            apt-get update
+            apt-get install -y texlive wget
+            wget https://github.com/jgm/pandoc/releases/download/2.7.1/pandoc-2.7.1-1-amd64.deb
+            dpkg -i pandoc-2.7.1-1-amd64.deb
+
+      - run:
+          name: Setup Code Climate test-reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
 
       - run:
           name: run tests
           command: |
-            . venv/bin/activate
+            ./cc-test-reporter before-build
             pip install coverage codecov pytest pytest-cov
             py.test --cov=typademic tests/
             coverage html --directory=test-reports
             codecov
+            ./cc-test-reporter after-build
 
       - store_artifacts:
           path: test-reports

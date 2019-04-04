@@ -1,9 +1,8 @@
+# Config file for automatic testing at travis-ci.org
+
 language: python
-
-cache: pip
-
 python:
-  - "3.6"
+  - 3.6
 
 before_install:
   - sudo apt-get install -y pandoc pandoc-citeproc texlive

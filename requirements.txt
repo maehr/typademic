@@ -1,5 +1,0 @@
-Flask>=1.0,<=1.1
-Flask-Dropzone>=1.5,<=1.6
-Flask-WTF>=0.14,<=0.15
-Flask-Limiter>=1.0,<=1.1
-sh>=1.12,<=1.13
