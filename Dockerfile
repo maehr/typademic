@@ -3,7 +3,7 @@ FROM python:3.7
 MAINTAINER Moritz Mähr "moritz.maehr@gmail.com"
 
 RUN apt-get update -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-minimal python3-pip texlive-full wget
+RUN apt-get install -y texlive-full wget
 
 RUN wget https://github.com/jgm/pandoc/releases/download/2.7.1/pandoc-2.7.1-1-amd64.deb
 RUN dpkg -i pandoc-2.7.1-1-amd64.deb
@@ -15,6 +15,7 @@ RUN fc-cache -fv
 
 ADD . /src
 WORKDIR /src
+RUN pip install --upgrade pip
 RUN make install
 RUN pip3 install gunicorn
 
