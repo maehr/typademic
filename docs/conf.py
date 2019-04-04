@@ -48,7 +48,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'typademic'
-copyright = u"2019, Moritz Maehr"
+copyright = u"2018, Moritz Maehr"
 author = u"Moritz Maehr"
 
 # The version info for the project you're documenting, acts as replacement
