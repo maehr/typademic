@@ -60,7 +60,7 @@ Installing
 
    virtualenv venv
    source venv/bin/activate
-   pip install typademic
+   pip install .
 
 Start the development server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
