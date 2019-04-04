@@ -38,12 +38,20 @@ jobs:
             dpkg -i pandoc-2.7.1-1-amd64.deb
 
       - run:
+          name: Setup Code Climate test-reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+
+      - run:
           name: run tests
           command: |
+            cc-test-reporter before-build
             pip install coverage codecov pytest pytest-cov
             py.test --cov=typademic tests/
             coverage html --directory=test-reports
             codecov
+            cc-test-reporter after-build
 
       - store_artifacts:
           path: test-reports
