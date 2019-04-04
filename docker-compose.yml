@@ -15,6 +15,7 @@ services:
     volumes:
       - ./logs/error.log:/logs/error.log
       - ./logs/access.log:/logs/access.log
+      - ./uploads/:/uploads/
 
     restart: always
 

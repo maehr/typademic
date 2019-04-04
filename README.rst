@@ -95,6 +95,7 @@ Deployment (BEGINNER)
        -e "SECRET_KEY=${SECRET_KEY}" \
        -v "./logs/error.log:/logs/error.log" \
        -v "./logs/access.log:/logs/access.log" \
+       -v "./uploads/:/uploads/" \
        maehr/typademic:latest
 
 3. Go to https://localhost/ (If you did not add valid SSL certificates,
