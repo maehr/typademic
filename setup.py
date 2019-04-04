@@ -21,7 +21,7 @@ requirements = [
 
 setup_requirements = ['pytest-runner', ]
 
-test_requirements = ['pytest', 'coverage', 'codecov' ]
+test_requirements = ['pytest', 'coverage', 'codecov']
 
 setup(
     author="Moritz Maehr",
