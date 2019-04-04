@@ -12,11 +12,11 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'Flask',
-    'Flask-Dropzone',
-    'Flask-WTF',
-    'Flask-Limiter',
-    'sh',
+    'Flask==1.0.2',
+    'Flask-Dropzone==1.5.3',
+    'Flask-WTF==0.14.2',
+    'Flask-Limiter==1.0.1',
+    'sh==1.12.14',
 ]
 
 setup_requirements = ['pytest-runner', ]
