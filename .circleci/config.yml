@@ -46,12 +46,12 @@ jobs:
       - run:
           name: run tests
           command: |
-            cc-test-reporter before-build
+            ./cc-test-reporter before-build
             pip install coverage codecov pytest pytest-cov
             py.test --cov=typademic tests/
             coverage html --directory=test-reports
             codecov
-            cc-test-reporter after-build
+            ./cc-test-reporter after-build
 
       - store_artifacts:
           path: test-reports
