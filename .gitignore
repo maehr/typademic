@@ -36,6 +36,7 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Unit test / coverage reports
+test-reports/
 htmlcov/
 .tox/
 .coverage
@@ -128,10 +129,6 @@ bundles/
 vendor/pkg/
 pyenv
 Vagrantfile
-
-
-# Test reports
-test-reports/
 
 # Uploads
 uploads/*
