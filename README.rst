@@ -6,9 +6,10 @@ PDFs. Built with love, `Google Fonts <https://fonts.google.com/>`__,
 `Pandoc <http://pandoc.org/>`__, and
 `LaTeX <https://www.latex-project.org/>`__.
 
-|Docs| |CircleCI| |Build Status| |codecov| |Maintainability| |PyUp|
-|Requirements Status| |GitHub issues| |GitHub forks| |GitHub stars|
-|GitHub license|
+|Docs| |Build Status Docker| |CircleCI| |Build Status Travis| |Coverage|
+|Maintainability| |PyUp| |Requirements Status| |GitHub issues|
+|GitHub forks| |GitHub stars| |GitHub license|
+
 
 Getting Started
 ---------------
@@ -189,10 +190,12 @@ Acknowledgments
    :target: https://docs.typademic.ch/
 .. |CircleCI| image:: https://circleci.com/gh/maehr/typademic.svg?style=shield&circle-token=f7ea42d593cc8107242a9ebd489b025c4c33328f
    :target: https://circleci.com/gh/maehr/typademic
-.. |Build Status| image:: https://travis-ci.org/maehr/typademic.svg?branch=master
+.. |Build Status Travis| image:: https://travis-ci.org/maehr/typademic.svg?branch=master
    :target: https://travis-ci.org/maehr/typademic
-.. |codecov| image:: https://codecov.io/gh/maehr/typademic/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/maehr/typademic
+.. |Build Status Docker| image:: https://img.shields.io/docker/cloud/automated/maehr/typademic.svg   :alt: Docker Cloud Automated build
+.. |Coverage| image:: https://api.codeclimate.com/v1/badges/ea819aa50e494e14fd13/test_coverage
+   :target: https://codeclimate.com/github/maehr/typademic/test_coverage
+   :alt: Test Coverage
 .. |Maintainability| image:: https://api.codeclimate.com/v1/badges/ea819aa50e494e14fd13/maintainability
    :target: https://codeclimate.com/github/maehr/typademic/maintainability
 .. |Requirements Status| image:: https://requires.io/github/maehr/typademic/requirements.svg?branch=master
