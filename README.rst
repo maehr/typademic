@@ -192,7 +192,9 @@ Acknowledgments
    :target: https://circleci.com/gh/maehr/typademic
 .. |Build Status Travis| image:: https://travis-ci.org/maehr/typademic.svg?branch=master
    :target: https://travis-ci.org/maehr/typademic
-.. |Build Status Docker| image:: https://img.shields.io/docker/cloud/automated/maehr/typademic.svg   :alt: Docker Cloud Automated build
+.. |Build Status Docker| image:: https://img.shields.io/docker/cloud/automated/maehr/typademic.svg
+   :target: https://cloud.docker.com/repository/docker/maehr/typademic
+   :alt: Docker Cloud Automated build
 .. |Coverage| image:: https://api.codeclimate.com/v1/badges/ea819aa50e494e14fd13/test_coverage
    :target: https://codeclimate.com/github/maehr/typademic/test_coverage
    :alt: Test Coverage
@@ -201,7 +203,7 @@ Acknowledgments
 .. |Requirements Status| image:: https://requires.io/github/maehr/typademic/requirements.svg?branch=master
    :target: https://requires.io/github/maehr/typademic/requirements/?branch=master
 .. |PyUp| image:: https://pyup.io/repos/github/maehr/typademic/shield.svg
-     :target: https://pyup.io/repos/github/maehr/typademic/
+   :target: https://pyup.io/repos/github/maehr/typademic/
 .. |GitHub issues| image:: https://img.shields.io/github/issues/maehr/typademic.svg
    :target: https://github.com/maehr/typademic/issues
 .. |GitHub forks| image:: https://img.shields.io/github/forks/maehr/typademic.svg
