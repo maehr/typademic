@@ -193,7 +193,7 @@ Acknowledgments
 .. |Build Status Travis| image:: https://travis-ci.org/maehr/typademic.svg?branch=master
    :target: https://travis-ci.org/maehr/typademic
 .. |Build Status Docker| image:: https://img.shields.io/docker/cloud/automated/maehr/typademic.svg
-   :target: https://cloud.docker.com/u/maehr/repository/docker/maehr/typademic
+   :target: https://cloud.docker.com/repository/docker/maehr/typademic
    :alt: Docker Cloud Automated build
 .. |Coverage| image:: https://api.codeclimate.com/v1/badges/ea819aa50e494e14fd13/test_coverage
    :target: https://codeclimate.com/github/maehr/typademic/test_coverage
