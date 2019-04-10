@@ -50,7 +50,8 @@ jobs:
             pip install coverage pytest pytest-cov
             py.test --cov=typademic tests/
             coverage html --directory=test-reports
-            ./cc-test-reporter after-build -t test-reports
+            coverage xml
+            ./cc-test-reporter after-build
 
       - store_artifacts:
           path: test-reports
