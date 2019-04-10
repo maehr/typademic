@@ -129,9 +129,12 @@ vendor/pkg/
 pyenv
 Vagrantfile
 
+
+# Test reports
+test-reports/
+
 # Uploads
-/uploads/*
-/uploads/.gitkeep
+uploads/*
 
 # Secrets
 secrets.env
