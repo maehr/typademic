@@ -47,14 +47,18 @@ def upload():
 @blueprint.route('/clear', methods=['GET'])
 def clear():
     if 'uid' not in session:
-        return render_template('index.html', files=None, error=None,
+        return render_template('index.html',
+                               files=None,
+                               error=None,
                                info='Nothing to remove.')
     else:
         session_path = os.path.join(current_app.config['UPLOADED_PATH'],
                                     session['uid'])
         try:
             remove_all_files_recursively(session_path)
-            return render_template('index.html', files=None, error=None,
+            return render_template('index.html',
+                                   files=None,
+                                   error=None,
                                    info='All files are successfully removed.')
         except Exception as e:
             files = os.listdir(session_path)
@@ -68,7 +72,9 @@ def clear_all(key):
         try:
             remove_all_files_recursively(
                 os.path.abspath(current_app.config['UPLOADED_PATH']))
-            return render_template('index.html', files=None, error=None,
+            return render_template('index.html',
+                                   files=None,
+                                   error=None,
                                    info='All files are successfully removed.')
         except Exception as e:
             return render_template('index.html', files=None, error=str(e))
@@ -96,8 +102,10 @@ def render_markdown(output_format):
     files = os.listdir(session_path)
     md_files = [file for file in files if file.endswith('.md')]
     if not md_files:
-        return render_template('index.html', files=files,
-                               error='No Markdown file was uploaded. Please reset and try again.')
+        return render_template(
+            'index.html',
+            files=files,
+            error='No Markdown file was uploaded. Please reset and try again.')
     try:
         sh_pandoc(md_files, output_filename, session_path)
         return send_file(os.path.join(session_path, output_filename),

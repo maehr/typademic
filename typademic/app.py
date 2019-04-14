@@ -9,10 +9,8 @@ from flask_wtf.csrf import CSRFProtect
 
 dropzone = Dropzone()
 csrf = CSRFProtect()
-limiter = Limiter(
-    key_func=get_remote_address,
-    default_limits=["500 per day", "50 per hour"]
-)
+limiter = Limiter(key_func=get_remote_address,
+                  default_limits=["500 per day", "50 per hour"])
 
 
 def create_app(test_config=None):
@@ -20,21 +18,22 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         # Secret key used to generate CSRF token should not be set at random in production. It breaks sessions.
-        SECRET_KEY=os.getenv('SECRET_KEY', uuid.uuid4().hex),
+        SECRET_KEY=os.getenv('SECRET_KEY',
+                             uuid.uuid4().hex),
         UPLOADED_PATH=os.path.join(app.instance_path, 'uploads'),
         # Flask-Dropzone config:
         DROPZONE_ALLOWED_FILE_CUSTOM=True,
         DROPZONE_ALLOWED_FILE_TYPE='.md, .png, .jpg, .jpeg, .bib, .bibtex, '
-                                   '.biblatex, .csl, .yaml, .yml, .json, '
-                                   '.tex, .svg, .gif',
+        '.biblatex, .csl, .yaml, .yml, .json, '
+        '.tex, .svg, .gif',
         DROPZONE_UPLOAD_MULTIPLE=False,  # enable parallel upload
         DROPZONE_PARALLEL_UPLOADS=1,  # handle 3 file per request
         DROPZONE_MAX_FILE_SIZE=10,
         DROPZONE_MAX_FILES=30,
         DROPZONE_ENABLE_CSRF=True,
-        DROPZONE_DEFAULT_MESSAGE='<i class="fas fa-file-upload fa-2x"></i> Upload your files (Text, Images, Bibliography, Style etc.)',
-        DROPZONE_REDIRECT_VIEW='uploads.upload'
-    )
+        DROPZONE_DEFAULT_MESSAGE=
+        '<i class="fas fa-file-upload fa-2x"></i> Upload your files (Text, Images, Bibliography, Style etc.)',
+        DROPZONE_REDIRECT_VIEW='uploads.upload')
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
