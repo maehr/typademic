@@ -1,9 +1,10 @@
 import os
+from typing import List
 
 from sh import pandoc
 
 
-def sh_pandoc(input_files, output_filename, cwd_path):
+def sh_pandoc(input_files: List[str], output_filename: str, cwd_path: str):
     pandoc(
         " ".join(input_files),
         '--output',
@@ -18,7 +19,7 @@ def sh_pandoc(input_files, output_filename, cwd_path):
         _cwd=cwd_path)
 
 
-def remove_all_files_recursively(path):
+def remove_all_files_recursively(path: str) -> None:
     try:
         for root, dirs, files in os.walk(path, topdown=False):
             for name in files:

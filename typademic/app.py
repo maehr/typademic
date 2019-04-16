@@ -6,6 +6,7 @@ from flask_dropzone import Dropzone
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_wtf.csrf import CSRFProtect
+from typing import Dict
 
 dropzone = Dropzone()
 csrf = CSRFProtect()
@@ -13,7 +14,7 @@ limiter = Limiter(key_func=get_remote_address,
                   default_limits=["500 per day", "50 per hour"])
 
 
-def create_app(test_config=None):
+def create_app(test_config: Dict = None) -> 'flask.app.Flask':
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
