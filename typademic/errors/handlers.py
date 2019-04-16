@@ -11,7 +11,7 @@ def csrf_error(e):
 
 
 @blueprint.app_errorhandler(404)
-def not_found_error(e):
+def not_found_error(error):
     return render_template('errors/404.html'), 404
 
 
@@ -21,5 +21,5 @@ def ratelimit_handler(e):
 
 
 @blueprint.app_errorhandler(500)
-def internal_error(e):
+def internal_error(error):
     return render_template('errors/500.html'), 500
