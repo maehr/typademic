@@ -32,8 +32,8 @@ def create_app(test_config: Dict = None) -> 'flask.app.Flask':
         DROPZONE_MAX_FILE_SIZE=10,
         DROPZONE_MAX_FILES=30,
         DROPZONE_ENABLE_CSRF=True,
-        DROPZONE_DEFAULT_MESSAGE=
-        '<i class="fas fa-file-upload fa-2x"></i> Upload your files (Text, Images, Bibliography, Style etc.)',
+        DROPZONE_DEFAULT_MESSAGE='<i class="fas fa-file-upload fa-2x"></i> '
+        'Upload your files (Text, Images, Bibliography, Style etc.)',
         DROPZONE_REDIRECT_VIEW='uploads.upload')
 
     if test_config is None:
