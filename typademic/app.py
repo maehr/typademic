@@ -14,7 +14,7 @@ limiter = Limiter(key_func=get_remote_address,
                   default_limits=["500 per day", "50 per hour"])
 
 
-def create_app(test_config: Dict = None) -> 'flask.app.Flask':
+def create_app(test_config: Dict = None) -> Flask:
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(

@@ -28,7 +28,7 @@ test_requirements = [
 ]
 
 setup(
-    author="Moritz Maehr",
+    author='Moritz Maehr',
     author_email='moritz.maehr@gmail.com',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -39,10 +39,10 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    description=
-    "Typademic turns distraction freely written markdown files into beautiful",
+    description='Typademic turns distraction '
+    'freely written markdown files into beautiful',
     install_requires=requirements,
-    license="MIT license",
+    license='MIT license',
     long_description=readme + '\n\n' + history,
     include_package_data=True,
     keywords='typademic',
