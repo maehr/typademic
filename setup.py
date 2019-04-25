@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """The setup script."""
 
 from setuptools import setup, find_packages
@@ -19,12 +18,17 @@ requirements = [
     'sh==1.12.14',
 ]
 
-setup_requirements = ['pytest-runner', ]
+setup_requirements = [
+    'pytest-runner',
+]
 
-test_requirements = ['pytest', 'coverage', ]
+test_requirements = [
+    'pytest',
+    'coverage',
+]
 
 setup(
-    author="Moritz Maehr",
+    author='Moritz Maehr',
     author_email='moritz.maehr@gmail.com',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -35,9 +39,10 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    description="Typademic turns distraction freely written markdown files into beautiful",
+    description='Typademic turns distraction '
+    'freely written markdown files into beautiful',
     install_requires=requirements,
-    license="MIT license",
+    license='MIT license',
     long_description=readme + '\n\n' + history,
     include_package_data=True,
     keywords='typademic',
@@ -47,6 +52,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/maehr/typademic',
-    version='1.2.0',
+    version='1.2.1',
     zip_safe=False,
 )

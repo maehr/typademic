@@ -29,20 +29,6 @@ def test_clear_folder_empty(client):
     assert b'Nothing to remove.' in response.data
 
 
-def test_clear_all(client):
-    response = client.get('/clear_all/REALLY_SECRET')
-    # TODO upload some stuff
-    # assert response.status_code == 200
-    # assert b'All files are successfully removed.' in response.data
-    # assert client.get('/clear_all/WRONG_KEY').status_code == 302
-    # assert client.get('/clear_all/REALLY_SECRET').status_code == 429
-
-
-def test_clear_all_folder_empty(client):
-    response = client.get('/clear_all/REALLY_SECRET')
-    assert response.status_code == 302
-
-
 def test_docx_folder_empty(client):
     assert client.get('/docx').status_code == 302
 
