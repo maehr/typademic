@@ -25,8 +25,7 @@ def create_app(test_config: Dict = None) -> Flask:
         # Flask-Dropzone config:
         DROPZONE_ALLOWED_FILE_CUSTOM=True,
         DROPZONE_ALLOWED_FILE_TYPE='.md, .png, .jpg, .jpeg, .bib, .bibtex, '
-        '.biblatex, .csl, .yaml, .yml, .json, '
-        '.tex, .svg, .gif',
+        '.biblatex, .csl, .yaml, .yml, .json, .svg, .gif',
         DROPZONE_UPLOAD_MULTIPLE=False,  # enable parallel upload
         DROPZONE_PARALLEL_UPLOADS=1,  # handle 3 file per request
         DROPZONE_MAX_FILE_SIZE=10,
