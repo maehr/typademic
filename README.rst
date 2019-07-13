@@ -49,8 +49,8 @@ Ubuntu 18.04
 
    wget https://raw.githubusercontent.com/qrpike/Web-Font-Load/master/install.sh | bash
 
-   wget https://github.com/jgm/pandoc/releases/download/2.7.1/pandoc-2.7.1-1-amd64.deb
-   sudo dpkg -i pandoc-2.7.1-1-amd64.deb
+   wget https://github.com/jgm/pandoc/releases/download/2.7.3/pandoc-2.7.3-1-amd64.deb
+   sudo dpkg -i pandoc-2.7.3-1-amd64.deb
 
    pip install --upgrade pip
 
