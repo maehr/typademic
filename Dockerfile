@@ -5,8 +5,8 @@ MAINTAINER Moritz Mähr "moritz.maehr@gmail.com"
 RUN apt-get update -y
 RUN apt-get install -y texlive-full wget
 
-RUN wget https://github.com/jgm/pandoc/releases/download/2.7.2/pandoc-2.7.2-1-amd64.deb
-RUN dpkg -i pandoc-2.7.2-1-amd64.deb
+RUN wget https://github.com/jgm/pandoc/releases/download/2.7.3/pandoc-2.7.3-1-amd64.deb
+RUN dpkg -i pandoc-2.7.3-1-amd64.deb
 
 RUN wget https://github.com/google/fonts/archive/master.zip
 RUN unzip master.zip -d /usr/share/fonts
