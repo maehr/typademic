@@ -12,7 +12,7 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     'Flask==1.1.1',
-    'Flask-Dropzone==1.5.3',
+    'Flask-Dropzone==1.5.4',
     'Flask-WTF==0.14.2',
     'Flask-Limiter==1.0.1',
     'sh==1.12.14',
