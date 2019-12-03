@@ -9,7 +9,7 @@ def sh_pandoc(input_files: List[str], output_filename: str, cwd_path: str):
            '--output',
            output_filename,
            '--from',
-           'markdown+ascii_identifiers+tex_math_single_backslash+raw_tex+'
+           'markdown+tex_math_single_backslash+raw_tex+'
            'table_captions+yaml_metadata_block+autolink_bare_uris',
            '--pdf-engine=xelatex',
            '--filter',
