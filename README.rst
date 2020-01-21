@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmaehr%2Ftypademic.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmaehr%2Ftypademic?ref=badge_shield)
+
 typademic
 =========
 
@@ -212,3 +214,6 @@ Acknowledgments
    :target: https://github.com/maehr/typademic/stargazers
 .. |GitHub license| image:: https://img.shields.io/github/license/maehr/typademic.svg
    :target: https://github.com/maehr/typademic/blob/master/LICENSE.rst
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmaehr%2Ftypademic.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmaehr%2Ftypademic?ref=badge_large)
