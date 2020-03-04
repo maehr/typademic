@@ -14,7 +14,7 @@ requirements = [
     'Flask==1.1.1',
     'Flask-Dropzone==1.5.4',
     'Flask-WTF==0.14.3',
-    'Flask-Limiter==1.1.0',
+    'Flask-Limiter==1.2.1',
     'sh==1.12.14',
 ]
 
