@@ -15,7 +15,7 @@ requirements = [
     'Flask-Dropzone==1.5.4',
     'Flask-WTF==0.14.3',
     'Flask-Limiter==1.4.0',
-    'sh==1.13.1',
+    'sh==1.14.0',
 ]
 
 setup_requirements = [
