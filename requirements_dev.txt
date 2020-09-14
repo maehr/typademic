@@ -1,5 +1,5 @@
 bumpversion==0.6.0
-coverage==5.2.1
+coverage==5.3
 flake8==3.8.3
 pip==20.2.3
 pytest-runner==5.2
