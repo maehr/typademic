@@ -4,10 +4,12 @@ MAINTAINER Moritz Mähr "moritz.maehr@gmail.com"
 
 RUN apk --no-cache add python3 py3-pip texlive-full wget
 
-RUN wget https://github.com/google/fonts/archive/master.zip
-RUN unzip master.zip -d /usr/share/fonts
-RUN rm master.zip
-RUN fc-cache -fv
+RUN wget https://github.com/google/fonts/archive/master.tar.gz -O gf.tar.gz
+RUN tar -xf gf.tar.gz
+RUN mkdir -p /usr/share/fonts/truetype/google-fonts
+RUN find $PWD/fonts-master/ -name "*.ttf" -exec install -m644 {} /usr/share/fonts/truetype/google-fonts/ \; || return 1
+RUN rm -f gf.tar.gz
+RUN fc-cache -f && rm -rf /var/cache/*
 
 ADD . /src
 WORKDIR /src
