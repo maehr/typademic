@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: python:3.7
+      - image: pandoc/latex:latest
 
     working_directory: ~/app
 
@@ -22,24 +22,18 @@ jobs:
       - run:
           name: install dependencies
           command: |
+            apk --no-cache add python3 py3-pip
             pip install .
 
       - save_cache:
           paths:
             - ./data
           key: v1-dependencies-{{ checksum "setup.py" }}
-
-      - run:
-          name: install pandoc & texlive
-          command: |
-            apt-get update
-            apt-get install -y texlive wget
-            wget https://github.com/jgm/pandoc/releases/download/2.9.2/pandoc-2.9.2-1-amd64.deb
-            dpkg -i pandoc-2.9.2-1-amd64.deb
-
+          
       - run:
           name: Setup Code Climate test-reporter
           command: |
+            apk --no-cache add curl git
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
 
