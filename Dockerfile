@@ -2,7 +2,7 @@ FROM pandoc/latex:2.11.0.4
 
 MAINTAINER Moritz Mähr "moritz.maehr@gmail.com"
 
-RUN apk --no-cache add python3 py3-pip texlive-full wget
+RUN apk --no-cache add make openssl python3 py3-pip texlive-full wget
 
 RUN wget https://github.com/google/fonts/archive/master.tar.gz -O gf.tar.gz
 RUN tar -xf gf.tar.gz
