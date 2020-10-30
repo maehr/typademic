@@ -12,8 +12,7 @@ def sh_pandoc(input_files: List[str], output_filename: str, cwd_path: str):
            'markdown+tex_math_single_backslash+raw_tex+'
            'table_captions+yaml_metadata_block+autolink_bare_uris',
            '--pdf-engine=xelatex',
-           '--filter',
-           'pandoc-citeproc',
+           '--citeproc',
            '--resource-path=' + cwd_path,
            '--standalone',
            _cwd=cwd_path)
