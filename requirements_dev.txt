@@ -7,5 +7,5 @@ pytest==6.1.2
 Sphinx==3.3.1
 tox==3.20.1
 twine==3.2.0
-watchdog==0.10.4
+watchdog==1.0.1
 wheel==0.36.1
