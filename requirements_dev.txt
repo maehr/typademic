@@ -6,6 +6,6 @@ pytest-runner==5.2
 pytest==6.2.1
 Sphinx==3.4.0
 tox==3.20.1
-twine==3.2.0
+twine==3.3.0
 watchdog==1.0.2
 wheel==0.36.2
