@@ -4,10 +4,10 @@ services:
   typademic:
     container_name: typademic
     # uncomment this line for production use
-    # image: maehr/typademic:latest
+    image: maehr/typademic:latest
 
     # comment this line for production use
-    build: .
+    # build: .
 
     ports:
       - "443:8000"
@@ -20,8 +20,8 @@ services:
     restart: always
 
     # uncomment this line for production use
-    # env_file: ./secrets.env
+    env_file: ./secrets.env
 
     # comment this line for production use
-    environment:
-      - SECRET_KEY=${SECRET_KEY}
+    #environment:
+    #  - SECRET_KEY=${SECRET_KEY}
