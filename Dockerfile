@@ -1,6 +1,4 @@
-FROM pandoc/latex:2.11.3.2
-
-MAINTAINER Moritz Mähr "moritz.maehr@gmail.com"
+FROM pandoc/latex:2.11.4
 
 RUN apk --no-cache add make openssl python3 py3-pip texlive-full wget
 
