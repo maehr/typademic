@@ -2,7 +2,10 @@
 
 language: python
 python:
-  - 3.6
+  - "3.6"
+  - "3.7"
+  - "3.8"
+  - "3.9"
 
 before_install:
   - sudo apt-get install -y pandoc pandoc-citeproc texlive
@@ -12,7 +15,7 @@ addons:
     update: true
 
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -U tox-travis
+install: pip install tox-travis
 
 # Command to run tests, e.g. python setup.py test
 script: tox
