@@ -20,6 +20,8 @@ def main():
     st.sidebar.text("An academic publishing pipeline")
     page = st.sidebar.radio("", tuple(pages.keys()))
 
+    
+
     # Display the selected page with the session state
     pages[page](state)
 
@@ -28,10 +30,9 @@ def main():
 
 
 def page_getting_started(state):
-
     # Docs
     # TODO read README.md into state and separate list via split("\n# ")
-    with open("README.md", "r") as f:
+    with open("../README.md", "r") as f:
         text = f.read()
         text = text.split("# Contributing")
         st.markdown(text[0])
@@ -41,7 +42,7 @@ def page_markdown(state):
     # https://pypi.org/project/python-frontmatter/
 
     # Docs
-    with open("docs/Markdown.md", "r") as f:
+    with open("../docs/Markdown.md", "r") as f:
         st.markdown(f.read())
 
 
@@ -64,12 +65,12 @@ def page_images(state):
 
 def page_bibliography(state):
     st.title(":book: Bibliography")
-    with open("docs/Bibliography.md", "r") as f:
+    with open("../docs/Bibliography.md", "r") as f:
         st.markdown(f.read())
 
 
 def page_about(state):
-    with open("README.md", "r") as f:
+    with open("../README.md", "r") as f:
         text = f.read()
         text = text.rsplit("# Contributing")
         st.title("About")
@@ -109,7 +110,7 @@ def page_settings(state):
         state[key] = st.slider(f"Set value {i}", 1, 10, state[key])
 
     # Docs
-    with open("docs/Pandoc.md", "r") as f:
+    with open("../docs/Pandoc.md", "r") as f:
         st.markdown(f.read())
 
 
