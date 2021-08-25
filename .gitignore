@@ -1,3 +1,5 @@
+pnpm-lock.yaml
+
 # Exclude example.env
 !example.env
 
