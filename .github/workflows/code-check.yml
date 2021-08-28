@@ -23,6 +23,3 @@ jobs:
               run: poetry run bandit .
             - name: safety
               run: poetry run safety check
-            - name: pytest
-              run: poetry run pytest --cov=./ --cov-report=xml
-            - uses: codecov/codecov-action@v2
