@@ -1,3 +1,6 @@
+# https://share.streamlit.io/daniellewisdl/streamlit-cheat-sheet/app.py
+
+
 import streamlit as st
 from streamlit.hashing import _CodeHasher
 from streamlit.report_thread import get_report_ctx
@@ -82,7 +85,7 @@ def page_download(state):
     display_state_values(state)
     # https://amoffat.github.io/sh/
     try:
-        pandoc("/doesnt/exist")
+        pandoc("README.md", "--output", "README.pdf", "--pdf-engine", "tectonic")
     except ErrorReturnCode_2:
         print("directory doesn't exist")
 
