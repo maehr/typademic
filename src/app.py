@@ -2,10 +2,11 @@
 
 
 import streamlit as st
+from sh import ErrorReturnCode_2, pandoc
 from streamlit.hashing import _CodeHasher
 from streamlit.report_thread import get_report_ctx
 from streamlit.server.server import Server
-from sh import pandoc, ErrorReturnCode_2
+
 
 def main():
     state = _get_state()
@@ -22,8 +23,6 @@ def main():
     st.sidebar.title(":pencil: Typademic")
     st.sidebar.text("An academic publishing pipeline")
     page = st.sidebar.radio("", tuple(pages.keys()))
-
-    
 
     # Display the selected page with the session state
     pages[page](state)
