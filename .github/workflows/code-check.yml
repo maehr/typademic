@@ -12,6 +12,10 @@ jobs:
             - uses: abatilo/actions-poetry@v2.0.0
               with:
                   poetry-version: 1.1.8
+            - uses: actions/cache@v2
+              with:
+                  path: .venv
+                  key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ hashFiles('**/poetry.lock') }}
             - run: poetry install
             - name: black
               run: poetry run black . --check
