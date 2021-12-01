@@ -12,11 +12,10 @@ from typademic.utils import remove_all_files_recursively, sh_pandoc
 def index():
     if 'uid' not in session:
         return render_template('index.html', files=None, error='')
-    else:
-        session_path = os.path.join(current_app.config['UPLOADED_PATH'],
-                                    session['uid'])
-        files = os.listdir(session_path)
-        return render_template('index.html', files=files, error='')
+    session_path = os.path.join(current_app.config['UPLOADED_PATH'],
+                                session['uid'])
+    files = os.listdir(session_path)
+    return render_template('index.html', files=files, error='')
 
 
 @blueprint.route('/', methods=['POST'])
@@ -50,18 +49,17 @@ def clear():
                                files=None,
                                error=None,
                                info='Nothing to remove.')
-    else:
-        session_path = os.path.join(current_app.config['UPLOADED_PATH'],
-                                    session['uid'])
-        try:
-            remove_all_files_recursively(session_path)
-            return render_template('index.html',
-                                   files=None,
-                                   error=None,
-                                   info='All files are successfully removed.')
-        except Exception as e:
-            files = os.listdir(session_path)
-            return render_template('index.html', files=files, error=str(e))
+    session_path = os.path.join(current_app.config['UPLOADED_PATH'],
+                                session['uid'])
+    try:
+        remove_all_files_recursively(session_path)
+        return render_template('index.html',
+                               files=None,
+                               error=None,
+                               info='All files are successfully removed.')
+    except Exception as e:
+        files = os.listdir(session_path)
+        return render_template('index.html', files=files, error=str(e))
 
 
 @blueprint.route('/pdf', methods=['GET'])
