@@ -5,7 +5,7 @@ def test_404(client):
 
 
 def test_429(client):
-    for x in range(0, 50):
+    for _ in range(50):
         client.get('/')
     response = client.get('/')
     assert response.status_code == 429
