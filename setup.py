@@ -11,7 +11,7 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'Flask==2.0.1',
+    'Flask==2.0.3',
     'Flask-Dropzone==1.6.0',
     'Flask-WTF==0.15.1',
     'Flask-Limiter==1.4.0',
