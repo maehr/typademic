@@ -1,6 +1,0 @@
-[run]
-omit =
-    tests/*
-    venv/*
-[html]
-directory = test-reports
