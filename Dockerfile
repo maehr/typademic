@@ -41,6 +41,8 @@ USER user
 ARG GIT_HASH
 ENV GIT_HASH=${GIT_HASH:-dev}
 
+EXPOSE 8501
+
 ENTRYPOINT ["/tini", "--"]
 
 CMD ["streamlit", "run", "src/app.py"]

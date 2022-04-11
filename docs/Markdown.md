@@ -1,7 +1,3 @@
-# Markdown
-
-Bla
-
 ## Docs for Markdown
 
 Bla _bla_

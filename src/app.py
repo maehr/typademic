@@ -41,6 +41,7 @@ def page_getting_started(state):
 
 
 def page_markdown(state):
+    st.title(":pencil: Markdown")
     # https://pypi.org/project/python-frontmatter/
 
     # Docs
@@ -58,11 +59,14 @@ def page_images(state):
     #     string_data = stringio.read()
     #     st.write(string_data)
 
-    # uploaded_files = st.file_uploader("Choose a CSV file", accept_multiple_files=True)
-    # for uploaded_file in uploaded_files:
-    #     bytes_data = uploaded_file.read()
-    #     st.write("filename:", uploaded_file.name)
-    #     st.write(bytes_data)
+    uploaded_files = st.file_uploader(
+        "Choose image file(s)", type=["png", "jpg", "jpeg", "pdf", "eps", "jbig2", "jp2"],
+        accept_multiple_files=True
+    )
+    for uploaded_file in uploaded_files:
+        bytes_data = uploaded_file.read()
+        st.write("filename:", uploaded_file.name)
+        st.write(bytes_data)
 
 
 def page_bibliography(state):

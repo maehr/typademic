@@ -3,7 +3,7 @@ name = "typademic"
 version = "2.0.0-alpha"
 description = "Typademic turns distraction freely written markdown files into beautiful PDFs."
 authors = ["Moritz Mähr <moritz.maehr@gmail.com>"]
-license = "GPLv3"
+license = "GPL-3.0"
 
 [tool.poetry.dependencies]
 python = "^3.9"
