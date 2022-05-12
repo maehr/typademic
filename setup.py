@@ -11,10 +11,10 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'Flask==2.0.3',
+    'Flask==2.1.2',
     'Flask-Dropzone==1.6.0',
-    'Flask-WTF==1.0.0',
-    'Flask-Limiter==2.2.0',
+    'Flask-WTF==1.0.1',
+    'Flask-Limiter==2.4.5.1',
     'sh==1.14.2',
 ]
 
