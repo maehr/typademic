@@ -3,7 +3,7 @@ coverage==6.3.2
 flake8==4.0.1
 pip==22.1
 pytest-runner==6.0.0
-pytest==7.1.0
+pytest==7.1.2
 Sphinx==4.5.0
 tox==3.25.0
 twine==4.0.0
