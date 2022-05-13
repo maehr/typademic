@@ -1,4 +1,4 @@
-FROM pandoc/latex:2.18.0
+FROM pandoc/latex:2.18.0.0
 
 MAINTAINER Moritz Mähr "moritz.maehr@gmail.com"
 
