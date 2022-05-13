@@ -1,6 +1,9 @@
 typademic
 =========
 
+.. warning::
+    This is the last release of typademic. This software will not be continued. The functionality of typademic was integrated into <https://github.com/maehr/academic-pandoc-template> directly via GitHub actions in a more convenient and secure way.
+
 Typademic turns distraction freely written markdown files into beautiful
 PDFs. Built with love, `Google Fonts <https://fonts.google.com/>`__,
 `Pandoc <http://pandoc.org/>`__, and
